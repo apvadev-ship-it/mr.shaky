@@ -1,13 +1,18 @@
-import { env } from "cloudflare:workers";
-import { drizzle } from "drizzle-orm/d1";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import * as schema from "./schema";
 
+let client: ReturnType<typeof postgres> | undefined;
+
 export function getDb() {
-  if (!env.DB) {
+  if (!process.env.DATABASE_URL) {
     throw new Error(
-      "Cloudflare D1 binding `DB` is unavailable. Set the `d1` field in .openai/hosting.json to `DB` or let your control plane inject the real binding values before using the database."
+      "DATABASE_URL is not set. Copy the Supabase connection string (Session pooler, port 5432) into your environment. See .env.example."
     );
   }
 
-  return drizzle(env.DB, { schema });
+  // Reused across requests within the same isolate; postgres.js manages its own connection pool.
+  client ??= postgres(process.env.DATABASE_URL, { prepare: false });
+
+  return drizzle(client, { schema });
 }
