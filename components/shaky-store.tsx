@@ -142,7 +142,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
     }
 
     // Online payment via Wompi Widget. The widget tokenizes card data itself — this app never
-    // receives raw card numbers (Rule 12). Access/order confirmation is only granted once the
+    // receives raw card numbers. Access/order confirmation is only granted once the
     // `transaction.updated` webhook confirms payment server-side, not from the widget callback.
     setSubmitting(true);
     fetch('/api/checkout/wompi/init', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })

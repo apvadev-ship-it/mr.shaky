@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "wompi_not_configured" }, { status: 500 });
   }
 
-  // Rule 4: server-generated UUID. Doubles as Wompi's idempotency-equivalent `reference`
+  // Server-generated UUID. Doubles as Wompi's idempotency-equivalent `reference`
   // (Wompi's checkout_spec does not support a separate Idempotency-Key header).
   const orderId = crypto.randomUUID();
   const reference = `mrshaky_${orderId}`;
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
   const integritySignature = crypto.createHash("sha256").update(concatenation).digest("hex");
 
   const db = getDb();
-  // Rule 11: only name + phone collected (needed so staff can identify the pickup), no address/ID/DOB.
+  // Only name + phone collected (needed so staff can identify the pickup), no address/ID/DOB.
   await db.insert(orders).values({
     id: orderId,
     branch: branch.name,

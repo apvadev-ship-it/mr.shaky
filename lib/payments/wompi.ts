@@ -1,4 +1,4 @@
-// Rule 1: keys read from process.env only, never hardcoded.
+// Keys read from process.env only, never hardcoded.
 function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value) throw new Error(`${name} is not set. See .env.example.`);

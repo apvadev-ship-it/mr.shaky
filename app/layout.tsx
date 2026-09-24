@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="antialiased">
-        {/* Wompi Widget: tokenizes card data client-side in Wompi's own iframe (Rule 12 — this
+        {/* Wompi Widget: tokenizes card data client-side in Wompi's own iframe (this
             app never receives raw card data). Loaded globally so the checkout form can open it. */}
         <Script src="https://checkout.wompi.co/widget.js" strategy="afterInteractive" />
         <ShakyProvider>

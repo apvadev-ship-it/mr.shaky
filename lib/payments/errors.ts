@@ -1,7 +1,7 @@
-// Shared PagoKit error taxonomy. Pure data — no side effects, no provider imports.
+// Shared payment error taxonomy. Pure data — no side effects, no provider imports.
 // Provider-specific mappers (e.g. errors-wompi.ts) translate raw provider errors into these codes.
 
-export type PagokitErrorCode =
+export type PaymentErrorCode =
   | "insufficient_funds"
   | "card_expired"
   | "incorrect_cvc"
@@ -14,15 +14,15 @@ export type PagokitErrorCode =
   | "network_error"
   | "internal_error";
 
-export type PagokitError = {
-  code: PagokitErrorCode;
+export type PaymentError = {
+  code: PaymentErrorCode;
   user_message: string;
   raw_code?: string;
 };
 
-// Rule 6 reminder: never build a USER_MESSAGES entry from provider-supplied free text.
+// Never build a USER_MESSAGES entry from provider-supplied free text.
 // These are static, in Spanish, safe to show directly to the customer.
-export const USER_MESSAGES: Record<PagokitErrorCode, string> = {
+export const USER_MESSAGES: Record<PaymentErrorCode, string> = {
   insufficient_funds: "Tu medio de pago no tiene fondos suficientes. Intenta con otro método.",
   card_expired: "Tu tarjeta está vencida. Intenta con otra tarjeta.",
   incorrect_cvc: "El código de seguridad (CVV) no es correcto. Verifícalo e intenta de nuevo.",

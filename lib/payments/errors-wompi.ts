@@ -1,9 +1,9 @@
-import type { PagokitError, PagokitErrorCode } from "./errors";
+import type { PaymentError, PaymentErrorCode } from "./errors";
 import { USER_MESSAGES } from "./errors";
 
 // Wompi exposes failure reasons in transaction.status_message (Spanish prose) and, for direct
 // REST errors, error.type. We pattern-match the common ones into the shared taxonomy.
-const WOMPI_REASON_PATTERNS: Array<{ pattern: RegExp; code: PagokitErrorCode }> = [
+const WOMPI_REASON_PATTERNS: Array<{ pattern: RegExp; code: PaymentErrorCode }> = [
   { pattern: /insufficient|fondos insuficientes/i, code: "insufficient_funds" },
   { pattern: /expired|tarjeta vencida|vencimiento/i, code: "card_expired" },
   { pattern: /cvv|cvc|cód.*seguridad/i, code: "incorrect_cvc" },
@@ -21,7 +21,7 @@ interface WompiErrorLike {
   code?: string;
 }
 
-export function mapWompiError(err: WompiErrorLike): PagokitError {
+export function mapWompiError(err: WompiErrorLike): PaymentError {
   // Case A: a transaction object with a failure status.
   if (err?.transaction?.status === "DECLINED" || err?.status === "DECLINED") {
     const reason = err.transaction?.status_message ?? err.status_message ?? "";
@@ -56,5 +56,5 @@ export function mapWompiError(err: WompiErrorLike): PagokitError {
   return { code: "internal_error", user_message: USER_MESSAGES.internal_error };
 }
 
-// Rule 6: when logging a declined/failed transaction, log only { pagokit_code, raw_code, tx_id } —
+// When logging a declined/failed transaction, log only { error_code, raw_code, tx_id } —
 // never the full transaction object (may carry the customer's phone or masked card info).

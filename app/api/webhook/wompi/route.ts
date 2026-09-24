@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
-import { orders, pagokitWebhookEventsProcessed } from "@/db/schema";
+import { orders, webhookEventsProcessed } from "@/db/schema";
 import { wompiFetch } from "@/lib/payments/wompi";
 import { mapWompiError } from "@/lib/payments/errors-wompi";
 
@@ -25,16 +25,14 @@ interface WompiEvent {
   sent_at: string;
 }
 
-// @pagokit:signature-verified — verifyWompiChecksum() is called below before any event data is trusted.
+// verifyWompiChecksum() is called below before any event data is trusted.
 export async function POST(request: Request) {
-  // Rule 10: body size guard.
+  // Guard against oversized payloads before parsing.
   const contentLength = Number(request.headers.get("content-length") ?? 0);
   if (contentLength > 256 * 1024) {
     return new NextResponse(null, { status: 413 });
   }
 
-  // Rule 5: raw body read before any parsing (Wompi's checksum is body-embedded, but we keep the
-  // same discipline as HMAC-header providers for consistency and future-proofing).
   const rawBody = await request.text();
   let event: WompiEvent;
   try {
@@ -43,12 +41,12 @@ export async function POST(request: Request) {
     return new NextResponse(null, { status: 400 });
   }
 
-  // Rule 3: verify the checksum before trusting anything in the payload.
+  // Verify the checksum before trusting anything in the payload.
   if (!verifyWompiChecksum(event, requireEventsSecret())) {
     return new NextResponse(null, { status: 400 });
   }
 
-  // Rule 9: reject events outside Wompi's recommended 10-minute tolerance window.
+  // Reject events outside Wompi's recommended 10-minute tolerance window.
   const now = Math.floor(Date.now() / 1000);
   if (!event.timestamp || Math.abs(now - event.timestamp) > 600) {
     return new NextResponse(null, { status: 400 });
@@ -56,12 +54,12 @@ export async function POST(request: Request) {
 
   const db = getDb();
 
-  // Rule 9 (secondary): dedup — Wompi doesn't expose a standalone event id, so we compose one
-  // from the transaction id + timestamp. TTL of 7 days via `expiresAt`.
+  // Dedup — Wompi doesn't expose a standalone event id, so we compose one from the
+  // transaction id + timestamp. TTL of 7 days via `expiresAt`.
   const eventDbId = `wompi:${event.data.transaction.id}:${event.timestamp}`;
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
   try {
-    await db.insert(pagokitWebhookEventsProcessed).values({
+    await db.insert(webhookEventsProcessed).values({
       eventId: eventDbId,
       provider: "wompi",
       eventType: event.event,
@@ -72,14 +70,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ received: true, duplicate: true });
   }
 
-  // Rule 6: log only id/type/created-equivalent fields, never the full event body.
+  // Log only id/type/timestamp, never the full event body.
   console.log("[wompi.webhook]", { event: event.event, tx_id: event.data.transaction.id, timestamp: event.timestamp });
 
   try {
     if (event.event === "transaction.updated") {
-      // The checksum only covers the properties listed in `signature.properties` (per Wompi docs
-      // and PagoKit's verified evidence for this provider). Re-fetch the transaction from the API
-      // before acting on fields like amount/currency/reference that may not be checksum-covered.
+      // The checksum only covers the properties listed in `signature.properties`.
+      // Re-fetch the transaction from the API before acting on fields like
+      // amount/currency/reference that may not be checksum-covered.
       const authoritative = await refetchTransaction(event.data.transaction.id);
       await handleTransactionUpsert(db, authoritative ?? event.data.transaction);
     } else {
@@ -133,7 +131,7 @@ async function handleTransactionUpsert(db: ReturnType<typeof getDb>, tx: WompiTr
 
   if (tx.status === "DECLINED") {
     const mapped = mapWompiError({ transaction: tx });
-    console.error("[wompi.webhook] declined", { pagokit_code: mapped.code, raw_code: mapped.raw_code, tx_id: tx.id });
+    console.error("[wompi.webhook] declined", { error_code: mapped.code, raw_code: mapped.raw_code, tx_id: tx.id });
   }
 
   if (!existing) {

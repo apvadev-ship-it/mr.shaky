@@ -3,7 +3,7 @@ import { integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core
 
 // ---- Mr. Shaky orders ----
 // One row per pickup order, whether paid online (Wompi) or paid cash at pickup.
-// Rule 11: collect only what staff need to hand over the order (name, phone, branch/date/time),
+// Collect only what staff need to hand over the order (name, phone, branch/date/time),
 // nothing else (no address, no ID document, no date of birth).
 export const orders = sqliteTable("orders", {
   id: text("id").primaryKey(), // crypto.randomUUID()
@@ -31,10 +31,10 @@ export const orders = sqliteTable("orders", {
   wompiReferenceUnique: uniqueIndex("orders_wompi_reference_unique").on(t.wompiReference),
 }));
 
-// ---- PagoKit tables (Wompi) ----
+// ---- Payment support tables (Wompi) ----
 
-// Rule 4: idempotency keys are crypto.randomUUID(), persisted before calling the provider.
-export const pagokitIdempotencyKeys = sqliteTable("pagokit_idempotency_keys", {
+// Idempotency keys are crypto.randomUUID(), persisted before calling the provider.
+export const paymentIdempotencyKeys = sqliteTable("payment_idempotency_keys", {
   key: text("key").primaryKey(),
   requestHash: text("request_hash").notNull(),
   response: text("response", { mode: "json" }),
@@ -42,9 +42,9 @@ export const pagokitIdempotencyKeys = sqliteTable("pagokit_idempotency_keys", {
   expiresAt: text("expires_at").notNull(),
 });
 
-// Rule 9: webhook replay protection via event-id dedup (Wompi also gives a timestamp window,
+// Webhook replay protection via event-id dedup (Wompi also gives a timestamp window,
 // handled in the webhook route itself).
-export const pagokitWebhookEventsProcessed = sqliteTable("pagokit_webhook_events_processed", {
+export const webhookEventsProcessed = sqliteTable("webhook_events_processed", {
   eventId: text("event_id").primaryKey(),
   provider: text("provider").notNull(),
   eventType: text("event_type").notNull(),

@@ -6,6 +6,9 @@ CREATE TABLE `orders` (
 	`customer_name` text NOT NULL,
 	`customer_phone` text NOT NULL,
 	`items` text NOT NULL,
+	`subtotal` integer NOT NULL,
+	`coupon_code` text,
+	`discount` integer DEFAULT 0 NOT NULL,
 	`total` integer NOT NULL,
 	`currency` text DEFAULT 'COP' NOT NULL,
 	`payment_method` text NOT NULL,
@@ -17,7 +20,7 @@ CREATE TABLE `orders` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `orders_wompi_reference_unique` ON `orders` (`wompi_reference`);--> statement-breakpoint
-CREATE TABLE `pagokit_idempotency_keys` (
+CREATE TABLE `payment_idempotency_keys` (
 	`key` text PRIMARY KEY NOT NULL,
 	`request_hash` text NOT NULL,
 	`response` text,
@@ -25,7 +28,7 @@ CREATE TABLE `pagokit_idempotency_keys` (
 	`expires_at` text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE `pagokit_webhook_events_processed` (
+CREATE TABLE `webhook_events_processed` (
 	`event_id` text PRIMARY KEY NOT NULL,
 	`provider` text NOT NULL,
 	`event_type` text NOT NULL,

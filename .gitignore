@@ -43,5 +43,10 @@ next-env.d.ts
 /.sites-runtime/
 /.agents/
 /.codex/
+/.claude/
+/.openai/
+/.pagokit/
 /outputs/
 /work/
+PAGOKIT_INTEGRATION.md
+PAGOKIT_PRODUCTION_CHECKLIST.md
