@@ -10,7 +10,10 @@ export const products:Product[]=[
 {id:'cacao',name:'Cacao Cold',category:'Bebidas',description:'Cacao frío con bebida de almendras, sin proteína añadida.',image:'/shake.jpg',price:12900,protein:5,carbs:18,fat:6,calories:146,rating:4.8,reviews:57,veggie:true,allergens:'Contiene almendras.'}
 ];
 export const categories=['Todos','Bowls','Wraps','Shakes','Snacks','Bebidas','Veggie','Alto en proteína','Bajo en carbohidratos'];
-export const branches=[{id:'poblado',name:'El Poblado — demo'},{id:'laureles',name:'Laureles — demo'}];
-export const spotifyPlaylistId=''; // Set the official Spotify playlist ID; no invented brand playlist.
+export const branches=[{id:'turbo',name:'Turbo'}];
+export const storeAddress='Al lado del parqueadero del Imperio, Turbo, Antioquia';
+export const spotifyPlaylistId='0weiv18dAKsxRre2LeTDqD';
+export const instagramHandle='mr_shaky_nutribar';
+export const instagramUrl='https://www.instagram.com/mr_shaky_nutribar/';
 export const demoReviews=[{id:'r1',name:'Alejandra M.',stars:5,text:'La mejor comida post-entreno. Sabe increíble y me ahorra tiempo.'},{id:'r2',name:'Sebastián R.',stars:5,text:'Programo mi pedido y cuando llego ya está listo. ¡Una locura!'},{id:'r3',name:'Valentina G.',stars:4,text:'El wrap se volvió mi favorito. Una opción práctica para mi rutina.'}];
 export const money=(value:number)=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(value);
