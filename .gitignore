@@ -44,7 +44,6 @@ next-env.d.ts
 /.agents/
 /.codex/
 /.claude/
-/.openai/
 /.pagokit/
 /outputs/
 /work/
