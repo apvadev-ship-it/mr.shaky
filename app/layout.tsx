@@ -5,6 +5,7 @@ import "./refinements.css";
 import "./reference-update.css";
 import "./reference-polish.css";
 import "./bowl-update.css";
+import "./home-legacy.css";
 
 export const metadata: Metadata = {
   title: "Mr. Shaky Nutribar | Comida real para cada objetivo",

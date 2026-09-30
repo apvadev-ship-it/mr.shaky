@@ -1,0 +1,84 @@
+/* Fotos reales por producto. Sustituyen los recortes del sprite
+   compartido de reference.png, donde varios productos reusaban la misma
+   imagen (pollo/veggie, wrap/snack y shake/cacao). */
+.food-sprite {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.food-pollo { background-image: url('/assets/pollo.webp'); }
+.food-beef { background-image: url('/assets/beef.webp'); }
+.food-wrap { background-image: url('/assets/wrap.webp'); }
+.food-shake { background-image: url('/assets/chocolate.webp'); }
+.food-veggie { background-image: url('/assets/bowl-hero.webp'); }
+.food-snack { background-image: url('/assets/veggie.webp'); }
+.food-cacao { background-image: url('/assets/chocolate.webp'); }
+
+/* Cabecera con foto, compartida por las páginas internas. */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #0b0b0b;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 34px;
+}
+.page-hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(90deg, #0b0b0b 12%, rgba(11, 11, 11, .55) 48%, rgba(11, 11, 11, .75)), var(--hero-photo);
+  background-size: cover;
+  background-position: center 38%;
+}
+.page-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.page-hero h1 {
+  font-size: clamp(40px, 5vw, 66px);
+  line-height: .95;
+  letter-spacing: -1.5px;
+  color: #fff;
+}
+.page-hero h1 em { font-style: normal; color: var(--yellow); }
+.page-hero p { margin-top: 12px; font-size: 17px; color: #d8d8d8; }
+.page-hero-sticker {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--yellow);
+  color: #111;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+  padding: 13px 17px;
+  border-radius: 4px;
+  transform: rotate(-6deg);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .45);
+  flex-shrink: 0;
+}
+.page-hero-sticker svg {
+  position: absolute;
+  top: -28px;
+  right: -12px;
+  color: var(--yellow);
+}
+
+@media (max-width: 700px) {
+  .page-hero { min-height: 210px; padding: 92px 0 26px; }
+  .page-hero-photo {
+    background-image: linear-gradient(90deg, #0b0b0b 4%, rgba(11, 11, 11, .35) 55%, rgba(11, 11, 11, .6)), var(--hero-photo-mobile);
+    background-position: right center;
+  }
+  .page-hero p { font-size: 14px; }
+  .page-hero-sticker { display: none; }
+}
+
+.food-salmon { background-image: url('/assets/salmon.webp'); }
+.food-vainilla { background-image: url('/assets/vainilla.webp'); }
+.food-cookie { background-image: url('/assets/cookie.webp'); }
