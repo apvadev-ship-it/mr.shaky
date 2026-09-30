@@ -21,7 +21,7 @@ export function ShakyChrome() {
   const router = useRouter();
   const pathname = usePathname();
   const {
-    count, cart, subtotal, discount, total, cartOpen, setCartOpen, navOpen, setNavOpen, changeQty, removeFromCart,
+    count, cart, catalog, subtotal, discount, total, cartOpen, setCartOpen, navOpen, setNavOpen, changeQty, removeFromCart,
     couponInput, setCouponInput, appliedCoupon, couponError, applyCoupon, removeCoupon,
   } = useShaky();
   const [q, setQ] = useState('');
@@ -97,9 +97,11 @@ export function ShakyChrome() {
             <div className="empty"><ShoppingBag size={45} /><h3>Tu carrito tiene hambre.</h3><p>Encuentra tu próximo favorito en el menú.</p><Link className="btn" href="/menu" onClick={() => setCartOpen(false)}>Explorar menú</Link></div>
           ) : (
             <>
-              <div className="cart-items">{products.filter(p => cart[p.id]).map(p => (
+              <div className="cart-items">{catalog.filter(p => cart[p.id]).map(p => (
                 <div className="cart-item" key={p.id}>
-                  <span className={`food-sprite cart-photo food-${p.id}`} role="img" aria-label={p.name} />
+                  {p.image
+                    ? <img className="cart-photo" src={p.image} alt="" aria-hidden="true" />
+                    : <span className={`food-sprite cart-photo food-${p.id}`} role="img" aria-label={p.name} />}
                   <div>
                     <h3>{p.name}</h3>
                     <p>{money(p.price)}</p>

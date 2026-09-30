@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import { toast } from 'sonner';
 import { products, demoReviews } from '@/lib/demo-data';
 import { getCouponPercent, applyDiscount } from '@/lib/coupons';
+import { type BowlConfig, type CartItem, bowlId, bowlItem, validBowl } from '@/app/bowl-data';
 
 export type Cart = Record<string, number>;
 export type PaymentMethod = 'cash' | 'online';
@@ -15,6 +16,7 @@ const localDate = () => { const d = new Date(); return `${d.getFullYear()}-${Str
 
 type Ctx = {
   cart: Cart; favorites: string[]; compare: string[];
+  bowls: BowlConfig[]; catalog: CartItem[]; addBowl: (config: BowlConfig) => void;
   cartOpen: boolean; setCartOpen: (v: boolean) => void;
   navOpen: boolean; setNavOpen: (v: boolean) => void;
   compareOpen: boolean; setCompareOpen: (v: boolean) => void;
@@ -36,6 +38,7 @@ type Ctx = {
   add: (id: string) => void;
   changeQty: (id: string, delta: number) => void;
   removeFromCart: (id: string) => void;
+  clearCart: () => void;
   toggleFavorite: (id: string) => void;
   toggleCompare: (id: string) => void;
   submitOrder: (e: React.FormEvent, onEmpty: () => void) => void;
@@ -50,6 +53,8 @@ export function useShaky() {
 
 export function ShakyProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<Cart>({});
+  const [bowls, setBowls] = useState<BowlConfig[]>([]);
+
   const [favorites, setFavorites] = useState<string[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -74,7 +79,10 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('shaky-demo-v1') || '{}');
-      setCart(Object.fromEntries(Object.entries(saved.cart || {}).filter(([id, n]) => products.some(p => p.id === id) && Number.isInteger(n) && Number(n) > 0 && Number(n) <= 99)) as Cart);
+      const savedBowls: BowlConfig[] = Array.isArray(saved.bowls) ? saved.bowls.filter(validBowl) : [];
+      setBowls(savedBowls);
+      const known = [...products.map(p => p.id), ...savedBowls.map(bowlId)];
+      setCart(Object.fromEntries(Object.entries(saved.cart || {}).filter(([id, n]) => known.includes(id) && Number.isInteger(n) && Number(n) > 0 && Number(n) <= 99)) as Cart);
       setFavorites(Array.isArray(saved.favorites) ? saved.favorites.filter((id: string) => products.some(p => p.id === id)) : []);
       if (Array.isArray(saved.reviews)) setReviews([...demoReviews, ...saved.reviews.filter((r: any) => typeof r.name === 'string' && typeof r.text === 'string' && r.stars >= 1 && r.stars <= 5).slice(0, 20)]);
       if (saved.order && typeof saved.order.id === 'string' && Array.isArray(saved.order.items)) setOrder(saved.order);
@@ -87,12 +95,13 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (loaded) try { localStorage.setItem('shaky-demo-v1', JSON.stringify({ cart, favorites, reviews: reviews.filter(r => !r.id.startsWith('r')), order, customerName, customerPhone, appliedCoupon })) } catch { }
-  }, [cart, favorites, reviews, order, customerName, customerPhone, appliedCoupon, loaded]);
+    if (loaded) try { localStorage.setItem('shaky-demo-v1', JSON.stringify({ cart, favorites, bowls, reviews: reviews.filter(r => !r.id.startsWith('r')), order, customerName, customerPhone, appliedCoupon })) } catch { }
+  }, [cart, favorites, bowls, reviews, order, customerName, customerPhone, appliedCoupon, loaded]);
 
-  const add = (id: string) => { setCart(c => ({ ...c, [id]: Math.min(99, (c[id] || 0) + 1) })); toast.success('Agregado a tu carrito', { description: products.find(p => p.id === id)?.name }) };
+  const add = (id: string) => { setCart(c => ({ ...c, [id]: Math.min(99, (c[id] || 0) + 1) })); toast.success('Agregado a tu carrito', { description: catalog.find(p => p.id === id)?.name }) };
   const changeQty = (id: string, delta: number) => setCart(c => { const next = { ...c, [id]: Math.min(99, (c[id] || 0) + delta) }; if (next[id] <= 0) delete next[id]; return next });
   const removeFromCart = (id: string) => setCart(c => { const next = { ...c }; delete next[id]; return next });
+  const clearCart = () => { setCart({}); setBowls([]) };
   const toggleFavorite = (id: string) => setFavorites(f => f.includes(id) ? f.filter(x => x !== id) : [...f, id]);
   const toggleCompare = (id: string) => { if (compare.includes(id)) setCompare(compare.filter(x => x !== id)); else if (compare.length < 3) setCompare([...compare, id]); else toast('Puedes comparar hasta 3 productos', { description: 'Retira uno para elegir otro.' }) };
   const addReview = (name: string, text: string, stars: number) => { setReviews(r => [...r, { id: 'local-' + Date.now(), name, text, stars }]); toast.success('Opinión guardada en este navegador') };
@@ -106,8 +115,17 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   };
   const removeCoupon = () => { setAppliedCoupon(null); setCouponInput(''); setCouponError(null) };
 
+  // El carrito es uno solo: resuelve precios contra el catálogo del menú
+  // más los bowls que el cliente haya armado.
+  const catalog: CartItem[] = [...products, ...bowls.map(bowlItem)];
+  const addBowl = (config: BowlConfig) => {
+    const id = bowlId(config);
+    setBowls(list => list.some(b => bowlId(b) === id) ? list : [...list, config]);
+    setCart(c => ({ ...c, [id]: Math.min(99, (c[id] || 0) + 1) }));
+    toast.success('Agregado a tu carrito', { description: bowlItem(config).name });
+  };
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
-  const subtotal = products.reduce((sum, p) => sum + (cart[p.id] || 0) * p.price, 0);
+  const subtotal = catalog.reduce((sum, p) => sum + (cart[p.id] || 0) * p.price, 0);
   const couponPercent = getCouponPercent(appliedCoupon);
   const total = couponPercent !== null ? applyDiscount(subtotal, couponPercent) : subtotal;
   const discount = subtotal - total;
@@ -172,11 +190,11 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   };
 
   return <ShakyCtx.Provider value={{
-    cart, favorites, compare, cartOpen, setCartOpen, navOpen, setNavOpen,
+    cart, favorites, compare, bowls, catalog, addBowl, cartOpen, setCartOpen, navOpen, setNavOpen,
     compareOpen, setCompareOpen, branch, setBranch, date, setDate, time, setTime, slots,
     customerName, setCustomerName, customerPhone, setCustomerPhone, paymentMethod, setPaymentMethod, submitting,
     order, orderOpen, setOrderOpen, reviews, reviewOpen, setReviewOpen, addReview,
-    count, subtotal, discount, total, add, changeQty, removeFromCart, toggleFavorite, toggleCompare, submitOrder,
+    count, subtotal, discount, total, add, changeQty, removeFromCart, clearCart, toggleFavorite, toggleCompare, submitOrder,
     couponInput, setCouponInput, appliedCoupon, couponError, applyCoupon, removeCoupon,
   }}>{children}</ShakyCtx.Provider>;
 }
