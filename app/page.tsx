@@ -4,9 +4,6 @@ import { ArrowUpRight, Leaf, Dumbbell, Timer, Heart, Calculator, CalendarDays, U
 import { MenuPreviewSection } from '@/components/shaky-menu-preview';
 import { PopularSection } from '@/components/shaky-popular-section';
 import { ComunidadSection } from '@/components/shaky-comunidad-section';
-import { ShakyProvider } from '@/components/shaky-store';
-import { ShakyChrome, ShakyFooter } from '@/components/shaky-chrome';
-import { ShakyDialogs } from '@/components/shaky-dialogs';
 import { LocationSection, NewsletterSection } from '@/components/shaky-footer-extras';
 import { useEffect } from 'react';
 
@@ -88,13 +85,10 @@ function HomeContent() {
 export default function HomePage() {
   useLegacyScope();
   return (
-    <ShakyProvider>
-      <ShakyChrome />
+    <>
       <main id="inicio"><HomeContent /></main>
       <LocationSection />
       <NewsletterSection />
-      <ShakyFooter />
-      <ShakyDialogs />
-    </ShakyProvider>
+    </>
   );
 }

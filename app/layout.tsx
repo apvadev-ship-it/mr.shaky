@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { ShakyProvider } from "@/components/shaky-store";
+import { ShakyChrome, ShakyFooter } from "@/components/shaky-chrome";
+import { ShakyDialogs } from "@/components/shaky-dialogs";
+import { SiteChrome } from "@/components/site-chrome";
 import "./globals.css";
 import "./sections.css";
 import "./refinements.css";
@@ -27,7 +32,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {/* Widget de Wompi: tokeniza la tarjeta en su propio iframe, esta app nunca ve el número. */}
+        <Script src="https://checkout.wompi.co/widget.js" strategy="afterInteractive" />
+        <ShakyProvider>
+          <SiteChrome>
+            <ShakyChrome />
+          </SiteChrome>
+          {children}
+          <SiteChrome>
+            <ShakyFooter />
+          </SiteChrome>
+          <ShakyDialogs />
+        </ShakyProvider>
+      </body>
     </html>
   );
 }
