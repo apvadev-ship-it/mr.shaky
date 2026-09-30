@@ -19,7 +19,7 @@ export function MenuPreviewSection() {
         <Link className="btn outline more" href="/menu">Ver más <ArrowRight size={18} /></Link>
       </section>
       <div className="melt-white" />
-      <p className="fineprint catalog-note menu-note">Precios en COP · Fotografías ilustrativas · Macros y puntuaciones de ejemplo.</p>
+      <p className="fineprint catalog-note menu-note">Precios en COP · Fotografías ilustrativas.</p>
     </>
   );
 }

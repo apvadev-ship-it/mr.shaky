@@ -23,7 +23,7 @@ export function ProductPage({ p }: { p: Product }) {
         <div className="product-page-body">
           <span className="eyebrow">{p.category}</span>
           <h1>{p.name}</h1>
-          <div className="rating" aria-label={`${p.rating} de 5, ${p.reviews} reseñas de ejemplo`}>★★★★★ <span>{p.rating} ({p.reviews} puntuaciones)</span></div>
+          <div className="rating" aria-label={`${p.rating} de 5, ${p.reviews} reseñas`}>★★★★★ <span>{p.rating} ({p.reviews} puntuaciones)</span></div>
           <p className="product-page-desc">{p.description}</p>
           <Macros p={p} />
           <p className="fineprint">{p.allergens} Las fotografías son ilustrativas; confirma la receta y los alérgenos con la sucursal.</p>

@@ -33,7 +33,6 @@ export default function HomePage() {
         </div>
         <div className="hero-art">
           <img src="/hero-bowl.png" alt="Gran bowl de pollo con arroz, aguacate y vegetales" fetchPriority="high" />
-          <div className="hero-note">DISCIPLINA<br />TAMBIÉN SE SABE<br />DELICIOSA</div>
         </div>
       </section>
       <div className="melt melt-hero" />

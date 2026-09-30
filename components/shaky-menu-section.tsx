@@ -76,7 +76,7 @@ export function MenuSection() {
       {!filtered.length && (
         <div className="empty"><Search /><h3>No encontramos ese antojo</h3><p>Prueba otra búsqueda o explora todos los platos.</p><button className="btn" onClick={() => { setQuery(''); setCategory('Todos'); setFavOnly(false) }}>Ver todo el menú</button></div>
       )}
-      <p className="fineprint catalog-note">Precios en COP · Fotografías ilustrativas · Macros y puntuaciones de ejemplo.</p>
+      <p className="fineprint catalog-note">Precios en COP · Fotografías ilustrativas.</p>
     </section>
   );
 }

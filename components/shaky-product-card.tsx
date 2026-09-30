@@ -26,7 +26,7 @@ export function ProductCard({ p }: { p: Product }) {
             <div className="product-body">
               <button className="product-title" onClick={() => router.push(`/menu/${p.id}`)}><h3>{p.name}</h3></button>
               <p>{p.description}</p>
-              <div className="rating" aria-label={`${p.rating} de 5, ${p.reviews} reseñas de ejemplo`}>★★★★★ <span>{p.rating} ({p.reviews})</span></div>
+              <div className="rating" aria-label={`${p.rating} de 5, ${p.reviews} reseñas`}>★★★★★ <span>{p.rating} ({p.reviews})</span></div>
               <div className="product-bottom"><strong>{money(p.price)}</strong><button className="round" aria-label={'Agregar ' + p.name} onClick={() => add(p.id)}><Plus size={20} /></button></div>
               <button className={'compare-chip' + (compared ? ' active' : '')} aria-pressed={compared} onClick={() => toggleCompare(p.id)}>
                 {compared ? <Check size={14} /> : <BarChart3 size={14} />}

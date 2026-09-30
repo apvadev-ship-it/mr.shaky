@@ -49,7 +49,7 @@ export function ComunidadSection({ full = false }: { full?: boolean }) {
         </div>
         <div>
           <div className="section-head">
-            <div><h2>LA FAMILIA SHAKY</h2><p>Opiniones de ejemplo · {avgRating} / 5</p></div>
+            <div><h2>LA FAMILIA SHAKY</h2><p>{avgRating} / 5</p></div>
             <button className="review-link" onClick={() => setReviewOpen(true)}>Ver todas <ArrowUpRight size={16} /></button>
           </div>
           <div className="review-grid">{reviews.slice(-2).map(r => <Review key={r.id} r={r} />)}</div>

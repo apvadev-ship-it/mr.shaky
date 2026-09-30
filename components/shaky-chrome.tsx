@@ -27,6 +27,34 @@ export function ShakyChrome() {
   const [q, setQ] = useState('');
   const [headerHidden, setHeaderHidden] = useState(false);
   const lastY = useRef(0);
+  const [hash, setHash] = useState('');
+
+  useEffect(() => {
+    const sync = () => setHash(window.location.hash);
+    sync();
+    // Next's router changes the URL with pushState, which fires neither
+    // hashchange nor popstate, so patch it to emit our own event.
+    const { pushState, replaceState } = window.history;
+    const patch = (fn: typeof pushState) => function (this: History, ...args: Parameters<typeof pushState>) {
+      fn.apply(this, args);
+      window.dispatchEvent(new Event('shaky:urlchange'));
+    };
+    window.history.pushState = patch(pushState);
+    window.history.replaceState = patch(replaceState);
+    for (const e of ['hashchange', 'popstate', 'shaky:urlchange']) window.addEventListener(e, sync);
+    return () => {
+      window.history.pushState = pushState;
+      window.history.replaceState = replaceState;
+      for (const e of ['hashchange', 'popstate', 'shaky:urlchange']) window.removeEventListener(e, sync);
+    };
+  }, [pathname]);
+
+  const isActive = (href: string) => {
+    if (href.includes('#')) return pathname === '/' && hash === href.slice(href.indexOf('#'));
+    if (href === '/') return pathname === '/' && !hash;
+    if (href === '/planifica') return pathname === '/planifica' || pathname.startsWith('/checkout');
+    return pathname === href || pathname.startsWith(href + '/');
+  };
 
   useEffect(() => {
     lastY.current = window.scrollY;
@@ -48,7 +76,7 @@ export function ShakyChrome() {
       <a className="skip" href="/menu">Ir al menú</a>
       <header className={'header wrap' + (headerHidden || cartOpen ? ' header-hidden' : '')}>
         <Link href="/" aria-label="Mr. Shaky, inicio"><img className="wordmark" src="/mascot.png" alt="Mr. Shaky" /></Link>
-        <nav>{NAV_LINKS.map(([label, href]) => <Link key={label} href={href}>{label}</Link>)}</nav>
+        <nav>{NAV_LINKS.map(([label, href]) => <Link key={label} href={href} className={isActive(href) ? 'active' : ''} onClick={() => setHash(href.includes('#') ? href.slice(href.indexOf('#')) : '')}>{label}</Link>)}</nav>
         <form className="header-search" onSubmit={e => { e.preventDefault(); router.push('/menu?q=' + encodeURIComponent(q)) }}>
           <Search size={16} />
           <input value={q} onChange={e => setQ(e.target.value)} placeholder="¿Qué se te antoja hoy?" aria-label="Buscar productos" />
