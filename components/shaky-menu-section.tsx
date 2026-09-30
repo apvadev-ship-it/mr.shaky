@@ -49,9 +49,6 @@ export function MenuSection() {
 
   return (
     <section className="wrap section show-all" id="menu">
-      <div className="section-head">
-        <div><div className="eyebrow">EL COMBUSTIBLE DE TUS METAS</div><h2>NUESTRO <em>MENÚ</em></h2><p>Ingredientes reales. Todo el sabor. Cero excusas.</p></div>
-      </div>
       <div className="menu-controls">
         <div className="search-box">
           <Search size={18} />

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from 'next/navigation';
-import { ArrowUpRight, CalendarDays, Check, ShoppingBag, Tag, X } from 'lucide-react';
+import { ArrowUpRight, Check, ShoppingBag, Tag, X } from 'lucide-react';
 import { branches, money } from '@/lib/demo-data';
 import { Choice } from '@/components/shaky-shared';
 import { useShaky } from '@/components/shaky-store';
@@ -18,9 +18,6 @@ export function PlanificaSection() {
     <section className="plan-section" id="planifica">
       <div className="wrap plan-grid">
         <div>
-          <div className="eyebrow"><CalendarDays size={18} />A TU HORA. A TU RITMO.</div>
-          <h2>PLANIFICA TU PEDIDO</h2>
-          <p>Elige dónde y cuándo recoger. Nosotros ponemos el sabor.</p>
           <form onSubmit={e => submitOrder(e, () => router.push('/menu'))}>
             <div className="schedule-fields">
               <label className="field"><span>Nombre</span><input aria-label="Nombre" type="text" name="customerName" autoComplete="name" required maxLength={80} value={customerName} onChange={e => setCustomerName(e.target.value)} placeholder="¿A nombre de quién?" /></label>
