@@ -52,3 +52,63 @@
 }
 
 .page-title p { margin-top: 10px; color: #d8d8d8; font-size: 16px; }
+
+/* Tarjeta del menú que se voltea para mostrar la ficha técnica.
+   Va sin acotar porque el menú no vive bajo .home-legacy. */
+.flip-card { position: relative; perspective: 1400px; background: none; overflow: visible; }
+.flip-inner {
+  display: grid;
+  transition: transform .6s cubic-bezier(.4, .2, .2, 1);
+  transform-style: preserve-3d;
+  height: 100%;
+}
+.flip-inner.flipped { transform: rotateY(180deg); }
+.flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  color: #0b0b0b;
+}
+.flip-back {
+  transform: rotateY(180deg);
+  background: #151515;
+  color: #fff;
+  /* deja sitio arriba para el botón de volteo */
+  padding: 46px 16px 16px;
+  justify-content: flex-start;
+  position: relative;
+  overflow-y: auto;
+}
+.flip-back-photo {
+  position: absolute; inset: 0; margin: auto;
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: .08; z-index: 0;
+}
+.flip-back-body { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 9px; }
+.flip-eyebrow { font-size: 10px; letter-spacing: 1.5px; font-weight: 700; color: #ffe500; }
+.flip-back h3 { font-size: 18px; line-height: 1.15; }
+.flip-specs { display: flex; flex-direction: column; gap: 5px; margin: 0; font-size: 12px; }
+.flip-specs > div { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid #2a2a2a; padding-bottom: 4px; }
+.flip-specs dt { color: #9a9a9a; }
+.flip-specs dd { margin: 0; text-align: right; font-weight: 600; }
+.flip-allergens { font-size: 11px; line-height: 1.4; color: #9a9a9a; }
+.flip-back-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
+.flip-back .price { font-size: 19px; }
+.flip-btn {
+  position: absolute; top: 10px; left: 10px; z-index: 4;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(11, 11, 11, .62); color: #fff;
+  backdrop-filter: blur(4px);
+  transition: background .2s ease, color .2s ease;
+}
+.flip-btn.chosen { background: #ffe500; color: #0b0b0b; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner { transition: none; }
+}
