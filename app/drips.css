@@ -87,11 +87,22 @@
   width: 100%; height: 100%; object-fit: cover;
   opacity: .08; z-index: 0;
 }
-.flip-back-body { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 8px; }
-.flip-eyebrow { font-size: 10px; letter-spacing: 1.5px; font-weight: 700; color: #ffe500; }
+.flip-back-body { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 11px; }
 .flip-back h3 { font-size: 21px; line-height: 1.12; }
-.flip-back-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
-.flip-back .price { font-size: 19px; }
+.flip-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.flip-tile {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; padding: 10px 6px; border-radius: 10px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 10px; font-weight: 600; line-height: 1.1; text-align: center;
+}
+.flip-tile b { font-size: 17px; font-weight: 800; }
+.flip-add {
+  align-self: flex-end;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #ffe500; color: #0b0b0b;
+}
 .flip-btn {
   position: absolute; top: 10px; left: 10px; z-index: 4;
   width: 34px; height: 34px; border-radius: 50%;

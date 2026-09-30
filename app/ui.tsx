@@ -26,13 +26,14 @@ return <article className="product flip-card">
   <div className="flip-face flip-back">
     <img className="flip-back-photo" src={p.image} alt="" aria-hidden="true"/>
     <div className="flip-back-body">
-      <span className="flip-eyebrow">MACROS POR PORCIÓN</span>
       <h3>{p.name}</h3>
-      <Macros p={p}/>
-      <div className="flip-back-bottom">
-        <strong className="price">{money(p.price)}</strong>
-        <button className="add" onClick={onAdd} aria-label={`Agregar ${p.name}`}><Plus size={20}/></button>
+      <div className="flip-tiles">
+        <span className="flip-tile"><b>{p.protein}g</b>Proteína</span>
+        <span className="flip-tile"><b>{p.carbs}g</b>Carbohidratos</span>
+        <span className="flip-tile"><b>{p.fat}g</b>Grasas</span>
+        <span className="flip-tile"><b>{p.calories}</b>Calorías</span>
       </div>
+      <button className="flip-add" onClick={onAdd} aria-label={`Agregar ${p.name}`}><Plus size={20}/></button>
     </div>
   </div>
 </div>
