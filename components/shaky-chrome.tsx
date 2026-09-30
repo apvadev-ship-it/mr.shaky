@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { ArrowUpRight, ArrowRight, ShoppingBag, Search, Menu, Home, Utensils, CalendarDays, Headphones, Minus, Plus, Trash2, Crown, Tag, X } from 'lucide-react';
@@ -25,8 +25,6 @@ export function ShakyChrome() {
     couponInput, setCouponInput, appliedCoupon, couponError, applyCoupon, removeCoupon,
   } = useShaky();
   const [q, setQ] = useState('');
-  const [headerHidden, setHeaderHidden] = useState(false);
-  const lastY = useRef(0);
   const [hash, setHash] = useState('');
 
   useEffect(() => {
@@ -56,25 +54,12 @@ export function ShakyChrome() {
     return pathname === href || pathname.startsWith(href + '/');
   };
 
-  useEffect(() => {
-    lastY.current = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - lastY.current;
-      if (y < 60) setHeaderHidden(false);
-      else if (delta > 4) setHeaderHidden(true);
-      else if (delta < -4) setHeaderHidden(false);
-      lastY.current = y;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   return (
     <>
       <Toaster richColors position="top-center" />
       <a className="skip" href="/menu">Ir al menú</a>
-      <header className={'header wrap' + (headerHidden || cartOpen ? ' header-hidden' : '')}>
+      <header className={'header wrap' + (cartOpen ? ' header-hidden' : '')}>
         <Link href="/" aria-label="Mr. Shaky, inicio"><img className="wordmark" src="/mascot.png" alt="Mr. Shaky" /></Link>
         <nav>{NAV_LINKS.map(([label, href]) => <Link key={label} href={href} className={isActive(href) ? 'active' : ''} onClick={() => setHash(href.includes('#') ? href.slice(href.indexOf('#')) : '')}>{label}</Link>)}</nav>
         <form className="header-search" onSubmit={e => { e.preventDefault(); router.push('/menu?q=' + encodeURIComponent(q)) }}>

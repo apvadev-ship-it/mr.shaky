@@ -1,0 +1,25 @@
+/* Derretidos de las cabeceras internas, con el mismo tratamiento que la home:
+   el dibujo se repite en bucle a 490px en vez de estirarse a todo el ancho,
+   así las gotas conservan su grosor en cualquier pantalla. */
+.drip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 105px;
+  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+  clip-path: none;
+  z-index: 3;
+  pointer-events: none;
+}
+/* El trazo original venía dentro del SVG; ahora lo pinta el fondo. */
+.drip > * { display: none; }
+
+/* El armador de bowls lo ocultaba; aquí también debe derretirse. */
+.bowl-hero { position: relative; }
+.bowl-hero .drip { display: block; }
+
+@media (max-width: 700px) {
+  .drip { height: 88px; background-size: 390px 100%; }
+}
