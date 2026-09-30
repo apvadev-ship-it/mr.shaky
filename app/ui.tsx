@@ -33,7 +33,6 @@ return <article className="product flip-card">
         <span className="flip-tile"><b>{p.fat}g</b>Grasas</span>
         <span className="flip-tile"><b>{p.calories}</b>Calorías</span>
       </div>
-      <button className="flip-add" onClick={onAdd} aria-label={`Agregar ${p.name}`}><Plus size={20}/></button>
     </div>
   </div>
 </div>

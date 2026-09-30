@@ -11,6 +11,7 @@ import "./reference-update.css";
 import "./reference-polish.css";
 import "./bowl-update.css";
 import "./drips.css";
+import "./ui-polish.css";
 import "./home-legacy.css";
 
 export const metadata: Metadata = {

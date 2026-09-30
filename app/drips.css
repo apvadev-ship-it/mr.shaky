@@ -97,12 +97,6 @@
   font-size: 10px; font-weight: 600; line-height: 1.1; text-align: center;
 }
 .flip-tile b { font-size: 17px; font-weight: 800; }
-.flip-add {
-  align-self: flex-end;
-  width: 40px; height: 40px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: #ffe500; color: #0b0b0b;
-}
 .flip-btn {
   position: absolute; top: 10px; left: 10px; z-index: 4;
   width: 34px; height: 34px; border-radius: 50%;

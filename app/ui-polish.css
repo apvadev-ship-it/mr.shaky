@@ -1,0 +1,89 @@
+/* Pasada de UX/UI y responsive sobre el diseño del menú y las secciones
+   internas. No toca la home, que tiene su propia hoja. */
+
+/* --- Encabezados de sección --------------------------------------- */
+.page-title-eyebrow {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffe500;
+  margin-bottom: 12px;
+}
+.page-title h1 { text-wrap: balance; }
+
+/* --- Botones y chips: que se vean ---------------------------------- */
+:root:not(.home-legacy) .pill,
+:root:not(.home-legacy) .filter-choice,
+:root:not(.home-legacy) .filter-choices button,
+:root:not(.home-legacy) .compare-product,
+:root:not(.home-legacy) .compare-trigger {
+  background: #181818;
+  border: 1px solid #3a3a3a;
+  color: #fff;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+:root:not(.home-legacy) .pill:hover,
+:root:not(.home-legacy) .filter-choice:hover,
+:root:not(.home-legacy) .filter-choices button:hover,
+:root:not(.home-legacy) .compare-product:hover,
+:root:not(.home-legacy) .compare-trigger:hover {
+  background: #232323;
+  border-color: #6a6a6a;
+}
+:root:not(.home-legacy) .pill.active,
+:root:not(.home-legacy) .filter-choice.selected,
+:root:not(.home-legacy) .filter-choices button.selected,
+:root:not(.home-legacy) .compare-product.active {
+  background: #ffe500;
+  border-color: #ffe500;
+  color: #0b0b0b;
+  font-weight: 700;
+}
+:root:not(.home-legacy) .pill:active { transform: scale(.97); }
+
+/* --- Foco visible en todo el sitio --------------------------------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #ffe500;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* El ratón no dispara el anillo, solo el teclado. */
+:focus:not(:focus-visible) { outline: none; }
+
+/* --- Estados deshabilitados legibles ------------------------------- */
+button[disabled] { opacity: .45; cursor: not-allowed; }
+
+/* --- Tarjeta del menú: respiro y realce al pasar -------------------- */
+:root:not(.home-legacy) .product { transition: transform .2s ease, box-shadow .2s ease; }
+:root:not(.home-legacy) .product:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0, 0, 0, .45); }
+.flip-card:hover { transform: none; box-shadow: none; }
+
+/* --- Responsive ---------------------------------------------------- */
+@media (max-width: 1100px) {
+  :root:not(.home-legacy) .menu-layout { grid-template-columns: 1fr; }
+  :root:not(.home-legacy) .menu-sidebar { display: none; }
+}
+@media (max-width: 900px) {
+  :root:not(.home-legacy) .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .page-title h1 { font-size: clamp(32px, 11vw, 46px); }
+  .page-title-eyebrow { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 8px; }
+  /* Objetivos táctiles cómodos. */
+  :root:not(.home-legacy) .pill,
+  :root:not(.home-legacy) .filter-choice,
+  :root:not(.home-legacy) .compare-product { min-height: 44px; }
+  :root:not(.home-legacy) .category-scroll { gap: 10px; }
+}
+/* Dos columnas aguantan bien hasta los teléfonos pequeños; por debajo de
+   340px la tarjeta se estrecha demasiado y pasa a una. */
+@media (max-width: 340px) {
+  :root:not(.home-legacy) .product-grid { grid-template-columns: 1fr; }
+}
