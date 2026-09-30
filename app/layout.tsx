@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
-import "./brand.css";
-import "./experience.css";
-import "./reference.css";
-import "./assets.css";
-import "./comunidad.css";
-import { ShakyProvider } from "@/components/shaky-store";
-import { ShakyChrome, ShakyFooter } from "@/components/shaky-chrome";
-import { ShakyDialogs } from "@/components/shaky-dialogs";
-import { LocationSection, NewsletterSection } from "@/components/shaky-footer-extras";
+import "./sections.css";
+import "./refinements.css";
+import "./reference-update.css";
+import "./reference-polish.css";
+import "./bowl-update.css";
 
 export const metadata: Metadata = {
-  title: "Mr. Shaky Nutribar | Entrena. Come. Logra.",
-  description: "Platos deliciosos, balanceados y listos cuando los necesitas.",
+  title: "Mr. Shaky Nutribar | Comida real para cada objetivo",
+  description: "Explora el menú de Mr. Shaky, planifica tu pedido y únete a nuestra comunidad.",
   other: {
     "codex-preview": "development",
   },
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
+    icon: "/assets/mark.webp",
+    shortcut: "/assets/mark.webp",
   },
 };
 
@@ -30,19 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="antialiased">
-        {/* Wompi Widget: tokenizes card data client-side in Wompi's own iframe (this
-            app never receives raw card data). Loaded globally so the checkout form can open it. */}
-        <Script src="https://checkout.wompi.co/widget.js" strategy="afterInteractive" />
-        <ShakyProvider>
-          <ShakyChrome />
-          <main id="inicio">{children}</main>
-          <LocationSection />
-          <NewsletterSection />
-          <ShakyFooter />
-          <ShakyDialogs />
-        </ShakyProvider>
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

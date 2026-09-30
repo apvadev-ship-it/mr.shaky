@@ -1,5 +1,0 @@
-"use client";
-import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
-import {Product} from '@/lib/demo-data';
-export function Choice({label,value,onChange,options}:{label:string;value:string;onChange:(v:string)=>void;options:{value:string;label:string}[]}){return <label className="field"><span>{label}</span><Select value={value} onValueChange={onChange}><SelectTrigger aria-label={label} className="choice"><SelectValue/></SelectTrigger><SelectContent>{options.map(o=><SelectItem value={o.value} key={o.value}>{o.label}</SelectItem>)}</SelectContent></Select></label>}
-export function Macros({p}:{p:Pick<Product,'protein'|'carbs'|'fat'|'calories'>}){return <div className="macro-grid"><div><strong>{p.protein}<small>g</small></strong><span>Proteína</span></div><div><strong>{p.carbs}<small>g</small></strong><span>Carbos</span></div><div><strong>{p.fat}<small>g</small></strong><span>Grasas</span></div><div><strong>{p.calories}</strong><span>kcal</span></div></div>}
