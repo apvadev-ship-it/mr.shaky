@@ -6,32 +6,30 @@ import { useShaky } from '@/components/shaky-store';
 
 const WHATSAPP_URL = 'https://wa.me/message/LQUZ6RVNYXGNC1';
 
-// Contenido de vitrina tomado del diseño. Reemplazar por publicaciones y
-// cifras reales de la cuenta antes de publicar.
+// Contenido de vitrina tomado del diseño de referencia. Las cifras de
+// reproducciones y reacciones son de maqueta: reemplazar por datos reales
+// de la cuenta antes de publicar.
 const HIGHLIGHTS: [string, string][] = [
-  ['Clientes', '/mascot.png'],
-  ['Menú', '/bowl.jpg'],
-  ['Procesos', '/beef.jpg'],
-  ['Tips', '/wrap.jpg'],
-  ['Eventos', '/hero-bowl.png'],
+  ['Clientes', '/assets/mark.webp'],
+  ['Menú', '/assets/pollo.webp'],
+  ['Procesos', '/assets/post-1.webp'],
+  ['Tips', '/assets/post-2.webp'],
+  ['Eventos', '/assets/post-6.webp'],
   ['Q&A', ''],
 ];
 
 const POSTS: { title: string; views: string; image: string }[] = [
-  { title: 'Mi almuerzo post-entreno favorito 🤩', views: '125 mil', image: '/bowl.jpg' },
-  { title: 'Disciplina también se comparte 💪', views: '210 mil', image: '/beef.jpg' },
-  { title: 'Meal prep para la semana', views: '398 mil', image: '/wrap.jpg' },
-  { title: 'Shake de chocolate real ⚡', views: '98 mil', image: '/shake.jpg' },
+  { title: 'Mi almuerzo post-entreno favorito 🤩', views: '125 mil', image: '/assets/post-0.webp' },
+  { title: 'Disciplina también se comparte 💪', views: '210 mil', image: '/assets/post-2.webp' },
+  { title: 'Meal prep para la semana', views: '398 mil', image: '/assets/post-3.webp' },
+  { title: 'Shake de chocolate real ⚡', views: '98 mil', image: '/assets/post-4.webp' },
 ];
 
-const POST_META = [
-  { since: '2 sem', likes: '2.4 mil', comments: '86', image: '/bowl.jpg' },
-  { since: '3 sem', likes: '1.8 mil', comments: '42', image: '/beef.jpg' },
-  { since: '1 sem', likes: '3.1 mil', comments: '74', image: '/shake.jpg' },
+const TESTIMONIALS: { user: string; since: string; quote: string; avatar: string; image: string; likes: string; comments: string }[] = [
+  { user: 'valentina_trf', since: '2 sem', quote: 'Mis almuerzos favoritos sin complicarme la vida. ¡Todo delicioso! 💛', avatar: '/assets/person-0.webp', image: '/assets/post-0.webp', likes: '2.4 mil', comments: '86' },
+  { user: 'juanp.c', since: '3 sem', quote: 'Práctico, saludable y con muy buen sabor. Se nota la calidad. 👊', avatar: '/assets/person-1.webp', image: '/assets/post-5.webp', likes: '1.8 mil', comments: '42' },
+  { user: 'mariajose.g', since: '1 sem', quote: 'El shake de vainilla es otro nivel. 😍', avatar: '/assets/person-2.webp', image: '/assets/post-4.webp', likes: '3.1 mil', comments: '74' },
 ];
-
-const handleFor = (name: string) =>
-  name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z\s]/g, '').trim().split(/\s+/).join('.');
 
 function Scribble({ className = '' }: { className?: string }) {
   return (
@@ -50,8 +48,7 @@ function Crown({ className = '' }: { className?: string }) {
 }
 
 export function ComunidadPage() {
-  const { reviews, setReviewOpen } = useShaky();
-  const featured = reviews.slice(-3);
+  const { setReviewOpen } = useShaky();
 
   return (
     <div className="cm">
@@ -61,7 +58,7 @@ export function ComunidadPage() {
           <p>Personas reales, resultados reales.<Scribble /></p>
         </div>
         <div className="cm-hero-art">
-          <img src="/hero-bowl.png" alt="" aria-hidden="true" />
+          <img src="/assets/community-mobile.webp" alt="Clienta de Mr. Shaky disfrutando un bowl" />
           <Crown className="cm-crown-hero" />
           <span className="cm-sticker">DISCIPLINA<br />TAMBIÉN<br />SE COMPARTE</span>
         </div>
@@ -117,28 +114,24 @@ export function ComunidadPage() {
           <button className="cm-see-all" onClick={() => setReviewOpen(true)}>Deja tu opinión <ArrowUpRight size={16} /></button>
         </div>
         <div className="cm-cards">
-          {featured.map((r, i) => {
-            const meta = POST_META[i % POST_META.length];
-            return (
-              <article key={r.id} className="cm-card">
-                <header className="cm-card-top">
-                  <span className="cm-avatar" aria-hidden="true"><span>{r.name.charAt(0)}</span></span>
-                  <span className="cm-card-who">
-                    <strong>{handleFor(r.name)}</strong>
-                    <span>{meta.since}</span>
-                  </span>
-                  <span className="cm-card-dots" aria-hidden="true">···</span>
-                </header>
-                <img className="cm-card-media" src={meta.image} alt="" aria-hidden="true" />
-                <p>{r.text}</p>
-                <footer className="cm-card-stats">
-                  <span><Heart size={16} fill="#ff3b5c" color="#ff3b5c" />{meta.likes}</span>
-                  <span><MessageSquare size={16} />{meta.comments}</span>
-                  <span className="cm-card-stars" aria-label={`${r.stars} de 5 estrellas`}>{'★'.repeat(r.stars)}</span>
-                </footer>
-              </article>
-            );
-          })}
+          {TESTIMONIALS.map(t => (
+            <article key={t.user} className="cm-card">
+              <header className="cm-card-top">
+                <span className="cm-avatar"><img src={t.avatar} alt="" aria-hidden="true" /></span>
+                <span className="cm-card-who">
+                  <strong>{t.user}</strong>
+                  <span>{t.since}</span>
+                </span>
+                <span className="cm-card-dots" aria-hidden="true">···</span>
+              </header>
+              <img className="cm-card-media" src={t.image} alt="" aria-hidden="true" />
+              <p>{t.quote}</p>
+              <footer className="cm-card-stats">
+                <span><Heart size={16} fill="#ff3b5c" color="#ff3b5c" />{t.likes}</span>
+                <span><MessageSquare size={16} />{t.comments}</span>
+              </footer>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -177,7 +170,7 @@ export function ComunidadPage() {
         <div className="cm-share-art" aria-hidden="true">
           <span className="cm-phone">
             <span className="cm-phone-top"><span className="cm-phone-dot" />@{instagramHandle}</span>
-            <img src="/shake.jpg" alt="" />
+            <img src="/assets/post-4.webp" alt="" />
             <span className="cm-phone-caption">Mi bowl favorito del mes 🤩</span>
           </span>
         </div>

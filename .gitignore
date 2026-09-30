@@ -49,3 +49,6 @@ next-env.d.ts
 /work/
 PAGOKIT_INTEGRATION.md
 PAGOKIT_PRODUCTION_CHECKLIST.md
+
+# Copia de referencia del proyecto, no forma parte del build
+/mr-shaky/

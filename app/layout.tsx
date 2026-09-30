@@ -4,6 +4,7 @@ import "./globals.css";
 import "./brand.css";
 import "./experience.css";
 import "./reference.css";
+import "./assets.css";
 import "./comunidad.css";
 import { ShakyProvider } from "@/components/shaky-store";
 import { ShakyChrome, ShakyFooter } from "@/components/shaky-chrome";

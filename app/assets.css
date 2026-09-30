@@ -1,0 +1,15 @@
+/* Fotos reales por producto. Sustituyen los recortes del sprite
+   compartido de reference.png, donde varios productos reusaban la misma
+   imagen (pollo/veggie, wrap/snack y shake/cacao). */
+.food-sprite {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.food-pollo { background-image: url('/assets/pollo.webp'); }
+.food-beef { background-image: url('/assets/beef.webp'); }
+.food-wrap { background-image: url('/assets/wrap.webp'); }
+.food-shake { background-image: url('/assets/chocolate.webp'); }
+.food-veggie { background-image: url('/assets/bowl-hero.webp'); }
+.food-snack { background-image: url('/assets/veggie.webp'); }
+.food-cacao { background-image: url('/assets/chocolate.webp'); }
