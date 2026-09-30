@@ -18,7 +18,7 @@ export function ShakyDialogs() {
   return (
     <>
       <Dialog open={compareOpen} onOpenChange={setCompareOpen}>
-        <DialogContent className="shaky-dialog compare-dialog">
+        <DialogContent className="home-legacy shaky-dialog compare-dialog">
           <DialogTitle>COMPARA TUS FAVORITOS</DialogTitle>
           <DialogDescription>Selecciona hasta 3 productos en las tarjetas del menú.</DialogDescription>
           {compare.length ? <>
@@ -52,7 +52,7 @@ export function ShakyDialogs() {
         </DialogContent>
       </Dialog>
       <Dialog open={orderOpen} onOpenChange={setOrderOpen}>
-        <DialogContent className="shaky-dialog">
+        <DialogContent className="home-legacy shaky-dialog">
           <DialogTitle>¡PEDIDO PROGRAMADO!</DialogTitle>
           <DialogDescription>
             {order?.paymentMethod === 'cash'
@@ -71,7 +71,7 @@ export function ShakyDialogs() {
         </DialogContent>
       </Dialog>
       <Dialog open={reviewOpen} onOpenChange={setReviewOpen}>
-        <DialogContent className="shaky-dialog review-dialog">
+        <DialogContent className="home-legacy shaky-dialog review-dialog">
           <DialogTitle>OPINIONES DE LA FAMILIA</DialogTitle>
           <DialogDescription>Tu opinión se guarda solo en este navegador.</DialogDescription>
           <div className="all-reviews">{reviews.map(r => <Review key={r.id} r={r} />)}</div>

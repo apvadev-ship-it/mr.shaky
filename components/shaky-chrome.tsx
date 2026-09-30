@@ -82,7 +82,7 @@ export function ShakyChrome() {
       </nav>
 
       <Sheet open={navOpen} onOpenChange={setNavOpen}>
-        <SheetContent className="shaky-sheet">
+        <SheetContent className="home-legacy shaky-sheet">
           <SheetTitle>Navega a tu ritmo</SheetTitle>
           <SheetDescription>Todo Mr. Shaky, en un lugar.</SheetDescription>
           <div className="mobile-links">{NAV_LINKS.map(([label, href]) => <Link key={label} href={href} onClick={() => setNavOpen(false)}>{label}<ArrowUpRight /></Link>)}</div>
@@ -90,7 +90,7 @@ export function ShakyChrome() {
       </Sheet>
 
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
-        <SheetContent className="shaky-sheet cart-sheet">
+        <SheetContent className="home-legacy shaky-sheet cart-sheet">
           <SheetTitle>TU CARRITO <em>({count})</em></SheetTitle>
           <SheetDescription>Tu próxima comida empieza aquí. Precios en COP.</SheetDescription>
           {!count ? (

@@ -20,25 +20,19 @@ return <article className="product flip-card">
       <p>{p.description}</p>
       <div className="rating"><span>★★★★★</span> {p.rating} <small>({p.reviews})</small></div>
       <strong className="price">{money(p.price)}</strong>
+      <button className={'compare-product '+(compared?'active':'')} onClick={onCompare} aria-pressed={compared}><Scale size={14}/>{compared?'Seleccionado':'Comparar'}</button>
     </div>
   </div>
   <div className="flip-face flip-back">
     <img className="flip-back-photo" src={p.image} alt="" aria-hidden="true"/>
     <div className="flip-back-body">
-      <span className="flip-eyebrow">FICHA TÉCNICA</span>
+      <span className="flip-eyebrow">MACROS POR PORCIÓN</span>
       <h3>{p.name}</h3>
       <Macros p={p}/>
-      <dl className="flip-specs">
-        <div><dt>Calorías</dt><dd>{p.calories} kcal</dd></div>
-        <div><dt>Categoría</dt><dd>{p.category}</dd></div>
-        <div><dt>Ideal para</dt><dd>{p.goals.join(' · ')}</dd></div>
-      </dl>
-      <p className="flip-allergens">{p.allergens}</p>
       <div className="flip-back-bottom">
         <strong className="price">{money(p.price)}</strong>
         <button className="add" onClick={onAdd} aria-label={`Agregar ${p.name}`}><Plus size={20}/></button>
       </div>
-      <button className={'compare-product '+(compared?'active':'')} onClick={onCompare} aria-pressed={compared}><Scale size={14}/>{compared?'Seleccionado':'Comparar'}</button>
     </div>
   </div>
 </div>
