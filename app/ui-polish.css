@@ -87,3 +87,105 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 @media (max-width: 340px) {
   :root:not(.home-legacy) .product-grid { grid-template-columns: 1fr; }
 }
+
+/* --- Menú: negro arriba, derretido, blanco abajo ------------------- */
+:root:not(.home-legacy) .page-title h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+}
+/* La barra de búsqueda y Filtros siguen en el negro, bajo el titular. */
+:root:not(.home-legacy) .mobile-menu-tools { margin-bottom: 26px; }
+
+.menu-light {
+  position: relative;
+  background: #f7f7f4;
+  color: #0b0b0b;
+}
+/* El mismo derretido del resto del sitio: su propio negro arriba y las
+   gotas cayendo sobre el blanco. */
+.menu-drip {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 105px;
+  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+  z-index: 2;
+  pointer-events: none;
+}
+.menu-light-main { padding-top: 122px; padding-bottom: 56px; }
+
+/* Todo lo que cae en el blanco se adapta. */
+:root:not(.home-legacy) .menu-light h2,
+:root:not(.home-legacy) .menu-light h3,
+:root:not(.home-legacy) .menu-light .section-heading h2 { color: #0b0b0b; }
+:root:not(.home-legacy) .menu-light p,
+:root:not(.home-legacy) .menu-light small,
+:root:not(.home-legacy) .menu-light label { color: #4a4a4a; }
+
+:root:not(.home-legacy) .menu-light .pill,
+:root:not(.home-legacy) .menu-light .filter-choice,
+:root:not(.home-legacy) .menu-light .filter-choices button,
+:root:not(.home-legacy) .menu-light .compare-product,
+:root:not(.home-legacy) .menu-light .compare-trigger {
+  background: #fff;
+  border-color: #d8d8d4;
+  color: #0b0b0b;
+}
+:root:not(.home-legacy) .menu-light .pill:hover,
+:root:not(.home-legacy) .menu-light .filter-choice:hover,
+:root:not(.home-legacy) .menu-light .filter-choices button:hover,
+:root:not(.home-legacy) .menu-light .compare-product:hover,
+:root:not(.home-legacy) .menu-light .compare-trigger:hover {
+  background: #efefea;
+  border-color: #b4b4ae;
+}
+:root:not(.home-legacy) .menu-light .pill.active,
+:root:not(.home-legacy) .menu-light .filter-choice.selected,
+:root:not(.home-legacy) .menu-light .filter-choices button.selected,
+:root:not(.home-legacy) .menu-light .compare-product.active {
+  background: #ffe500;
+  border-color: #ffe500;
+  color: #0b0b0b;
+}
+/* Las tarjetas son blancas: sobre blanco necesitan un contorno. */
+:root:not(.home-legacy) .menu-light .product { border: 1px solid #e2e2dd; box-shadow: 0 2px 10px rgba(0, 0, 0, .05); }
+:root:not(.home-legacy) .menu-light .product:hover { box-shadow: 0 14px 30px rgba(0, 0, 0, .12); }
+:root:not(.home-legacy) .menu-light .flip-face { border: 1px solid #e2e2dd; }
+:root:not(.home-legacy) .menu-light .flip-back { border-color: #151515; }
+:root:not(.home-legacy) .menu-light .menu-sidebar { background: #fff; border: 1px solid #e2e2dd; border-radius: 14px; }
+
+@media (max-width: 700px) {
+  .menu-drip { height: 88px; background-size: 390px 100%; }
+  :root:not(.home-legacy) .menu-light-main { padding-top: 100px; padding-bottom: 36px; }
+}
+
+/* El llamado a armar bowl venía pensado para fondo oscuro: sobre el
+   claro quedaba texto negro sobre casi negro. */
+:root:not(.home-legacy) .menu-light .bowl-menu-cta {
+  background: #ffe500;
+  border-color: #ffe500;
+  color: #0b0b0b;
+}
+:root:not(.home-legacy) .menu-light .bowl-menu-cta > svg,
+:root:not(.home-legacy) .menu-light .bowl-menu-cta b,
+:root:not(.home-legacy) .menu-light .bowl-menu-cta span,
+:root:not(.home-legacy) .menu-light .bowl-menu-cta small { color: #0b0b0b; }
+:root:not(.home-legacy) .menu-light .bowl-menu-cta:hover { background: #ffd900; }
+
+/* Enlaces y utilidades sobre el claro. */
+:root:not(.home-legacy) .menu-light a { color: #0b0b0b; }
+:root:not(.home-legacy) .menu-light .section-heading a { color: #0b0b0b; font-weight: 700; }
+:root:not(.home-legacy) .menu-light .rating { color: #4a4a4a; }
+:root:not(.home-legacy) .menu-light .price { color: #0b0b0b; }
+
+/* El reverso de la tarjeta sigue siendo oscuro aunque esté en el bloque
+   claro: su texto no puede heredar el color del fondo blanco. */
+:root:not(.home-legacy) .menu-light .flip-back,
+:root:not(.home-legacy) .menu-light .flip-back h3,
+:root:not(.home-legacy) .menu-light .flip-back p { color: #fff; }
+:root:not(.home-legacy) .menu-light .flip-tile,
+:root:not(.home-legacy) .menu-light .flip-tile b { color: #0b0b0b; }
+
+/* Grises legibles sobre el crema. */
+:root:not(.home-legacy) .menu-light .results-count,
+:root:not(.home-legacy) .menu-light small { color: #5c5c5c; }
+:root:not(.home-legacy) .menu-light .rating span { color: #b38f00; }
