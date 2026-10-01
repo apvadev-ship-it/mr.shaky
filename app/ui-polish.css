@@ -169,7 +169,7 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 :root:not(.home-legacy) .menu-light .bowl-menu-cta b,
 :root:not(.home-legacy) .menu-light .bowl-menu-cta span,
 :root:not(.home-legacy) .menu-light .bowl-menu-cta small { color: #0b0b0b; }
-:root:not(.home-legacy) .menu-light .bowl-menu-cta:hover { background: #ffd900; }
+:root:not(.home-legacy) .menu-light .bowl-menu-cta:hover { background: #ffe500; }
 
 /* Enlaces y utilidades sobre el claro. */
 :root:not(.home-legacy) .menu-light a { color: #0b0b0b; }
@@ -188,4 +188,26 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 /* Grises legibles sobre el crema. */
 :root:not(.home-legacy) .menu-light .results-count,
 :root:not(.home-legacy) .menu-light small { color: #5c5c5c; }
-:root:not(.home-legacy) .menu-light .rating span { color: #b38f00; }
+/* Las estrellas en amarillo no se leen sobre el claro: ahí van en negro. */
+:root:not(.home-legacy) .menu-light .rating span { color: #0b0b0b; }
+
+/* Los chips de categoría arrancan en amarillo suave y se llenan al
+   seleccionarlos. Mismo amarillo de marca, solo cambia la opacidad. */
+:root:not(.home-legacy) .category-scroll .pill,
+:root:not(.home-legacy) .menu-light .category-scroll .pill {
+  background: rgba(255, 229, 0, .14);
+  border-color: rgba(255, 229, 0, .45);
+  color: #0b0b0b;
+}
+:root:not(.home-legacy) .category-scroll .pill:hover,
+:root:not(.home-legacy) .menu-light .category-scroll .pill:hover {
+  background: rgba(255, 229, 0, .3);
+  border-color: rgba(255, 229, 0, .7);
+}
+:root:not(.home-legacy) .category-scroll .pill.active,
+:root:not(.home-legacy) .menu-light .category-scroll .pill.active {
+  background: #ffe500;
+  border-color: #ffe500;
+  color: #0b0b0b;
+  font-weight: 700;
+}
