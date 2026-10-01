@@ -257,22 +257,25 @@
   font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
   color: #ffe500; margin-bottom: 6px;
 }
+.home-legacy .feature-banner h3,
 .feature-banner h3 {
   font-family: 'Poppins', sans-serif;
   font-size: clamp(26px, 3.4vw, 36px);
   font-weight: 800;
-  line-height: .92;
-  /* Tracking cerrado: las dos palabras tienen que leerse como un bloque. */
+  /* Mismo ajuste que NUESTRA / TIENDA: líneas pegadas y tracking cerrado. */
+  line-height: .88;
   letter-spacing: -2px;
+  word-spacing: -2px;
   margin: 0;
   color: #fff;
 }
-/* La segunda línea, la amarilla, manda. */
+.home-legacy .feature-banner h3 em,
 .feature-banner h3 em {
   font-style: normal;
   color: #ffe500;
-  font-size: 1.32em;
-  letter-spacing: -2.5px;
+  font-size: 1.42em;
+  letter-spacing: -3px;
+  word-spacing: -3px;
 }
 .feature-banner p {
   margin: 12px 0 0;
@@ -295,7 +298,8 @@
   .feature-banner-body { padding: 18px 16px; gap: 12px; }
   .feature-banner-icon { width: 44px; height: 44px; border-radius: 12px; }
   .feature-banner-icon svg { width: 22px; height: 22px; }
-  .feature-banner h3 { font-size: 25px; letter-spacing: -1.6px; }
+  .home-legacy .feature-banner h3,
+  .feature-banner h3 { font-size: 25px; letter-spacing: -1.5px; word-spacing: -1.5px; }
   .feature-banner p { font-size: 13px; margin-top: 8px; max-width: 20ch; }
   .feature-banner-cta { margin-top: 12px; padding: 10px 17px; font-size: 13px; }
   .feature-banner-photo { object-position: 78% center; }
@@ -320,10 +324,8 @@
 
 /* Los banners son del móvil. En escritorio vuelve la franja de planificar. */
 @media (min-width: 701px) {
-  .feature-banners { display: none; }
-}
-@media (max-width: 700px) {
-  .plan-teaser { display: none; }
+  /* En escritorio solo queda el de planificar, con el mismo diseño. */
+  .feature-macros, .feature-plato { display: none; }
 }
 
 /* --- Visítanos: NUESTRA arriba, TIENDA grande en amarillo ----------- */
