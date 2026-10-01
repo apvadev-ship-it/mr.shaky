@@ -373,6 +373,268 @@
 .home-legacy .location-map,
 .location-map { width: 100%; }
 
+/* --- Tarjeta de producto, igual en la home y en el menú --------------
+   Va colgada de .flip-card para ganarle tanto a las reglas del diseño
+   antiguo (.home-legacy .product*) como a las del nuevo. */
+.flip-card .product-picture { position: relative; }
+.flip-card .product-picture img {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+}
+.flip-card .photo-button { width: 100%; padding: 0; display: block; }
+.flip-card .favorite {
+  position: absolute; top: 10px; right: 10px; z-index: 3;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(11, 11, 11, .62); color: #fff;
+  backdrop-filter: blur(4px);
+}
+.flip-card .favorite.saved { background: #ffe500; color: #0b0b0b; }
+.flip-card .add {
+  position: absolute; right: 10px; bottom: -18px; z-index: 3;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #ffe500; color: #0b0b0b;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .3);
+}
+.flip-card .product-body {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 16px 12px 12px; flex: 1;
+}
+.flip-card .product-name {
+  font-size: 16px; font-weight: 800; line-height: 1.2;
+  text-align: left; padding: 0; color: inherit;
+}
+.flip-card .product-body > p {
+  font-size: 12px; line-height: 1.45; margin: 0; min-height: 0;
+}
+/* Estrellas y precio: centrados y más grandes. */
+.flip-card .rating {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 14px; margin-top: 2px;
+}
+.flip-card .rating > span { font-size: 19px; letter-spacing: -1px; }
+.flip-card .price {
+  display: block; text-align: center;
+  font-size: 24px; font-weight: 800; letter-spacing: -.5px;
+}
+/* Comparar: amarillo y redondeado. */
+.flip-card .compare-product {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  width: 100%; margin-top: 4px;
+  padding: 9px 12px; border-radius: 100px;
+  background: #ffe500; border: 1px solid #ffe500; color: #0b0b0b;
+  font-size: 12px; font-weight: 700;
+}
+.flip-card .compare-product:hover { background: #0b0b0b; border-color: #0b0b0b; color: #ffe500; }
+.flip-card .compare-product.active { background: #0b0b0b; border-color: #0b0b0b; color: #ffe500; }
+
+/* Espaciado del cuerpo: un solo hueco pequeño, sin márgenes sueltos que
+   se sumen al gap. Más específico para ganarle a las dos hojas. */
+:root .flip-card .product-body,
+.home-legacy .flip-card .product-body {
+  gap: 4px;
+  padding: 12px 12px 10px;
+}
+:root .flip-card .product-body > *,
+.home-legacy .flip-card .product-body > * { margin: 0; }
+:root .flip-card .rating,
+.home-legacy .flip-card .rating { margin-top: 0; }
+:root .flip-card .compare-product,
+.home-legacy .flip-card .compare-product { margin-top: 2px; }
+
+/* Las hojas del menú y del bloque claro son más específicas: aquí las
+   igualamos para que el precio y el botón Comparar manden en ambas. */
+:root .flip-card .price,
+:root:not(.home-legacy) .menu-light .flip-card .price,
+.home-legacy .flip-card .price {
+  font-size: 24px;
+  text-align: center;
+  display: block;
+}
+:root .flip-card .rating > span,
+:root:not(.home-legacy) .menu-light .flip-card .rating > span { font-size: 19px; }
+:root .flip-card .compare-product,
+:root:not(.home-legacy) .menu-light .flip-card .compare-product,
+.home-legacy .flip-card .compare-product {
+  background: #ffe500;
+  border-color: #ffe500;
+  color: #0b0b0b;
+  border-radius: 100px;
+}
+:root .flip-card .compare-product.active,
+:root:not(.home-legacy) .menu-light .flip-card .compare-product.active,
+:root .flip-card .compare-product:hover,
+:root:not(.home-legacy) .menu-light .flip-card .compare-product:hover {
+  background: #0b0b0b;
+  border-color: #0b0b0b;
+  color: #ffe500;
+}
+@media (max-width: 700px) {
+  :root .flip-card .price,
+  :root:not(.home-legacy) .menu-light .flip-card .price { font-size: 21px; }
+}
+
+/* --- Banners de herramientas (macros, plato, pedido) ------------------
+   Franja ancha: foto al fondo, el texto a la izquierda sobre un velo
+   negro. Sin acotar, porque vive en la home pero no depende de su hoja. */
+.feature-banners { display: flex; flex-direction: column; gap: 14px; margin: 26px auto 34px; }
+.feature-banner {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #0b0b0b;
+  border: 1px solid #262626;
+  min-height: 200px;
+  color: #fff;
+  text-decoration: none;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.feature-banner:hover { border-color: #ffe500; transform: translateY(-2px); }
+.feature-banner-photo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: right center;
+}
+.feature-banner-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 26px 24px;
+  /* El velo mantiene legible el texto sobre la foto. */
+  background: linear-gradient(90deg, #0b0b0b 0%, rgba(11, 11, 11, .92) 42%, rgba(11, 11, 11, 0) 72%);
+  min-height: 200px;
+}
+.feature-banner-icon {
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  background: #ffe500; color: #0b0b0b;
+}
+.feature-banner-eyebrow {
+  display: block;
+  font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
+  color: #ffe500; margin-bottom: 6px;
+}
+.home-legacy .feature-banner h3,
+.feature-banner h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(26px, 3.4vw, 36px);
+  font-weight: 800;
+  /* Mismo ajuste que NUESTRA / TIENDA: líneas pegadas y tracking cerrado. */
+  line-height: .88;
+  letter-spacing: -2px;
+  word-spacing: -2px;
+  margin: 0;
+  color: #fff;
+}
+.home-legacy .feature-banner h3 em,
+.feature-banner h3 em {
+  font-style: normal;
+  color: #ffe500;
+  font-size: 1.42em;
+  letter-spacing: -3px;
+  word-spacing: -3px;
+}
+.feature-banner p {
+  margin: 12px 0 0;
+  font-size: 15px; line-height: 1.35;
+  color: #f7f7f4;
+  max-width: 24ch;
+}
+.feature-banner-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 18px;
+  padding: 12px 22px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 15px; font-weight: 800;
+}
+.feature-banner:hover .feature-banner-cta { background: #f7f7f4; }
+
+@media (max-width: 700px) {
+  .feature-banners { gap: 12px; margin: 20px auto 26px; }
+  .feature-banner, .feature-banner-body { min-height: 172px; }
+  .feature-banner-body { padding: 18px 16px; gap: 12px; }
+  .feature-banner-icon { width: 44px; height: 44px; border-radius: 12px; }
+  .feature-banner-icon svg { width: 22px; height: 22px; }
+  .home-legacy .feature-banner h3,
+  .feature-banner h3 { font-size: 25px; letter-spacing: -1.5px; word-spacing: -1.5px; }
+  .feature-banner p { font-size: 13px; margin-top: 8px; max-width: 20ch; }
+  .feature-banner-cta { margin-top: 12px; padding: 10px 17px; font-size: 13px; }
+  .feature-banner-photo { object-position: 78% center; }
+}
+
+/* Cada foto se encuadra distinto: el sujeto (teléfono o tarjetas) tiene
+   que quedar a la vista y no debajo del texto. */
+.feature-macros .feature-banner-photo { object-position: 58% center; }
+.feature-plato .feature-banner-photo { object-position: 72% center; }
+.feature-pedido .feature-banner-photo { object-position: 56% center; }
+
+@media (max-width: 700px) {
+  /* En pantalla estrecha el velo tiene que cubrir más para que el texto
+     no caiga sobre la comida. */
+  .feature-banner-body {
+    background: linear-gradient(90deg, #0b0b0b 0%, rgba(11, 11, 11, .94) 58%, rgba(11, 11, 11, 0) 92%);
+  }
+  .feature-macros .feature-banner-photo { object-position: 46% center; }
+  .feature-plato .feature-banner-photo { object-position: 80% center; }
+  .feature-pedido .feature-banner-photo { object-position: 52% center; }
+}
+
+/* Los banners son del móvil. En escritorio vuelve la franja de planificar. */
+@media (min-width: 701px) {
+  /* En escritorio solo queda el de planificar, con el mismo diseño. */
+  .feature-macros, .feature-plato { display: none; }
+}
+
+/* --- Visítanos: NUESTRA arriba, TIENDA grande en amarillo ----------- */
+.store-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+.home-legacy .location-section .store-title,
+.store-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: .88;
+  letter-spacing: -2px;
+  margin: 0;
+  color: #fff;
+}
+.home-legacy .location-section .store-title em,
+.store-title em {
+  font-style: normal;
+  color: #ffe500;
+  font-size: 1.42em;
+  letter-spacing: -3px;
+}
+.store-directions {
+  display: inline-flex; align-items: center; gap: 9px;
+  flex-shrink: 0;
+  padding: 13px 22px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 15px; font-weight: 800;
+  text-decoration: none;
+}
+.store-directions:hover { background: #f7f7f4; }
+@media (max-width: 700px) {
+  .store-head { gap: 14px; margin-bottom: 16px; }
+  .store-directions { padding: 11px 16px; font-size: 13px; }
+}
+
+/* Sin la ficha de la sucursal, el mapa ocupa todo el ancho. */
+.home-legacy .location-section .location-grid,
+:root .location-grid { grid-template-columns: 1fr; }
+.home-legacy .location-map,
+.location-map { width: 100%; }
+
 /* --- Boletín ------------------------------------------------------- */
 .sr-only {
   position: absolute; width: 1px; height: 1px;
@@ -471,3 +733,136 @@
   .newsletter-perks li { padding-left: 0; padding-right: 0; }
   .newsletter-drip { height: 70px; background-size: 390px 100%; }
 }
+
+/* --- Boletín -------------------------------------------------------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.home-legacy .newsletter-card,
+.newsletter-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  padding: 96px 40px 30px;
+  background:
+    radial-gradient(120% 160% at 100% 0%, rgba(255, 229, 0, .16) 0%, rgba(255, 229, 0, 0) 55%),
+    #131313;
+  border: 1px solid #2a2a2a;
+}
+.newsletter-drip {
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 90px;
+  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+  pointer-events: none;
+}
+/* La carita del logo, enorme y recortada por el borde. */
+.newsletter-mark {
+  position: absolute; right: -58px; bottom: -70px;
+  width: 300px; height: 300px;
+  background: url('/mascot.png') center/contain no-repeat;
+  opacity: .07;
+  pointer-events: none;
+}
+.newsletter-top {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1.05fr .95fr;
+  align-items: center; gap: 40px;
+}
+.home-legacy .newsletter-kicker,
+.newsletter-kicker {
+  display: inline-block;
+  padding: 6px 14px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.6px;
+  margin-bottom: 16px;
+}
+.home-legacy .newsletter-title,
+.newsletter-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: .98;
+  letter-spacing: -1.6px;
+  margin: 0;
+  color: #fff;
+}
+.home-legacy .newsletter-title em,
+.newsletter-title em { font-style: normal; color: #ffe500; }
+.home-legacy .newsletter-sub,
+.newsletter-sub { margin: 16px 0 0; color: #c9c9c9; font-size: 15px; line-height: 1.5; max-width: 34ch; }
+
+.newsletter-form { display: flex; flex-direction: column; gap: 12px; }
+/* Campo y botón en una sola píldora, como una barra de búsqueda. */
+.newsletter-field {
+  display: flex; align-items: center; gap: 12px;
+  padding: 7px 7px 7px 22px; border-radius: 100px;
+  background: #0b0b0b; border: 1px solid #343434;
+  color: #8e8e8e;
+  transition: border-color .2s ease;
+}
+.newsletter-field:focus-within { border-color: #ffe500; }
+.home-legacy .newsletter-field input,
+.newsletter-field input {
+  flex: 1; min-width: 0;
+  background: none; border: 0; outline: 0; padding: 0;
+  color: #fff; font-size: 15px;
+}
+.newsletter-field input::placeholder { color: #8e8e8e; }
+.home-legacy .newsletter-submit,
+.newsletter-submit {
+  display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+  padding: 13px 22px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 14px; font-weight: 800;
+  transition: background .2s ease;
+}
+.newsletter-submit:hover { background: #fff; }
+.home-legacy .newsletter-fineprint,
+.newsletter-fineprint { padding-left: 22px; font-size: 12px; color: #b5b5b5; }
+
+.home-legacy .newsletter-perks,
+.newsletter-perks {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin: 34px 0 0; padding: 0; list-style: none;
+}
+.home-legacy .newsletter-perks li,
+.newsletter-perks li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; border-radius: 14px;
+  background: #0b0b0b; border: 1px solid #262626;
+  font-size: 13px; line-height: 1.3; color: #f7f7f4;
+}
+.newsletter-perk-icon {
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  display: grid; place-items: center;
+  background: rgba(255, 229, 0, .14); color: #ffe500;
+}
+.newsletter-success {
+  display: flex; align-items: center; gap: 12px;
+  padding: 20px; border-radius: 16px;
+  background: rgba(255, 229, 0, .1); border: 1px solid #ffe500; color: #fff;
+}
+
+@media (max-width: 860px) {
+  .home-legacy .newsletter-card,
+  .newsletter-card { padding: 80px 20px 22px; border-radius: 22px; }
+  .newsletter-top { grid-template-columns: 1fr; gap: 24px; }
+  .home-legacy .newsletter-perks,
+  .newsletter-perks { grid-template-columns: 1fr; gap: 10px; margin-top: 24px; }
+  .newsletter-drip { height: 72px; background-size: 390px 100%; }
+  .newsletter-mark { width: 210px; height: 210px; right: -46px; bottom: -56px; }
+  .newsletter-field { flex-wrap: wrap; border-radius: 22px; padding: 14px; gap: 10px; }
+  .newsletter-field input { flex: 1 0 60%; }
+  .home-legacy .newsletter-submit,
+  .newsletter-submit { width: 100%; justify-content: center; padding: 14px; }
+  .home-legacy .newsletter-fineprint,
+  .newsletter-fineprint { padding-left: 0; text-align: center; }
+}
+
+/* El contenedor del formulario traía su propia caja oscura de la hoja
+   antigua; sobra dentro de la tarjeta. */
+:root.home-legacy .newsletter-panel,
+.newsletter-panel { background: none; border: 0; padding: 0; }

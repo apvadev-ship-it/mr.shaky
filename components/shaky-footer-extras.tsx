@@ -41,10 +41,13 @@ export function NewsletterSection() {
     <section className="newsletter-section">
       <div className="wrap newsletter-card">
         <span className="newsletter-drip" aria-hidden="true" />
+        {/* La gota del logo, en grande y recortada: la marca como textura. */}
+        <span className="newsletter-mark" aria-hidden="true" />
         <div className="newsletter-top">
           <div className="newsletter-copy">
+            <span className="newsletter-kicker">BOLETÍN SHAKY</span>
             <h2 className="newsletter-title">Tu próxima<br />comida favorita<br /><em>empieza aquí.</em></h2>
-            <p className="newsletter-sub">Recetas, promos y lanzamientos<br />directo a tu correo.</p>
+            <p className="newsletter-sub">Recetas, promos y lanzamientos directo a tu correo.</p>
           </div>
           <div className="newsletter-panel">
             {sent ? (
@@ -55,15 +58,17 @@ export function NewsletterSection() {
                 <span className="newsletter-field">
                   <Mail size={19} aria-hidden="true" />
                   <input id="newsletter-email" type="email" required placeholder="tu@correo.com" value={email} onChange={e => setEmail(e.target.value)} />
+                  <button className="newsletter-submit" type="submit" aria-label="Suscribirme">
+                    <span>Suscribirme</span><ArrowUpRight size={18} aria-hidden="true" />
+                  </button>
                 </span>
-                <button className="newsletter-submit" type="submit">Suscribirme <ArrowUpRight size={18} /></button>
                 <span className="newsletter-fineprint">Sin spam. Cancela cuando quieras.</span>
               </form>
             )}
           </div>
         </div>
         <ul className="newsletter-perks">{PERKS.map(([Icon, text]) => (
-          <li key={text}><Icon size={22} /><span>{text}</span></li>
+          <li key={text}><span className="newsletter-perk-icon"><Icon size={18} /></span><span>{text}</span></li>
         ))}</ul>
       </div>
     </section>
