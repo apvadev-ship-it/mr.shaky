@@ -64,6 +64,17 @@ function HomeContent() {
       <PopularSection />
       <MenuPreviewSection />
       <FeatureBanners />
+      <section className="plan-teaser">
+        <div className="wrap plan-teaser-card">
+          <div className="plan-teaser-icon"><CalendarDays size={26} /></div>
+          <div className="plan-teaser-body">
+            <span className="eyebrow">A TU HORA, A TU RITMO</span>
+            <h3>Puedes planificar tu pedido</h3>
+            <p>Elige sucursal, hora y cómo pagar. Nosotros ponemos el sabor.</p>
+          </div>
+          <Link className="btn dark" href="/pedido">Planificar pedido <ArrowUpRight size={18} /></Link>
+        </div>
+      </section>
       <div className="melt melt-community" />
       <ComunidadSection />
     </>

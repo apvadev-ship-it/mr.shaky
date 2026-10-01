@@ -1,16 +1,16 @@
 "use client";
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { MapPin, ArrowUpRight, Mail, Zap, Gift, Bell } from 'lucide-react';
-import { branches, storeAddress } from '@/lib/demo-data';
+import { ArrowUpRight, Mail, Zap, Gift, Bell } from 'lucide-react';
+import { storeAddress } from '@/lib/demo-data';
 
 export function LocationSection() {
-  const branch = branches[0];
   return (
     <section className="location-section">
       <div className="wrap">
-        <div className="section-head">
-          <div><div className="eyebrow"><MapPin size={16} />VISÍTANOS</div><h2>NUESTRA TIENDA</h2><p>Recogida en tienda, sin filas ni esperas.</p></div>
+        <div className="store-head">
+          <h2 className="store-title">NUESTRA<br/><em>TIENDA</em></h2>
+          <a className="store-directions" href={`https://www.google.com/maps/search/${encodeURIComponent(storeAddress)}`} target="_blank" rel="noreferrer">Cómo llegar <ArrowUpRight size={18} /></a>
         </div>
         <div className="location-grid">
           <div className="location-map">
@@ -20,16 +20,6 @@ export function LocationSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
-          <div className="location-list">
-            <div className="location-card" key={branch.id}>
-              <MapPin size={20} />
-              <div>
-                <h3>{branch.name}</h3>
-                <p>{storeAddress}</p>
-              </div>
-              <a className="text-button" href={`https://www.google.com/maps/search/${encodeURIComponent(storeAddress)}`} target="_blank" rel="noreferrer">Cómo llegar <ArrowUpRight size={16} /></a>
-            </div>
           </div>
         </div>
       </div>

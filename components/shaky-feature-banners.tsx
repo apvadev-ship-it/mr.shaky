@@ -5,7 +5,6 @@ import { ArrowRight, Calculator, CalendarDays, Dumbbell } from 'lucide-react';
 const BANNERS: {
   id: string;
   icon: typeof Calculator;
-  eyebrow?: string;
   title: string;
   accent: string;
   copy: string;
@@ -36,7 +35,6 @@ const BANNERS: {
   {
     id: 'pedido',
     icon: CalendarDays,
-    eyebrow: 'A TU HORA, A TU RITMO',
     title: 'PLANIFICA',
     accent: 'TU PEDIDO',
     copy: 'Elige sucursal, fecha y cómo pagar. Nosotros ponemos el sabor.',
@@ -49,13 +47,12 @@ const BANNERS: {
 export function FeatureBanners() {
   return (
     <section className="feature-banners wrap" aria-label="Herramientas de Mr. Shaky">
-      {BANNERS.map(({ id, icon: Icon, eyebrow, title, accent, copy, cta, href, image }) => (
+      {BANNERS.map(({ id, icon: Icon, title, accent, copy, cta, href, image }) => (
         <Link className={`feature-banner feature-${id}`} href={href} key={id}>
           <img className="feature-banner-photo" src={image} alt="" aria-hidden="true" />
           <div className="feature-banner-body">
             <span className="feature-banner-icon"><Icon size={30} /></span>
             <div>
-              {eyebrow && <span className="feature-banner-eyebrow">{eyebrow}</span>}
               <h3>{title}<br /><em>{accent}</em></h3>
               <p>{copy}</p>
               <span className="feature-banner-cta">{cta} <ArrowRight size={18} /></span>
