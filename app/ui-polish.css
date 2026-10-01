@@ -344,3 +344,100 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 @media (max-width: 700px) {
   .time-input { max-width: none; }
 }
+
+/* El derretido del bowl se quedaba en 25px por una regla más específica
+   del diseño nuevo; va al mismo alto que el del resto del sitio. */
+:root:not(.home-legacy) .bowl-hero .drip {
+  height: 105px;
+  bottom: 0;
+  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+}
+@media (max-width: 700px) {
+  :root:not(.home-legacy) .bowl-hero .drip { height: 88px; background-size: 390px 100%; }
+}
+
+/* --- Pedido actual e historial --------------------------------------- */
+.orders-panel { margin: 0 0 26px; }
+.orders-panel-head h2 {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 19px; font-weight: 800; color: #fff; margin: 0 0 14px;
+}
+.orders-panel-head svg { color: #ffe500; }
+.order-entry {
+  background: #151515; border: 1px solid #2a2a2a; border-radius: 16px;
+  padding: 16px 18px; margin-bottom: 12px;
+}
+.order-entry.is-current { border-color: #ffe500; }
+.order-entry header { display: flex; align-items: center; gap: 12px; }
+.order-entry-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center; flex-shrink: 0;
+  background: #ffe500; color: #0b0b0b;
+}
+.order-entry header div { display: flex; flex-direction: column; min-width: 0; }
+.order-entry header strong { font-size: 15px; color: #fff; }
+.order-entry header span { font-size: 12px; color: #9a9a9a; }
+.order-entry-status {
+  margin-left: auto; flex-shrink: 0;
+  padding: 6px 12px; border-radius: 100px;
+  background: #0b0b0b; border: 1px solid #3a3a3a;
+  font-size: 11px; font-weight: 700; color: #ffe500;
+}
+.order-entry ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 4px; }
+.order-entry li { display: flex; gap: 8px; font-size: 13px; color: #f7f7f4; }
+.order-entry li span { color: #ffe500; font-weight: 800; }
+.order-entry footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid #2a2a2a;
+  font-size: 13px; color: #9a9a9a;
+}
+.order-entry footer strong { font-size: 18px; color: #fff; }
+.orders-history-toggle {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 11px 18px; border-radius: 100px;
+  background: #181818; border: 1px solid #3a3a3a; color: #f7f7f4;
+  font-size: 13px; font-weight: 700;
+}
+.orders-history-toggle:hover { border-color: #ffe500; }
+.orders-history { margin-top: 12px; }
+
+@media (max-width: 700px) {
+  .order-entry { padding: 14px; }
+  .order-entry header { flex-wrap: wrap; }
+  .order-entry-status { margin-left: 0; }
+}
+
+/* Las notas de referencia de comunidad quedaban en 4.40:1. */
+:root:not(.home-legacy) .community-demo { color: #8e8e8e; }
+
+/* --- Carrito ---------------------------------------------------------
+   Más aire, objetivos táctiles cómodos y el total siempre a la vista. */
+:root.home-legacy .cart-sheet,
+.cart-sheet { display: flex; flex-direction: column; }
+:root.home-legacy .cart-sheet .cart-items,
+.cart-sheet .cart-items { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+:root.home-legacy .cart-item,
+.cart-item { padding: 14px 0; border-bottom: 1px solid #262626; }
+:root.home-legacy .cart-item .quantity button,
+.cart-item .quantity button {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #1c1c1c; border: 1px solid #3a3a3a; color: #fff;
+}
+:root.home-legacy .cart-item .quantity button:hover,
+.cart-item .quantity button:hover { border-color: #ffe500; }
+:root.home-legacy .cart-item .quantity output,
+.cart-item .quantity output { min-width: 28px; text-align: center; font-weight: 800; }
+/* El pie con el total no se va con el scroll. */
+:root.home-legacy .cart-sheet .cart-footer,
+.cart-sheet .cart-footer {
+  position: sticky; bottom: 0;
+  background: #121212;
+  border-top: 1px solid #2a2a2a;
+  padding-top: 14px;
+  margin-top: auto;
+}
+@media (max-width: 700px) {
+  :root.home-legacy .cart-item .quantity button,
+  .cart-item .quantity button { width: 38px; height: 38px; }
+}

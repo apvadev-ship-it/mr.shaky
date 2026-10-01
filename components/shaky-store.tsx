@@ -28,7 +28,7 @@ type Ctx = {
   customerPhone: string; setCustomerPhone: (v: string) => void;
   paymentMethod: PaymentMethod; setPaymentMethod: (v: PaymentMethod) => void;
   submitting: boolean;
-  order: Order | null; orderOpen: boolean; setOrderOpen: (v: boolean) => void;
+  order: Order | null; orders: Order[]; orderOpen: boolean; setOrderOpen: (v: boolean) => void;
   reviews: Review[]; reviewOpen: boolean; setReviewOpen: (v: boolean) => void;
   addReview: (name: string, text: string, stars: number) => void;
   count: number; subtotal: number; discount: number; total: number;
@@ -69,6 +69,8 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cash');
   const [submitting, setSubmitting] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
+  // Historial: el más reciente primero.
+  const [orders, setOrders] = useState<Order[]>([]);
   const [orderOpen, setOrderOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>(demoReviews);
   const [reviewOpen, setReviewOpen] = useState(false);
@@ -86,6 +88,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
       setFavorites(Array.isArray(saved.favorites) ? saved.favorites.filter((id: string) => products.some(p => p.id === id)) : []);
       if (Array.isArray(saved.reviews)) setReviews([...demoReviews, ...saved.reviews.filter((r: any) => typeof r.name === 'string' && typeof r.text === 'string' && r.stars >= 1 && r.stars <= 5).slice(0, 20)]);
       if (saved.order && typeof saved.order.id === 'string' && Array.isArray(saved.order.items)) setOrder(saved.order);
+      if (Array.isArray(saved.orders)) setOrders(saved.orders.filter((o: Order) => o && typeof o.id === 'string' && Array.isArray(o.items)).slice(0, 25));
       if (typeof saved.customerName === 'string') setCustomerName(saved.customerName.slice(0, 80));
       if (typeof saved.customerPhone === 'string') setCustomerPhone(saved.customerPhone.slice(0, 20));
       if (typeof saved.appliedCoupon === 'string' && getCouponPercent(saved.appliedCoupon) !== null) { setAppliedCoupon(saved.appliedCoupon); setCouponInput(saved.appliedCoupon) }
@@ -95,8 +98,8 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (loaded) try { localStorage.setItem('shaky-demo-v1', JSON.stringify({ cart, favorites, bowls, reviews: reviews.filter(r => !r.id.startsWith('r')), order, customerName, customerPhone, appliedCoupon })) } catch { }
-  }, [cart, favorites, bowls, reviews, order, customerName, customerPhone, appliedCoupon, loaded]);
+    if (loaded) try { localStorage.setItem('shaky-demo-v1', JSON.stringify({ cart, favorites, bowls, orders, reviews: reviews.filter(r => !r.id.startsWith('r')), order, customerName, customerPhone, appliedCoupon })) } catch { }
+  }, [cart, favorites, bowls, orders, reviews, order, customerName, customerPhone, appliedCoupon, loaded]);
 
   const add = (id: string) => { setCart(c => ({ ...c, [id]: Math.min(99, (c[id] || 0) + 1) })); toast.success('Agregado a tu carrito', { description: catalog.find(p => p.id === id)?.name }) };
   const changeQty = (id: string, delta: number) => setCart(c => { const next = { ...c, [id]: Math.min(99, (c[id] || 0) + delta) }; if (next[id] <= 0) delete next[id]; return next });
@@ -151,7 +154,9 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
           return data;
         })
         .then(data => {
-          setOrder({ id: data.orderId, branch: data.branch, date: data.pickupDate, time: data.pickupTime, subtotal: data.subtotal, discount: data.discount, couponCode: data.couponCode, total: data.total, items: data.items, paymentMethod: 'cash', status: 'pending_pickup' });
+          const placed: Order = { id: data.orderId, branch: data.branch, date: data.pickupDate, time: data.pickupTime, subtotal: data.subtotal, discount: data.discount, couponCode: data.couponCode, total: data.total, items: data.items, paymentMethod: 'cash', status: 'pending_pickup' };
+          setOrder(placed);
+          setOrders(list => [placed, ...list.filter(o => o.id !== placed.id)].slice(0, 25));
           setOrderOpen(true); setCart({}); removeCoupon();
         })
         .catch(() => toast.error('No pudimos programar tu pedido. Intenta de nuevo.'))
@@ -193,7 +198,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
     cart, favorites, compare, bowls, catalog, addBowl, cartOpen, setCartOpen, navOpen, setNavOpen,
     compareOpen, setCompareOpen, branch, setBranch, date, setDate, time, setTime, slots,
     customerName, setCustomerName, customerPhone, setCustomerPhone, paymentMethod, setPaymentMethod, submitting,
-    order, orderOpen, setOrderOpen, reviews, reviewOpen, setReviewOpen, addReview,
+    order, orders, orderOpen, setOrderOpen, reviews, reviewOpen, setReviewOpen, addReview,
     count, subtotal, discount, total, add, changeQty, removeFromCart, clearCart, toggleFavorite, toggleCompare, submitOrder,
     couponInput, setCouponInput, appliedCoupon, couponError, applyCoupon, removeCoupon,
   }}>{children}</ShakyCtx.Provider>;
