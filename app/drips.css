@@ -110,3 +110,104 @@
 @media (prefers-reduced-motion: reduce) {
   .flip-inner { transition: none; }
 }
+
+/* --- Tarjeta de producto, igual en la home y en el menú --------------
+   Va colgada de .flip-card para ganarle tanto a las reglas del diseño
+   antiguo (.home-legacy .product*) como a las del nuevo. */
+.flip-card .product-picture { position: relative; }
+.flip-card .product-picture img {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+}
+.flip-card .photo-button { width: 100%; padding: 0; display: block; }
+.flip-card .favorite {
+  position: absolute; top: 10px; right: 10px; z-index: 3;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(11, 11, 11, .62); color: #fff;
+  backdrop-filter: blur(4px);
+}
+.flip-card .favorite.saved { background: #ffe500; color: #0b0b0b; }
+.flip-card .add {
+  position: absolute; right: 10px; bottom: -18px; z-index: 3;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #ffe500; color: #0b0b0b;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .3);
+}
+.flip-card .product-body {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 16px 12px 12px; flex: 1;
+}
+.flip-card .product-name {
+  font-size: 16px; font-weight: 800; line-height: 1.2;
+  text-align: left; padding: 0; color: inherit;
+}
+.flip-card .product-body > p {
+  font-size: 12px; line-height: 1.45; margin: 0; min-height: 0;
+}
+/* Estrellas y precio: centrados y más grandes. */
+.flip-card .rating {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 14px; margin-top: 2px;
+}
+.flip-card .rating > span { font-size: 19px; letter-spacing: -1px; }
+.flip-card .price {
+  display: block; text-align: center;
+  font-size: 24px; font-weight: 800; letter-spacing: -.5px;
+}
+/* Comparar: amarillo y redondeado. */
+.flip-card .compare-product {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  width: 100%; margin-top: 4px;
+  padding: 9px 12px; border-radius: 100px;
+  background: #ffe500; border: 1px solid #ffe500; color: #0b0b0b;
+  font-size: 12px; font-weight: 700;
+}
+.flip-card .compare-product:hover { background: #0b0b0b; border-color: #0b0b0b; color: #ffe500; }
+.flip-card .compare-product.active { background: #0b0b0b; border-color: #0b0b0b; color: #ffe500; }
+
+/* Espaciado del cuerpo: un solo hueco pequeño, sin márgenes sueltos que
+   se sumen al gap. Más específico para ganarle a las dos hojas. */
+:root .flip-card .product-body,
+.home-legacy .flip-card .product-body {
+  gap: 4px;
+  padding: 12px 12px 10px;
+}
+:root .flip-card .product-body > *,
+.home-legacy .flip-card .product-body > * { margin: 0; }
+:root .flip-card .rating,
+.home-legacy .flip-card .rating { margin-top: 0; }
+:root .flip-card .compare-product,
+.home-legacy .flip-card .compare-product { margin-top: 2px; }
+
+/* Las hojas del menú y del bloque claro son más específicas: aquí las
+   igualamos para que el precio y el botón Comparar manden en ambas. */
+:root .flip-card .price,
+:root:not(.home-legacy) .menu-light .flip-card .price,
+.home-legacy .flip-card .price {
+  font-size: 24px;
+  text-align: center;
+  display: block;
+}
+:root .flip-card .rating > span,
+:root:not(.home-legacy) .menu-light .flip-card .rating > span { font-size: 19px; }
+:root .flip-card .compare-product,
+:root:not(.home-legacy) .menu-light .flip-card .compare-product,
+.home-legacy .flip-card .compare-product {
+  background: #ffe500;
+  border-color: #ffe500;
+  color: #0b0b0b;
+  border-radius: 100px;
+}
+:root .flip-card .compare-product.active,
+:root:not(.home-legacy) .menu-light .flip-card .compare-product.active,
+:root .flip-card .compare-product:hover,
+:root:not(.home-legacy) .menu-light .flip-card .compare-product:hover {
+  background: #0b0b0b;
+  border-color: #0b0b0b;
+  color: #ffe500;
+}
+@media (max-width: 700px) {
+  :root .flip-card .price,
+  :root:not(.home-legacy) .menu-light .flip-card .price { font-size: 21px; }
+}
