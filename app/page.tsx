@@ -4,6 +4,7 @@ import { ArrowUpRight, Leaf, Dumbbell, Timer, Heart, Calculator, CalendarDays, U
 import { MenuPreviewSection } from '@/components/shaky-menu-preview';
 import { PopularSection } from '@/components/shaky-popular-section';
 import { ComunidadSection } from '@/components/shaky-comunidad-section';
+import { FeatureBanners } from '@/components/shaky-feature-banners';
 import { LocationSection, NewsletterSection } from '@/components/shaky-footer-extras';
 import { useEffect } from 'react';
 
@@ -62,20 +63,7 @@ function HomeContent() {
 
       <PopularSection />
       <MenuPreviewSection />
-      <Link className="mobile-macros" href="/calculadoras"><Calculator /><span><strong>Calcula tus macros</strong><small>Descubre cuánta proteína necesitas según tu rutina.</small></span><ArrowUpRight /></Link>
-      <Link className="mobile-macros" href="/calculadoras#quiz"><Dumbbell /><span><strong>Encuentra tu plato</strong><small>Cuéntanos qué entrenaste hoy y te recomendamos uno.</small></span><ArrowUpRight /></Link>
-
-      <section className="plan-teaser">
-        <div className="wrap plan-teaser-card">
-          <div className="plan-teaser-icon"><CalendarDays size={26} /></div>
-          <div className="plan-teaser-body">
-            <span className="eyebrow">A TU HORA, A TU RITMO</span>
-            <h3>Puedes planificar tu pedido</h3>
-            <p>Elige sucursal, hora y cómo pagar. Nosotros ponemos el sabor.</p>
-          </div>
-          <Link className="btn dark" href="/checkout">Planificar pedido <ArrowUpRight size={18} /></Link>
-        </div>
-      </section>
+      <FeatureBanners />
       <div className="melt melt-community" />
       <ComunidadSection />
     </>
