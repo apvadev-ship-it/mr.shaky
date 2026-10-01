@@ -39,26 +39,32 @@ export function NewsletterSection() {
 
   return (
     <section className="newsletter-section">
-      <div className="wrap newsletter-wrap">
-        <div className="newsletter-copy">
-          <h2 className="newsletter-title">Tu próxima<br />comida favorita<br /><em>empieza aquí.</em></h2>
-          <p className="newsletter-sub">Recetas, promos y lanzamientos directo a tu correo.</p>
-          <ul className="newsletter-perks">{PERKS.map(([Icon, text]) => (
-            <li key={text}><Icon size={16} />{text}</li>
-          ))}</ul>
+      <div className="wrap newsletter-card">
+        <span className="newsletter-drip" aria-hidden="true" />
+        <div className="newsletter-top">
+          <div className="newsletter-copy">
+            <h2 className="newsletter-title">Tu próxima<br />comida favorita<br /><em>empieza aquí.</em></h2>
+            <p className="newsletter-sub">Recetas, promos y lanzamientos<br />directo a tu correo.</p>
+          </div>
+          <div className="newsletter-panel">
+            {sent ? (
+              <div className="newsletter-success"><Mail size={22} /><span>¡Listo! Ya estás dentro de la familia Shaky.</span></div>
+            ) : (
+              <form className="newsletter-form" onSubmit={e => { e.preventDefault(); if (!email.trim()) return; setSent(true); toast.success('Te suscribiste al boletín Shaky'); }}>
+                <label className="sr-only" htmlFor="newsletter-email">Tu correo</label>
+                <span className="newsletter-field">
+                  <Mail size={19} aria-hidden="true" />
+                  <input id="newsletter-email" type="email" required placeholder="tu@correo.com" value={email} onChange={e => setEmail(e.target.value)} />
+                </span>
+                <button className="newsletter-submit" type="submit">Suscribirme <ArrowUpRight size={18} /></button>
+                <span className="newsletter-fineprint">Sin spam. Cancela cuando quieras.</span>
+              </form>
+            )}
+          </div>
         </div>
-        <div className="newsletter-panel">
-          {sent ? (
-            <div className="newsletter-success"><Mail size={22} /><span>¡Listo! Ya estás dentro de la familia Shaky.</span></div>
-          ) : (
-            <form className="newsletter-form" onSubmit={e => { e.preventDefault(); if (!email.trim()) return; setSent(true); toast.success('Te suscribiste al boletín Shaky'); }}>
-              <label htmlFor="newsletter-email">Tu correo</label>
-              <input id="newsletter-email" type="email" required placeholder="tu@correo.com" value={email} onChange={e => setEmail(e.target.value)} />
-              <button className="btn" type="submit">Suscribirme <ArrowUpRight size={18} /></button>
-              <span className="newsletter-fineprint">Sin spam. Cancela cuando quieras.</span>
-            </form>
-          )}
-        </div>
+        <ul className="newsletter-perks">{PERKS.map(([Icon, text]) => (
+          <li key={text}><Icon size={22} /><span>{text}</span></li>
+        ))}</ul>
       </div>
     </section>
   );

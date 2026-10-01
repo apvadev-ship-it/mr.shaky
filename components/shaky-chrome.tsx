@@ -13,7 +13,7 @@ const NAV_LINKS: [string, string][] = [
   ['Inicio', '/'],
   ['Menú', '/menu'],
   ['Pedido', '/pedido'],
-  ['Nosotros', '/#nosotros'],
+  ['Calculadora', '/calculadoras'],
   ['Comunidad', '/comunidad'],
 ];
 

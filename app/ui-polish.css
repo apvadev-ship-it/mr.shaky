@@ -211,3 +211,59 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
   color: #0b0b0b;
   font-weight: 700;
 }
+
+/* --- Contraste ------------------------------------------------------
+   Amarillo y grises claros sobre el crema no llegan a AA. Sobre claro el
+   texto va en negro; el amarillo queda para fondos oscuros. */
+:root:not(.home-legacy) .menu-light .featured-heading button,
+:root:not(.home-legacy) .menu-light .featured-heading button svg,
+:root:not(.home-legacy) .menu-light .results-head button,
+:root:not(.home-legacy) .menu-light .results-head button svg,
+:root:not(.home-legacy) .menu-light .results-head,
+:root:not(.home-legacy) .menu-light .section-heading a,
+:root:not(.home-legacy) .menu-light .section-heading a svg,
+:root:not(.home-legacy) .menu-light .results-count { color: #0b0b0b; }
+
+/* El botón de la tienda iba amarillo pegado a la palabra TIENDA, también
+   amarilla: se leían como una sola mancha. En blanco se separa. */
+.home-legacy .store-directions,
+.store-directions { background: #f7f7f4; color: #0b0b0b; }
+.home-legacy .store-directions:hover,
+.store-directions:hover { background: #ffe500; }
+
+/* Amarillo sobre crema da 1.19:1 — ilegible. En los bloques claros de la
+   home el acento y las estrellas pasan a negro. */
+@media (max-width: 700px) {
+  :root.home-legacy .light h2 em,
+  :root.home-legacy #menu h2 em,
+  :root.home-legacy .popular h2 em,
+  :root.home-legacy .quick h2 em { color: #0b0b0b !important; }
+}
+:root.home-legacy .light .rating,
+:root.home-legacy .light .rating > span,
+:root.home-legacy .light .rating small,
+:root.home-legacy .flip-card .rating,
+:root.home-legacy .flip-card .rating > span,
+:root.home-legacy .flip-card .rating small,
+:root .flip-card .rating,
+:root .flip-card .rating > span,
+:root .flip-card .rating small { color: #0b0b0b; }
+
+/* La letra pequeña del boletín estaba en 3.43:1. */
+:root.home-legacy .newsletter-fineprint,
+:root .newsletter-fineprint { color: #b5b5b5; }
+
+
+
+/* #777 se queda en 4.4-4.48 y el umbral AA es 4.5. Un mismo gris no puede
+   cruzarlo sobre blanco y sobre negro a la vez, así que se separa. */
+:root:not(.home-legacy) .macro-page p,
+:root:not(.home-legacy) .macro-page summary,
+:root:not(.home-legacy) .pending-result,
+:root:not(.home-legacy) .calculation-method p,
+:root:not(.home-legacy) .calculation-method summary,
+:root:not(.home-legacy) .new-order-main .plan-card p,
+:root:not(.home-legacy) .bowl-step p { color: #636363; }
+:root:not(.home-legacy) .macro-page .macro-section.dark p,
+:root:not(.home-legacy) .order-summary p,
+:root:not(.home-legacy) .demo-note { color: #8e8e8e; }

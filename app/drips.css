@@ -372,3 +372,102 @@
 :root .location-grid { grid-template-columns: 1fr; }
 .home-legacy .location-map,
 .location-map { width: 100%; }
+
+/* --- Boletín ------------------------------------------------------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.home-legacy .newsletter-card,
+.newsletter-card {
+  position: relative;
+  overflow: hidden;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  border-radius: 22px;
+  padding: 92px 34px 26px;
+}
+/* El mismo derretido del resto del sitio, cayendo dentro de la tarjeta. */
+.newsletter-drip {
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 86px;
+  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+  pointer-events: none;
+}
+.newsletter-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 32px;
+}
+.home-legacy .newsletter-title,
+.newsletter-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.04;
+  letter-spacing: -1.4px;
+  margin: 0;
+  color: #fff;
+}
+.home-legacy .newsletter-title em,
+.newsletter-title em { font-style: normal; color: #ffe500; }
+.home-legacy .newsletter-sub,
+.newsletter-sub { margin: 14px 0 0; color: #c9c9c9; font-size: 15px; line-height: 1.45; }
+
+.newsletter-form { display: flex; flex-direction: column; gap: 12px; }
+.newsletter-field {
+  display: flex; align-items: center; gap: 12px;
+  padding: 15px 20px; border-radius: 100px;
+  background: #0b0b0b; border: 1px solid #333;
+  color: #8f8f8f;
+}
+.newsletter-field:focus-within { border-color: #ffe500; }
+.home-legacy .newsletter-field input,
+.newsletter-field input {
+  flex: 1; min-width: 0;
+  background: none; border: 0; outline: 0; padding: 0;
+  color: #fff; font-size: 15px;
+}
+.newsletter-field input::placeholder { color: #8f8f8f; }
+.home-legacy .newsletter-submit,
+.newsletter-submit {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 16px 24px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 16px; font-weight: 800;
+}
+.newsletter-submit:hover { background: #f7f7f4; }
+.home-legacy .newsletter-fineprint,
+.newsletter-fineprint { text-align: center; font-size: 12px; color: #9a9a9a; }
+
+.home-legacy .newsletter-perks,
+.newsletter-perks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.home-legacy .newsletter-perks li,
+.newsletter-perks li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 22px;
+  font-size: 14px; line-height: 1.3; color: #f7f7f4;
+}
+.newsletter-perks li + li { border-left: 1px solid #2f2f2f; }
+.newsletter-perks li:first-child { padding-left: 0; }
+.newsletter-perks svg { color: #ffe500; flex-shrink: 0; }
+
+@media (max-width: 860px) {
+  .home-legacy .newsletter-card,
+  .newsletter-card { padding: 78px 20px 22px; }
+  .newsletter-top { grid-template-columns: 1fr; gap: 22px; }
+  .home-legacy .newsletter-perks,
+  .newsletter-perks { grid-template-columns: 1fr; gap: 14px; }
+  .newsletter-perks li + li { border-left: 0; border-top: 1px solid #2f2f2f; padding-top: 14px; }
+  .home-legacy .newsletter-perks li,
+  .newsletter-perks li { padding-left: 0; padding-right: 0; }
+  .newsletter-drip { height: 70px; background-size: 390px 100%; }
+}
