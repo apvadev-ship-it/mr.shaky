@@ -2,6 +2,7 @@
 import {useState} from 'react';
 import {Plus,Minus,Crown,Heart,Scale,ArrowLeftRight} from 'lucide-react';
 import {money,Product} from './data';
+import {MacroRings} from '@/components/shaky-macro-rings';
 export function Quantity({value,onMinus,onPlus,name}:{value:number;onMinus:()=>void;onPlus:()=>void;name:string}){return <div className="quantity"><button aria-label={`Reducir ${name}`} onClick={onMinus}><Minus size={15}/></button><span>{value}</span><button aria-label={`Aumentar ${name}`} onClick={onPlus} disabled={value>=99}><Plus size={15}/></button></div>}
 export function Macros({p}:{p:Product}){return <div className="macros"><span><b>{p.protein}g</b>Prot.</span><span><b>{p.carbs}g</b>Carbs</span><span><b>{p.fat}g</b>Grasas</span></div>}
 export function ProductCard({p,favorite,compared,onFavorite,onCompare,onAdd,onDetail}:{p:Product;favorite:boolean;compared:boolean;onFavorite:()=>void;onCompare:()=>void;onAdd:()=>void;onDetail:()=>void}){
@@ -27,12 +28,7 @@ return <article className="product flip-card">
     <img className="flip-back-photo" src={p.image} alt="" aria-hidden="true"/>
     <div className="flip-back-body">
       <h3>{p.name}</h3>
-      <div className="flip-tiles">
-        <span className="flip-tile macro-protein"><b>{p.protein}g</b>Proteína</span>
-        <span className="flip-tile macro-carbs"><b>{p.carbs}g</b>Carbohidratos</span>
-        <span className="flip-tile macro-fat"><b>{p.fat}g</b>Grasas</span>
-        <span className="flip-tile macro-calories"><b>{p.calories}</b>Calorías</span>
-      </div>
+      <MacroRings p={p} compact/>
     </div>
   </div>
 </div>

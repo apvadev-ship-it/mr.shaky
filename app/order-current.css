@@ -105,7 +105,7 @@
   .oc-line-copy h3 { font-size: 19px; font-weight: 800; margin: 0 0 4px; letter-spacing: -.4px; }
   .oc-line-copy p { font-size: 14px; line-height: 1.35; color: #4a4a4a; margin: 0 0 8px; max-width: 34ch; }
   .oc-line-rating { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; }
-  .oc-line-rating > span { color: #ffc400; letter-spacing: -1px; font-size: 17px; }
+  .oc-line-rating > span { color: #0b0b0b; letter-spacing: -1px; font-size: 17px; }
   .oc-line-rating small { color: #5f5f5f; font-weight: 500; }
 
   .oc-qty {

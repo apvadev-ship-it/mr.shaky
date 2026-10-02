@@ -113,13 +113,17 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 }
 .menu-light-main { padding-top: 122px; padding-bottom: 56px; }
 
-/* Todo lo que cae en el blanco se adapta. */
+/* Todo lo que cae en el blanco se adapta, menos lo que trae su propio
+   fondo oscuro: el banner de macros quedaba con titulo negro sobre negro. */
 :root:not(.home-legacy) .menu-light h2,
 :root:not(.home-legacy) .menu-light h3,
 :root:not(.home-legacy) .menu-light .section-heading h2 { color: #0b0b0b; }
 :root:not(.home-legacy) .menu-light p,
 :root:not(.home-legacy) .menu-light small,
 :root:not(.home-legacy) .menu-light label { color: #4a4a4a; }
+
+:root:not(.home-legacy) .menu-light .macro-banner h2 { color: #ffe500; }
+:root:not(.home-legacy) .menu-light .macro-banner p { color: #fff; }
 
 :root:not(.home-legacy) .menu-light .pill,
 :root:not(.home-legacy) .menu-light .filter-choice,
@@ -182,8 +186,8 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 :root:not(.home-legacy) .menu-light .flip-back,
 :root:not(.home-legacy) .menu-light .flip-back h3,
 :root:not(.home-legacy) .menu-light .flip-back p { color: #fff; }
-:root:not(.home-legacy) .menu-light .flip-tile,
-:root:not(.home-legacy) .menu-light .flip-tile b { color: #0b0b0b; }
+:root:not(.home-legacy) .menu-light .flip-back .macro-dial b { color: #fff; }
+:root:not(.home-legacy) .menu-light .flip-back figcaption { color: #b0b0b0; }
 
 /* Grises legibles sobre el crema. */
 :root:not(.home-legacy) .menu-light .results-count,
@@ -641,7 +645,13 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
     font-size: 12.5px !important; font-weight: 700 !important;
     white-space: nowrap;
   }
-  :root:not(.home-legacy) .mobile-compare-summary svg { color: #ffe500; }
+  /* La regla del bloque claro pinta de negro los iconos de .results-head
+     button, y este boton es negro: el icono desaparecia. Hace falta ganarle
+     en especificidad, no solo en orden. */
+  :root:not(.home-legacy) .menu-light .results-head button.mobile-compare-summary svg {
+    color: #ffe500;
+    width: 16px; height: 16px;
+  }
   :root:not(.home-legacy) .results-head { gap: 10px; }
 
   :root:not(.home-legacy) .compare-dock {
@@ -820,3 +830,16 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
     top: auto; bottom: 18px; right: 17px; transform: none;
   }
 }
+
+/* --- Contraste: textos que caen sobre el negro, no sobre tarjeta blanca ---
+   El gris #636363 esta pensado para las tarjetas claras de la calculadora;
+   estos dos cuelgan del fondo negro de la pagina y quedaban en 3.28.
+   Y #777 sobre negro se queda en 4.4, justo por debajo del umbral AA. */
+:root:not(.home-legacy) .macro-page > .page-title p,
+:root:not(.home-legacy) .macro-page .manual-distribution > summary { color: #d8d8d8; }
+
+/* El aviso del checkout va sobre la tarjeta blanca y el del pedido sobre
+   el fondo negro: el mismo gris no sirve para los dos. */
+:root:not(.home-legacy) .demo-checkout-note { color: #6b6b6b; }
+:root:not(.home-legacy) .order-disclaimer,
+:root:not(.home-legacy) .order-v2 .order-disclaimer { color: #8e8e8e; }

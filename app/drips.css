@@ -89,14 +89,11 @@
 }
 .flip-back-body { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 11px; }
 .flip-back h3 { font-size: 21px; line-height: 1.12; }
-.flip-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.flip-tile {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2px; padding: 10px 6px; border-radius: 10px;
-  background: #ffe500; color: #0b0b0b;
-  font-size: 10px; font-weight: 600; line-height: 1.1; text-align: center;
-}
-.flip-tile b { font-size: 17px; font-weight: 800; }
+/* El reverso muestra los mismos anillos que la comparativa. */
+.flip-back .macro-rings { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; }
+.flip-back .macro-dial { max-width: 72px; }
+.flip-back .macro-dial b { font-size: 16px; }
+.flip-back figcaption { font-size: 9px; letter-spacing: .4px; min-height: 2.2em; }
 .flip-btn {
   position: absolute; top: 10px; left: 10px; z-index: 4;
   width: 34px; height: 34px; border-radius: 50%;
@@ -877,7 +874,3 @@
   --macro-carbs: #ffe500;
   --macro-fat: #3aa0ff;
 }
-.flip-tile.macro-calories { background: var(--macro-calories); }
-.flip-tile.macro-protein { background: var(--macro-protein); }
-.flip-tile.macro-carbs { background: var(--macro-carbs); }
-.flip-tile.macro-fat { background: var(--macro-fat); }
