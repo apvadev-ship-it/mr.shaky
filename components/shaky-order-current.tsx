@@ -30,7 +30,7 @@ export function OrderCurrent({ onCheckout }: { onCheckout: () => void }) {
     <section className="oc">
       <div className="wrap oc-grid">
         <div className="oc-main">
-          <span className="oc-crumb"><ChevronRight size={14} aria-hidden="true" />PLANIFICA TU PEDIDO</span>
+          <span className="oc-crumb"><ChevronRight size={14} aria-hidden="true" />FINALIZA TU PEDIDO</span>
           <h1 className="oc-title">Tu pedido <em>actual</em></h1>
           <p className="oc-lead">Revisa tu pedido, ajusta las cantidades o elimina productos.</p>
 

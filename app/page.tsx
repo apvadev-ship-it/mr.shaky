@@ -21,7 +21,7 @@ function useLegacyScope() {
 const QUICK_LINKS: [LucideIcon, string, string, string][] = [
   [Calculator, 'Calcula tus macros', 'Descubre lo que tu cuerpo necesita.', '/calculadoras'],
   [Dumbbell, 'Encuentra tu plato', 'Cuéntanos qué entrenaste hoy.', '/calculadoras#quiz'],
-  [CalendarDays, 'Programa tu pedido', 'Tú entrenas. Nosotros cocinamos.', '/pedido'],
+  [CalendarDays, 'Programa tu pedido', 'Tú entrenas. Nosotros cocinamos.', '/checkout'],
   [Utensils, 'Explora el menú', 'Comer bien también sabe brutal.', '/menu'],
 ];
 

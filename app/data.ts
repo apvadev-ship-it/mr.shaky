@@ -20,4 +20,7 @@ export const goals = ['Ganancia muscular', 'Pérdida de grasa', 'Mantenimiento',
 export const branches = storeBranches.map(b => ({ name: b.name, city: b.city, address: storeAddress }));
 export const brand = { instagram: instagramUrl, spotify: spotifyPlaylistId as string | null };
 export const asset = (name: string) => `/assets/${name}.webp`;
-export const nav = [['inicio', 'Inicio'], ['menu', 'Menú'], ['bowl', 'Arma tu bowl'], ['calculadoras', 'Calculadoras'], ['pedido', 'Planifica'], ['nosotros', 'Nosotros'], ['comunidad', 'Comunidad']];
+export const nav = [['inicio', 'Inicio'], ['menu', 'Menú'], ['bowl', 'Arma tu bowl'], ['calculadoras', 'Calculadoras'], ['pedido', 'Mis pedidos'], ['nosotros', 'Nosotros'], ['comunidad', 'Comunidad']];
+// 'checkout' resuelve pero no sale en la navegacion: se llega desde el
+// carrito y desde los accesos del inicio.
+export const routes = [...nav.map(([id]) => id), 'checkout'];

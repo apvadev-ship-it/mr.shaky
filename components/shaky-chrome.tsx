@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { ArrowUpRight, ArrowRight, ShoppingBag, Search, Menu, Home, Utensils, CalendarDays, Headphones, Minus, Plus, Trash2, Crown, Tag, X } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, ShoppingBag, Search, Menu, Home, Utensils, ClipboardList, Headphones, Minus, Plus, Trash2, Crown, Tag, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Toaster } from 'sonner';
 import { products, money } from '@/lib/demo-data';
@@ -12,7 +12,8 @@ import { InstagramIcon, TikTokIcon, SpotifyIcon, YouTubeIcon } from './shaky-soc
 const NAV_LINKS: [string, string][] = [
   ['Inicio', '/'],
   ['Menú', '/menu'],
-  ['Pedido', '/pedido'],
+  ['Planificar', '/checkout'],
+  ['Mis pedidos', '/pedido'],
   ['Calculadora', '/calculadoras'],
   ['Comunidad', '/comunidad'],
 ];
@@ -50,7 +51,7 @@ export function ShakyChrome() {
   const isActive = (href: string) => {
     if (href.includes('#')) return pathname === '/' && hash === href.slice(href.indexOf('#'));
     if (href === '/') return pathname === '/' && !hash;
-    if (href === '/pedido') return pathname === '/pedido' || pathname.startsWith('/checkout');
+    if (href === '/checkout') return pathname.startsWith('/checkout');
     return pathname === href || pathname.startsWith(href + '/');
   };
 
@@ -94,7 +95,7 @@ export function ShakyChrome() {
         <Link href="/" className={pathname === '/' ? 'active' : ''}><Home /><span>Inicio</span></Link>
         <Link href="/menu" className={pathname.startsWith('/menu') ? 'active' : ''}><Utensils /><span>Menú</span></Link>
         <button onClick={() => setCartOpen(true)}><ShoppingBag /><span>Carrito{count ? ` (${count})` : ''}</span></button>
-        <Link href="/pedido" className={pathname === '/pedido' || pathname.startsWith('/checkout') ? 'active' : ''}><CalendarDays /><span>Pedido</span></Link>
+        <Link href="/pedido" className={pathname === '/pedido' ? 'active' : ''}><ClipboardList /><span>Mis pedidos</span></Link>
         <Link href="/comunidad" className={pathname.startsWith('/comunidad') ? 'active' : ''}><Headphones /><span>Comunidad</span></Link>
       </nav>
 
@@ -147,7 +148,7 @@ export function ShakyChrome() {
                 {discount > 0 && <div className="coupon-line discount"><span>Descuento</span><span>-{money(discount)}</span></div>}
                 <div><span>Total</span><strong>{money(total)}</strong></div>
                 <p>Recogida en sucursal · Sin costo de envío</p>
-                <Link className="btn" href="/pedido" onClick={() => setCartOpen(false)}>Finalizar pedido <ArrowRight size={18} /></Link>
+                <Link className="btn" href="/checkout" onClick={() => setCartOpen(false)}>Finalizar pedido <ArrowRight size={18} /></Link>
                 <span className="fineprint">No se realizan cobros ni pedidos reales.</span>
               </div>
             </>
