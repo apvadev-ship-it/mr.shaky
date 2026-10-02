@@ -1,14 +1,19 @@
 /* --- Carrito: panel de compra ----------------------------------------
-   En celular sube desde abajo y se queda POR DEBAJO del menú inferior,
-   que sigue visible y por encima. En escritorio entra por la derecha.
+   Un solo diseño para los dos anchos. Lo único que cambia es por dónde
+   entra y qué forma tiene el panel: en celular sube desde abajo y se queda
+   por debajo del menú inferior; en escritorio entra por la derecha a
+   altura completa.
 
    Ojo con los selectores: el panel lleva la clase home-legacy, y esa hoja
    se importa la última, así que a igual especificidad gana ella. Por eso
    las reglas encadenan .cart-sheet.home-legacy en vez de heredar. */
-/* Alto del menú inferior: lo usan el panel y su hueco. */
-:root { --nav-h: 76px; }
 
-.cart-grabber, .cart-logo { display: none; }
+/* Alto del menú inferior y margen interior del panel: los usan varias
+   reglas, y el margen hace que la lista y el resumen queden alineados. */
+:root { --nav-h: 76px; --cart-pad: 14px; }
+
+/* El tirador solo tiene sentido en la hoja que sube desde abajo. */
+.cart-grabber { display: none; }
 
 /* El menú inferior manda sobre el panel, que va en z-index 50. Hay dos
    reglas previas, en 30 y 40, y la de 30 lleva :root:not(...): hay que
@@ -16,39 +21,48 @@
 :root:not(.home-legacy) .bottom-nav,
 :root.home-legacy .bottom-nav { z-index: 60; }
 
+/* --- Estructura ------------------------------------------------------- */
 /* Cabecera y lista comparten el scroll; sin min-height:0 el flex lo aplasta
-   y la lista se queda en una franja. Hace falta en los dos anchos: si no,
-   el resumen con el botón se sale de la pantalla. */
+   y la lista se queda en una franja. El resumen se queda fijo abajo.
+
+   El contenedor sale hasta los bordes del panel y recupera el margen por
+   dentro: así la barra de scroll se queda pegada al borde y la lista no
+   acaba más estrecha que el cupón y el total, que es lo que descuadraba. */
 .cart-scroll {
-  flex: 1; min-height: 0; width: 100%;
+  flex: 1; min-height: 0;
+  width: calc(100% + var(--cart-pad) * 2);
+  margin: 0 calc(var(--cart-pad) * -1);
+  padding: 0 var(--cart-pad);
   overflow-y: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .22) transparent;
   display: flex; flex-direction: column; align-items: stretch;
 }
+.cart-scroll::-webkit-scrollbar { width: 6px; }
+.cart-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .22); border-radius: 100px; }
+.cart-scroll::-webkit-scrollbar-track { background: transparent; }
 .cart-sheet.home-legacy .cart-items,
 .cart-sheet .cart-items {
   flex: none; width: 100%; min-height: 0;
   overflow: visible; margin: 0; padding: 0 0 4px;
-}
-/* 8px entre tarjetas: con 10 el tercer producto se quedaba 1px fuera. */
-@media (max-width: 767px) {
-  .cart-sheet.home-legacy .cart-items,
-  .cart-sheet .cart-items { gap: 8px; }
+  display: flex; flex-direction: column; gap: 8px;
 }
 .cart-sheet.home-legacy .cart-summary,
-.cart-sheet .cart-summary { flex-shrink: 0; width: 100%; }
-
-/* Precio y cantidad en la misma fila, y una linea de descripcion: apilados
-   la tarjeta crecia y no dejaba ver tres productos de entrada. */
-.cart-item-foot {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 10px; flex-wrap: wrap;
+.cart-sheet .cart-summary {
+  flex-shrink: 0; width: 100%;
+  padding: 8px 0 10px;
+  display: flex; flex-direction: column; gap: 6px;
 }
-.cart-sheet.home-legacy .cart-item-foot p,
-.cart-sheet .cart-item-foot p { margin: 0 !important; }
-.cart-sheet .cart-item-desc { -webkit-line-clamp: 1; }
 
+/* --- Cabecera --------------------------------------------------------- */
+/* Logo y contador en la misma fila: apilados se comían una tarjeta. */
+.cart-head { display: flex; align-items: center; gap: 10px; }
+.cart-sheet .cart-logo {
+  display: block; width: auto; max-width: 64px; height: 22px;
+  object-fit: contain; object-position: left center;
+  margin: 0; flex-shrink: 0;
+}
 .cart-sheet .cart-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 8px;
   font-size: 11px; font-weight: 700; letter-spacing: 2.2px;
   text-transform: uppercase; color: #c9c9c9;
 }
@@ -59,7 +73,7 @@
 }
 .cart-sheet.home-legacy .cart-title,
 .cart-sheet .cart-title {
-  margin: 5px 0 4px;
+  margin: 7px 0 4px; padding-right: 42px;
   font-family: 'Poppins', sans-serif;
   font-size: 19px; font-weight: 800;
   line-height: 1.1; letter-spacing: -.8px; color: #fff;
@@ -68,6 +82,146 @@
 .cart-sheet.home-legacy .cart-lead,
 .cart-sheet .cart-lead { margin: 0 0 9px; font-size: 12px; line-height: 1.35; color: #b4b4b4; }
 
+/* El botón de cerrar que trae la hoja. */
+.cart-sheet > button[class*="absolute"] {
+  top: 12px; right: 12px;
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center; opacity: 1;
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
+  color: #fff;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+.cart-sheet > button[class*="absolute"]:hover {
+  background: #ffe500; border-color: #ffe500; color: #0b0b0b;
+}
+.cart-sheet > button[class*="absolute"] svg { width: 17px; height: 17px; }
+
+/* --- Tarjetas de producto --------------------------------------------- */
+.cart-sheet.home-legacy .cart-item,
+.cart-sheet .cart-item {
+  position: relative;
+  display: grid; grid-template-columns: 58px minmax(0, 1fr);
+  align-items: start; gap: 10px; padding: 8px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+.cart-sheet.home-legacy .cart-photo,
+.cart-sheet .cart-photo { width: 58px; height: 66px; border-radius: 10px; object-fit: cover; }
+.cart-sheet.home-legacy .cart-item h3,
+.cart-sheet .cart-item h3 {
+  font-size: 13px; font-weight: 800; letter-spacing: -.3px;
+  line-height: 1.2; margin: 0; padding-right: 34px;
+}
+.cart-sheet .cart-item-desc {
+  /* La papelera flota arriba a la derecha: el texto le deja sitio. */
+  padding-right: 34px;
+  font-size: 11px !important; font-weight: 400 !important;
+  line-height: 1.3; color: #a8a8a8 !important;
+  margin: 2px 0 4px !important;
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+/* Precio y cantidad en la misma fila: apilados, la tarjeta crecía y no
+   dejaba ver tres productos de entrada. */
+.cart-item-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; flex-wrap: wrap;
+}
+.cart-sheet.home-legacy .cart-item-foot p,
+.cart-sheet .cart-item-foot p { margin: 0 !important; font-size: 14px !important; }
+.cart-sheet.home-legacy .cart-item .quantity,
+.cart-sheet .cart-item .quantity {
+  gap: 0; padding: 2px; border-radius: 100px;
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .12);
+  width: fit-content;
+}
+.cart-sheet.home-legacy .cart-item .quantity button,
+.cart-sheet .cart-item .quantity button {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: none; border: 0; color: #fff;
+}
+.cart-sheet .cart-item .quantity button:hover:not([disabled]) { background: #ffe500; color: #0b0b0b; }
+.cart-sheet .cart-item .quantity svg { width: 14px; height: 14px; }
+.cart-sheet.home-legacy .cart-item .quantity output,
+.cart-sheet .cart-item .quantity output { min-width: 24px; font-size: 13px; text-align: center; }
+.cart-sheet.home-legacy .cart-item .delete,
+.cart-sheet .cart-item .delete {
+  position: absolute; right: 8px; top: 8px;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .14);
+  color: #fff;
+}
+.cart-sheet .cart-item .delete:hover { border-color: #ffe500; color: #ffe500; }
+.cart-sheet .cart-item .delete svg { width: 14px; height: 14px; }
+
+/* --- Cupón, total y acciones ------------------------------------------ */
+.cart-sheet .coupon-box { width: 100%; }
+.cart-sheet.home-legacy .coupon-box form,
+.cart-sheet .coupon-box form {
+  display: flex; gap: 8px; align-items: center; width: 100%;
+  padding: 4px; border-radius: 100px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+.cart-sheet .coupon-box input {
+  flex: 1; min-width: 0; height: 32px; padding: 0 12px;
+  background: none; border: 0; outline: 0; color: #fff; font-size: 12px;
+}
+.cart-sheet .coupon-box .btn {
+  flex-shrink: 0;
+  height: 32px; padding: 0 15px; border-radius: 100px;
+  background: none; border: 1px solid #ffe500; color: #ffe500;
+  font-size: 12px; font-weight: 800;
+}
+.cart-sheet .coupon-box .btn:hover { background: #ffe500; color: #0b0b0b; }
+
+.cart-sheet.home-legacy .cart-summary > .cart-total,
+.cart-sheet .cart-summary > .cart-total {
+  display: block;
+  padding: 9px 13px; border-radius: 13px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+.cart-sheet .cart-total > div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.cart-sheet .cart-total span { font-size: 14px; font-weight: 800; color: #fff; }
+.cart-sheet .cart-total strong { font-size: 19px; font-weight: 800; letter-spacing: -.8px; color: #ffe500; }
+.cart-sheet .cart-total p {
+  display: flex; align-items: center; gap: 7px;
+  margin: 4px 0 0; font-size: 11px; line-height: 1.3; color: #b4b4b4;
+}
+.cart-sheet .cart-total p svg { width: 14px; height: 14px; color: #ffe500; flex-shrink: 0; }
+
+.cart-sheet.home-legacy .cart-go,
+.cart-sheet .cart-go {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  height: 46px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 14.5px; font-weight: 800;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.cart-sheet .cart-go:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(255, 229, 0, .24); }
+.cart-sheet .cart-go svg { width: 17px; height: 17px; }
+
+.cart-sheet .cart-trust {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.cart-sheet .cart-trust li {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  min-width: 0; text-align: left;
+  font-size: 10px; line-height: 1.2; color: #c9c9c9;
+}
+.cart-sheet .cart-trust li + li { border-left: 1px solid rgba(255, 255, 255, .12); }
+.cart-sheet .cart-trust svg { width: 16px; height: 16px; color: #ffe500; flex-shrink: 0; }
+
+.cart-sheet.home-legacy .fineprint,
+.cart-sheet .fineprint { text-align: center; font-size: 10px; color: #9a9a9a; }
+
+/* --- Celular: hoja que sube desde abajo -------------------------------- */
 @media (max-width: 767px) {
   .cart-sheet.home-legacy,
   .cart-sheet {
@@ -76,161 +230,46 @@
     bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
     height: calc(100dvh - var(--nav-h));
     max-height: calc(100dvh - var(--nav-h));
-    border-radius: 20px 20px 0 0;
     border: 1px solid rgba(255, 255, 255, .12);
     border-bottom: 0;
     border-radius: 22px 22px 0 0;
-    padding: 10px 14px 0;
+    padding: 10px var(--cart-pad) 0;
     background: rgba(14, 14, 14, .8);
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
     box-shadow: 0 -16px 44px rgba(0, 0, 0, .55);
     overflow: hidden;
   }
-
   .cart-grabber {
     display: block; flex-shrink: 0;
     width: 46px; height: 4px; margin: 0 auto 8px;
     border-radius: 100px; background: rgba(255, 255, 255, .28);
   }
-  /* Logo y contador en la misma fila: apilados se comian una tarjeta. */
-  .cart-head { display: flex; align-items: center; gap: 10px; }
-  .cart-sheet .cart-logo {
-    display: block; width: auto; max-width: 64px; height: 22px;
-    object-fit: contain; object-position: left center;
-    margin: 0; flex-shrink: 0;
-  }
+}
 
-  /* El botón de cerrar que trae la hoja. */
-  .cart-sheet > button[class*="absolute"] {
-    top: 12px; right: 12px;
-    width: 36px; height: 36px; border-radius: 50%;
-    display: grid; place-items: center; opacity: 1;
-    background: rgba(255, 255, 255, .1);
-    border: 1px solid rgba(255, 255, 255, .2);
-    color: #fff;
+/* --- Escritorio: panel por la derecha ---------------------------------- */
+@media (min-width: 768px) {
+  .cart-sheet.home-legacy,
+  .cart-sheet {
+    --cart-pad: 18px;
+    width: min(400px, 92vw); max-width: none;
+    padding: 16px var(--cart-pad) 0;
+    border: 0; border-left: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 0;
+    background: rgba(14, 14, 14, .82);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    box-shadow: -16px 0 44px rgba(0, 0, 0, .5);
+    overflow: hidden;
   }
-  .cart-sheet > button[class*="absolute"] svg { width: 17px; height: 17px; }
-  .cart-sheet .cart-title { padding-right: 42px; }
-
-  /* Tarjetas de producto. */
-  .cart-sheet.home-legacy .cart-item,
-  .cart-sheet .cart-item {
-    position: relative;
-    grid-template-columns: 58px minmax(0, 1fr);
-    align-items: start; gap: 10px; padding: 8px;
-    border-radius: 13px;
-  }
-  .cart-sheet.home-legacy .cart-photo,
-  .cart-sheet .cart-photo { width: 58px; height: 66px; border-radius: 10px; }
-  .cart-sheet.home-legacy .cart-item h3,
-  .cart-sheet .cart-item h3 {
-    font-size: 13px; font-weight: 800; letter-spacing: -.3px;
-    line-height: 1.2; margin: 0; padding-right: 34px;
-  }
-  .cart-sheet .cart-item-desc {
-    /* La papelera flota arriba a la derecha: el texto le deja sitio. */
-    padding-right: 34px;
-    font-size: 11px !important; font-weight: 400 !important;
-    line-height: 1.3; color: #a8a8a8 !important;
-    margin: 2px 0 4px !important;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  }
-  .cart-sheet.home-legacy .cart-item-foot p,
-  .cart-sheet .cart-item-foot p { font-size: 14px !important; }
-  .cart-sheet.home-legacy .cart-item .quantity,
-  .cart-sheet .cart-item .quantity {
-    gap: 0; padding: 2px; border-radius: 100px;
-    background: rgba(255, 255, 255, .07);
-    border: 1px solid rgba(255, 255, 255, .12);
-    width: fit-content;
-  }
-  .cart-sheet.home-legacy .cart-item .quantity button,
-  .cart-sheet .cart-item .quantity button { width: 26px; height: 26px; background: none; border: 0; }
-  .cart-sheet .cart-item .quantity svg { width: 14px; height: 14px; }
-  .cart-sheet.home-legacy .cart-item .quantity output,
-  .cart-sheet .cart-item .quantity output { min-width: 24px; font-size: 13px; }
-  .cart-sheet.home-legacy .cart-item .delete,
-  .cart-sheet .cart-item .delete {
-    position: absolute; right: 8px; top: 8px;
-    width: 28px; height: 28px; border-radius: 50%;
-    display: grid; place-items: center;
-    background: rgba(255, 255, 255, .08);
-    border: 1px solid rgba(255, 255, 255, .14);
-    color: #fff;
-  }
-  .cart-sheet .cart-item .delete svg { width: 14px; height: 14px; }
-
-  /* Resumen fijo abajo, con hueco para el menú inferior. */
   .cart-sheet.home-legacy .cart-summary,
-  .cart-sheet .cart-summary {
-    padding: 8px 0 10px;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .cart-sheet .coupon-box { width: 100%; }
-  .cart-sheet.home-legacy .coupon-box form,
-  .cart-sheet .coupon-box form {
-    display: flex; gap: 8px; align-items: center; width: 100%;
-    padding: 4px; border-radius: 100px;
-    background: rgba(255, 255, 255, .05);
-    border: 1px solid rgba(255, 255, 255, .1);
-  }
-  .cart-sheet .coupon-box input {
-    flex: 1; min-width: 0; height: 32px; padding: 0 12px;
-    background: none; border: 0; outline: 0; color: #fff; font-size: 12px;
-  }
-  .cart-sheet .coupon-box .btn {
-    flex-shrink: 0;
-    height: 32px; padding: 0 15px; border-radius: 100px;
-    background: none; border: 1px solid #ffe500; color: #ffe500;
-    font-size: 12px; font-weight: 800;
-  }
-
-  .cart-sheet.home-legacy .cart-summary > .cart-total,
-  .cart-sheet .cart-summary > .cart-total {
-    display: block;
-    padding: 9px 13px; border-radius: 13px;
-    background: rgba(255, 255, 255, .05);
-    border: 1px solid rgba(255, 255, 255, .1);
-  }
-  .cart-sheet .cart-total > div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-  .cart-sheet .cart-total span { font-size: 14px; font-weight: 800; color: #fff; }
-  .cart-sheet .cart-total strong { font-size: 19px; font-weight: 800; letter-spacing: -.8px; color: #ffe500; }
-  .cart-sheet .cart-total p {
-    display: flex; align-items: center; gap: 7px;
-    margin: 4px 0 0; font-size: 11px; line-height: 1.3; color: #b4b4b4;
-  }
-  .cart-sheet .cart-total p svg { width: 14px; height: 14px; color: #ffe500; flex-shrink: 0; }
-
-  .cart-sheet.home-legacy .cart-go,
-  .cart-sheet .cart-go {
-    display: flex; align-items: center; justify-content: center; gap: 9px;
-    height: 46px; border-radius: 100px;
-    background: #ffe500; color: #0b0b0b;
-    font-size: 14.5px; font-weight: 800;
-  }
-  .cart-sheet .cart-go svg { width: 17px; height: 17px; }
-
-  .cart-sheet .cart-trust {
-    list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .cart-sheet .cart-trust li {
-    display: flex; align-items: center; justify-content: center; gap: 7px;
-    min-width: 0; text-align: left;
-    font-size: 10px; line-height: 1.2; color: #c9c9c9;
-  }
-  .cart-sheet .cart-trust li + li { border-left: 1px solid rgba(255, 255, 255, .12); }
-  .cart-sheet .cart-trust svg { width: 16px; height: 16px; color: #ffe500; flex-shrink: 0; }
-
-  .cart-sheet.home-legacy .fineprint,
-  .cart-sheet .fineprint { text-align: center; font-size: 10px; color: #9a9a9a; }
+  .cart-sheet .cart-summary { padding-bottom: 16px; }
 }
 
 /* --- Pantallas bajas --------------------------------------------------
-   Con poca altura el resumen se comia la lista entera, asi que las
-   garantias y la letra pequena se retiran antes que el producto. */
-@media (max-width: 767px) and (max-height: 700px) {
+   Con poca altura el resumen se comía la lista entera, así que las
+   garantías y la letra pequeña se retiran antes que el producto. */
+@media (max-height: 700px) {
   .cart-sheet .cart-trust, .cart-sheet .fineprint { display: none; }
   .cart-sheet.home-legacy .cart-title,
   .cart-sheet .cart-title { font-size: 18px; }

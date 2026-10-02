@@ -423,76 +423,6 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
   gap: 4px; padding: 0 0 7px; min-height: 63px;
 }
 
-/* --- Carrito: panel de cristal -------------------------------------- */
-:root.home-legacy .cart-sheet,
-.cart-sheet {
-  display: flex; flex-direction: column;
-  /* Vidrio esmerilado: se intuye la página detrás. */
-  background: rgba(16, 16, 16, .72);
-  backdrop-filter: blur(22px) saturate(140%);
-  -webkit-backdrop-filter: blur(22px) saturate(140%);
-  border-left: 1px solid rgba(255, 255, 255, .09);
-  padding: 22px 20px 20px;
-  gap: 0;
-}
-:root.home-legacy .cart-sheet h2,
-.cart-sheet h2 { font-size: 20px; letter-spacing: -.5px; }
-:root.home-legacy .cart-sheet .cart-items,
-.cart-sheet .cart-items {
-  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
-  margin: 16px -4px 0; padding: 0 4px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-:root.home-legacy .cart-item,
-.cart-item {
-  display: grid;
-  grid-template-columns: 64px 1fr auto;
-  align-items: center;
-  gap: 14px;
-  padding: 12px;
-  border: 1px solid rgba(255, 255, 255, .08);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, .04);
-}
-:root.home-legacy .cart-photo,
-.cart-photo { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; }
-:root.home-legacy .cart-item h3,
-.cart-item h3 { font-size: 14px; line-height: 1.25; margin: 0 0 2px; }
-:root.home-legacy .cart-item p,
-.cart-item p { font-size: 13px; font-weight: 700; color: #ffe500; margin: 0 0 8px; }
-:root.home-legacy .cart-item .quantity,
-.cart-item .quantity { display: flex; align-items: center; gap: 10px; }
-:root.home-legacy .cart-item .quantity button,
-.cart-item .quantity button {
-  width: 32px; height: 32px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: rgba(255, 255, 255, .08);
-  border: 1px solid rgba(255, 255, 255, .14);
-  color: #fff;
-}
-:root.home-legacy .cart-item .quantity button:hover,
-.cart-item .quantity button:hover { border-color: #ffe500; color: #ffe500; }
-:root.home-legacy .cart-item .quantity output,
-.cart-item .quantity output { min-width: 22px; text-align: center; font-weight: 800; font-size: 15px; }
-/* El pie no se va con el scroll. */
-:root.home-legacy .cart-sheet .cart-footer,
-.cart-sheet .cart-footer {
-  position: sticky; bottom: 0; margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, .1);
-  display: flex; flex-direction: column; gap: 12px;
-}
-@media (max-width: 700px) {
-  :root.home-legacy .cart-sheet,
-  .cart-sheet { padding: 18px 16px 16px; }
-  :root.home-legacy .cart-item,
-  .cart-item { grid-template-columns: 58px 1fr; gap: 12px; padding: 11px; }
-  :root.home-legacy .cart-photo,
-  .cart-photo { width: 58px; height: 58px; }
-  :root.home-legacy .cart-item .quantity button,
-  .cart-item .quantity button { width: 36px; height: 36px; }
-}
-
 /* --- Pedido actual e historial --------------------------------------- */
 .orders-panel { margin: 0 0 26px; }
 .orders-panel-head h2 {
@@ -586,15 +516,6 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
   }
 }
 
-/* El fondo opaco de la hoja antigua tapaba el desenfoque. */
-:root.home-legacy [data-slot="sheet-content"].cart-sheet,
-[data-slot="sheet-content"].cart-sheet,
-:root.home-legacy .shaky-sheet.cart-sheet,
-.shaky-sheet.cart-sheet {
-  background: rgba(16, 16, 16, .72);
-  backdrop-filter: blur(22px) saturate(140%);
-  -webkit-backdrop-filter: blur(22px) saturate(140%);
-}
 /* Los iconos de la barra inferior comparten caja, así ninguno baila. */
 :root .bottom-nav > a > svg,
 :root .bottom-nav > button > svg,
