@@ -1,0 +1,224 @@
+/* --- Carrito: panel de compra ----------------------------------------
+   En celular sube desde abajo y se queda POR DEBAJO del menú inferior,
+   que sigue visible y por encima. En escritorio entra por la derecha.
+
+   Ojo con los selectores: el panel lleva la clase home-legacy, y esa hoja
+   se importa la última, así que a igual especificidad gana ella. Por eso
+   las reglas encadenan .cart-sheet.home-legacy en vez de heredar. */
+/* Alto del menú inferior: lo usan el panel y su hueco. */
+:root { --nav-h: 76px; }
+
+.cart-grabber, .cart-logo { display: none; }
+
+/* El menú inferior manda sobre el panel, que va en z-index 50. Hay dos
+   reglas previas, en 30 y 40, y la de 30 lleva :root:not(...): hay que
+   igualarla en especificidad y llegar después. */
+:root:not(.home-legacy) .bottom-nav,
+:root.home-legacy .bottom-nav { z-index: 60; }
+
+/* Cabecera y lista comparten el scroll; sin min-height:0 el flex lo aplasta
+   y la lista se queda en una franja. Hace falta en los dos anchos: si no,
+   el resumen con el botón se sale de la pantalla. */
+.cart-scroll {
+  flex: 1; min-height: 0; width: 100%;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  display: flex; flex-direction: column; align-items: stretch;
+}
+.cart-sheet.home-legacy .cart-items,
+.cart-sheet .cart-items {
+  flex: none; width: 100%; min-height: 0;
+  overflow: visible; margin: 0; padding: 0 0 4px;
+}
+.cart-sheet.home-legacy .cart-summary,
+.cart-sheet .cart-summary { flex-shrink: 0; width: 100%; }
+
+.cart-sheet .cart-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+  font-size: 11px; font-weight: 700; letter-spacing: 2.2px;
+  text-transform: uppercase; color: #c9c9c9;
+}
+.cart-sheet .cart-eyebrow b {
+  padding: 2px 9px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 11px; letter-spacing: 0;
+}
+.cart-sheet.home-legacy .cart-title,
+.cart-sheet .cart-title {
+  margin: 7px 0 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 21px; font-weight: 800;
+  line-height: 1.1; letter-spacing: -.8px; color: #fff;
+}
+.cart-sheet .cart-title em { color: #ffe500; font-style: normal; }
+.cart-sheet.home-legacy .cart-lead,
+.cart-sheet .cart-lead { margin: 0 0 12px; font-size: 13px; line-height: 1.4; color: #b4b4b4; }
+
+@media (max-width: 767px) {
+  .cart-sheet.home-legacy,
+  .cart-sheet {
+    /* Termina justo donde empieza el menú inferior: así nada queda
+       escondido detrás de él en ninguna altura de pantalla. */
+    bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+    height: calc(88dvh - var(--nav-h));
+    max-height: calc(88dvh - var(--nav-h));
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-bottom: 0;
+    border-radius: 22px 22px 0 0;
+    padding: 10px 14px 0;
+    background: rgba(14, 14, 14, .8);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    box-shadow: 0 -16px 44px rgba(0, 0, 0, .55);
+    overflow: hidden;
+  }
+
+  .cart-grabber {
+    display: block; flex-shrink: 0;
+    width: 52px; height: 4px; margin: 0 auto 10px;
+    border-radius: 100px; background: rgba(255, 255, 255, .28);
+  }
+  .cart-sheet .cart-logo {
+    display: block; width: auto; max-width: 92px; height: 30px;
+    object-fit: contain; object-position: left center;
+    align-self: flex-start; margin-bottom: 8px;
+  }
+
+  /* El botón de cerrar que trae la hoja. */
+  .cart-sheet > button[class*="absolute"] {
+    top: 12px; right: 12px;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center; opacity: 1;
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .2);
+    color: #fff;
+  }
+  .cart-sheet > button[class*="absolute"] svg { width: 17px; height: 17px; }
+  .cart-sheet .cart-title { padding-right: 44px; }
+
+  /* Tarjetas de producto. */
+  .cart-sheet.home-legacy .cart-item,
+  .cart-sheet .cart-item {
+    position: relative;
+    grid-template-columns: 70px minmax(0, 1fr);
+    align-items: start; gap: 11px; padding: 9px;
+    border-radius: 14px;
+  }
+  .cart-sheet.home-legacy .cart-photo,
+  .cart-sheet .cart-photo { width: 70px; height: 82px; border-radius: 11px; }
+  .cart-sheet.home-legacy .cart-item h3,
+  .cart-sheet .cart-item h3 {
+    font-size: 14px; font-weight: 800; letter-spacing: -.3px;
+    line-height: 1.2; margin: 0; padding-right: 36px;
+  }
+  .cart-sheet .cart-item-desc {
+    /* La papelera flota arriba a la derecha: el texto le deja sitio. */
+    padding-right: 36px;
+    font-size: 11.5px !important; font-weight: 400 !important;
+    line-height: 1.3; color: #a8a8a8 !important;
+    margin: 2px 0 5px !important;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .cart-sheet.home-legacy .cart-item > div > p:not(.cart-item-desc),
+  .cart-sheet .cart-item > div > p:not(.cart-item-desc) {
+    font-size: 15px !important; margin: 0 0 7px !important;
+  }
+  .cart-sheet.home-legacy .cart-item .quantity,
+  .cart-sheet .cart-item .quantity {
+    gap: 0; padding: 2px; border-radius: 100px;
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid rgba(255, 255, 255, .12);
+    width: fit-content;
+  }
+  .cart-sheet.home-legacy .cart-item .quantity button,
+  .cart-sheet .cart-item .quantity button { width: 30px; height: 30px; background: none; border: 0; }
+  .cart-sheet .cart-item .quantity svg { width: 14px; height: 14px; }
+  .cart-sheet.home-legacy .cart-item .quantity output,
+  .cart-sheet .cart-item .quantity output { min-width: 28px; font-size: 14px; }
+  .cart-sheet.home-legacy .cart-item .delete,
+  .cart-sheet .cart-item .delete {
+    position: absolute; right: 9px; top: 9px;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .14);
+    color: #fff;
+  }
+  .cart-sheet .cart-item .delete svg { width: 15px; height: 15px; }
+
+  /* Resumen fijo abajo, con hueco para el menú inferior. */
+  .cart-sheet.home-legacy .cart-summary,
+  .cart-sheet .cart-summary {
+    padding: 10px 0 12px;
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .cart-sheet .coupon-box { width: 100%; }
+  .cart-sheet.home-legacy .coupon-box form,
+  .cart-sheet .coupon-box form {
+    display: flex; gap: 8px; align-items: center; width: 100%;
+    padding: 5px; border-radius: 100px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .1);
+  }
+  .cart-sheet .coupon-box input {
+    flex: 1; min-width: 0; height: 38px; padding: 0 14px;
+    background: none; border: 0; outline: 0; color: #fff; font-size: 13px;
+  }
+  .cart-sheet .coupon-box .btn {
+    flex-shrink: 0;
+    height: 38px; padding: 0 18px; border-radius: 100px;
+    background: none; border: 1px solid #ffe500; color: #ffe500;
+    font-size: 13px; font-weight: 800;
+  }
+
+  .cart-sheet.home-legacy .cart-summary > .cart-total,
+  .cart-sheet .cart-summary > .cart-total {
+    display: block;
+    padding: 11px 14px; border-radius: 14px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .1);
+  }
+  .cart-sheet .cart-total > div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .cart-sheet .cart-total span { font-size: 16px; font-weight: 800; color: #fff; }
+  .cart-sheet .cart-total strong { font-size: 21px; font-weight: 800; letter-spacing: -.8px; color: #ffe500; }
+  .cart-sheet .cart-total p {
+    display: flex; align-items: center; gap: 7px;
+    margin: 5px 0 0; font-size: 11.5px; line-height: 1.3; color: #b4b4b4;
+  }
+  .cart-sheet .cart-total p svg { width: 14px; height: 14px; color: #ffe500; flex-shrink: 0; }
+
+  .cart-sheet.home-legacy .cart-go,
+  .cart-sheet .cart-go {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    height: 50px; border-radius: 100px;
+    background: #ffe500; color: #0b0b0b;
+    font-size: 15px; font-weight: 800;
+  }
+  .cart-sheet .cart-go svg { width: 17px; height: 17px; }
+
+  .cart-sheet .cart-trust {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cart-sheet .cart-trust li {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    min-width: 0; text-align: left;
+    font-size: 10.5px; line-height: 1.2; color: #c9c9c9;
+  }
+  .cart-sheet .cart-trust li + li { border-left: 1px solid rgba(255, 255, 255, .12); }
+  .cart-sheet .cart-trust svg { width: 16px; height: 16px; color: #ffe500; flex-shrink: 0; }
+
+  .cart-sheet.home-legacy .fineprint,
+  .cart-sheet .fineprint { text-align: center; font-size: 10.5px; color: #9a9a9a; }
+}
+
+/* --- Pantallas bajas --------------------------------------------------
+   Con poca altura el resumen se comia la lista entera, asi que las
+   garantias y la letra pequena se retiran antes que el producto. */
+@media (max-width: 767px) and (max-height: 700px) {
+  .cart-sheet .cart-trust, .cart-sheet .fineprint { display: none; }
+  .cart-sheet.home-legacy .cart-title,
+  .cart-sheet .cart-title { font-size: 18px; }
+  .cart-sheet .cart-logo { display: none; }
+  .cart-sheet.home-legacy .cart-lead,
+  .cart-sheet .cart-lead { display: none; }
+}
