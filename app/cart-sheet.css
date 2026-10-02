@@ -29,8 +29,23 @@
   flex: none; width: 100%; min-height: 0;
   overflow: visible; margin: 0; padding: 0 0 4px;
 }
+/* 8px entre tarjetas: con 10 el tercer producto se quedaba 1px fuera. */
+@media (max-width: 767px) {
+  .cart-sheet.home-legacy .cart-items,
+  .cart-sheet .cart-items { gap: 8px; }
+}
 .cart-sheet.home-legacy .cart-summary,
 .cart-sheet .cart-summary { flex-shrink: 0; width: 100%; }
+
+/* Precio y cantidad en la misma fila, y una linea de descripcion: apilados
+   la tarjeta crecia y no dejaba ver tres productos de entrada. */
+.cart-item-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; flex-wrap: wrap;
+}
+.cart-sheet.home-legacy .cart-item-foot p,
+.cart-sheet .cart-item-foot p { margin: 0 !important; }
+.cart-sheet .cart-item-desc { -webkit-line-clamp: 1; }
 
 .cart-sheet .cart-eyebrow {
   display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
@@ -44,14 +59,14 @@
 }
 .cart-sheet.home-legacy .cart-title,
 .cart-sheet .cart-title {
-  margin: 7px 0 5px;
+  margin: 5px 0 4px;
   font-family: 'Poppins', sans-serif;
-  font-size: 21px; font-weight: 800;
+  font-size: 19px; font-weight: 800;
   line-height: 1.1; letter-spacing: -.8px; color: #fff;
 }
 .cart-sheet .cart-title em { color: #ffe500; font-style: normal; }
 .cart-sheet.home-legacy .cart-lead,
-.cart-sheet .cart-lead { margin: 0 0 12px; font-size: 13px; line-height: 1.4; color: #b4b4b4; }
+.cart-sheet .cart-lead { margin: 0 0 9px; font-size: 12px; line-height: 1.35; color: #b4b4b4; }
 
 @media (max-width: 767px) {
   .cart-sheet.home-legacy,
@@ -59,8 +74,9 @@
     /* Termina justo donde empieza el menú inferior: así nada queda
        escondido detrás de él en ninguna altura de pantalla. */
     bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
-    height: calc(88dvh - var(--nav-h));
-    max-height: calc(88dvh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    max-height: calc(100dvh - var(--nav-h));
+    border-radius: 20px 20px 0 0;
     border: 1px solid rgba(255, 255, 255, .12);
     border-bottom: 0;
     border-radius: 22px 22px 0 0;
@@ -74,13 +90,15 @@
 
   .cart-grabber {
     display: block; flex-shrink: 0;
-    width: 52px; height: 4px; margin: 0 auto 10px;
+    width: 46px; height: 4px; margin: 0 auto 8px;
     border-radius: 100px; background: rgba(255, 255, 255, .28);
   }
+  /* Logo y contador en la misma fila: apilados se comian una tarjeta. */
+  .cart-head { display: flex; align-items: center; gap: 10px; }
   .cart-sheet .cart-logo {
-    display: block; width: auto; max-width: 92px; height: 30px;
+    display: block; width: auto; max-width: 64px; height: 22px;
     object-fit: contain; object-position: left center;
-    align-self: flex-start; margin-bottom: 8px;
+    margin: 0; flex-shrink: 0;
   }
 
   /* El botón de cerrar que trae la hoja. */
@@ -93,35 +111,33 @@
     color: #fff;
   }
   .cart-sheet > button[class*="absolute"] svg { width: 17px; height: 17px; }
-  .cart-sheet .cart-title { padding-right: 44px; }
+  .cart-sheet .cart-title { padding-right: 42px; }
 
   /* Tarjetas de producto. */
   .cart-sheet.home-legacy .cart-item,
   .cart-sheet .cart-item {
     position: relative;
-    grid-template-columns: 70px minmax(0, 1fr);
-    align-items: start; gap: 11px; padding: 9px;
-    border-radius: 14px;
+    grid-template-columns: 58px minmax(0, 1fr);
+    align-items: start; gap: 10px; padding: 8px;
+    border-radius: 13px;
   }
   .cart-sheet.home-legacy .cart-photo,
-  .cart-sheet .cart-photo { width: 70px; height: 82px; border-radius: 11px; }
+  .cart-sheet .cart-photo { width: 58px; height: 66px; border-radius: 10px; }
   .cart-sheet.home-legacy .cart-item h3,
   .cart-sheet .cart-item h3 {
-    font-size: 14px; font-weight: 800; letter-spacing: -.3px;
-    line-height: 1.2; margin: 0; padding-right: 36px;
+    font-size: 13px; font-weight: 800; letter-spacing: -.3px;
+    line-height: 1.2; margin: 0; padding-right: 34px;
   }
   .cart-sheet .cart-item-desc {
     /* La papelera flota arriba a la derecha: el texto le deja sitio. */
-    padding-right: 36px;
-    font-size: 11.5px !important; font-weight: 400 !important;
+    padding-right: 34px;
+    font-size: 11px !important; font-weight: 400 !important;
     line-height: 1.3; color: #a8a8a8 !important;
-    margin: 2px 0 5px !important;
+    margin: 2px 0 4px !important;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
-  .cart-sheet.home-legacy .cart-item > div > p:not(.cart-item-desc),
-  .cart-sheet .cart-item > div > p:not(.cart-item-desc) {
-    font-size: 15px !important; margin: 0 0 7px !important;
-  }
+  .cart-sheet.home-legacy .cart-item-foot p,
+  .cart-sheet .cart-item-foot p { font-size: 14px !important; }
   .cart-sheet.home-legacy .cart-item .quantity,
   .cart-sheet .cart-item .quantity {
     gap: 0; padding: 2px; border-radius: 100px;
@@ -130,68 +146,68 @@
     width: fit-content;
   }
   .cart-sheet.home-legacy .cart-item .quantity button,
-  .cart-sheet .cart-item .quantity button { width: 30px; height: 30px; background: none; border: 0; }
+  .cart-sheet .cart-item .quantity button { width: 26px; height: 26px; background: none; border: 0; }
   .cart-sheet .cart-item .quantity svg { width: 14px; height: 14px; }
   .cart-sheet.home-legacy .cart-item .quantity output,
-  .cart-sheet .cart-item .quantity output { min-width: 28px; font-size: 14px; }
+  .cart-sheet .cart-item .quantity output { min-width: 24px; font-size: 13px; }
   .cart-sheet.home-legacy .cart-item .delete,
   .cart-sheet .cart-item .delete {
-    position: absolute; right: 9px; top: 9px;
-    width: 32px; height: 32px; border-radius: 50%;
+    position: absolute; right: 8px; top: 8px;
+    width: 28px; height: 28px; border-radius: 50%;
     display: grid; place-items: center;
     background: rgba(255, 255, 255, .08);
     border: 1px solid rgba(255, 255, 255, .14);
     color: #fff;
   }
-  .cart-sheet .cart-item .delete svg { width: 15px; height: 15px; }
+  .cart-sheet .cart-item .delete svg { width: 14px; height: 14px; }
 
   /* Resumen fijo abajo, con hueco para el menú inferior. */
   .cart-sheet.home-legacy .cart-summary,
   .cart-sheet .cart-summary {
-    padding: 10px 0 12px;
-    display: flex; flex-direction: column; gap: 9px;
+    padding: 8px 0 10px;
+    display: flex; flex-direction: column; gap: 6px;
   }
   .cart-sheet .coupon-box { width: 100%; }
   .cart-sheet.home-legacy .coupon-box form,
   .cart-sheet .coupon-box form {
     display: flex; gap: 8px; align-items: center; width: 100%;
-    padding: 5px; border-radius: 100px;
+    padding: 4px; border-radius: 100px;
     background: rgba(255, 255, 255, .05);
     border: 1px solid rgba(255, 255, 255, .1);
   }
   .cart-sheet .coupon-box input {
-    flex: 1; min-width: 0; height: 38px; padding: 0 14px;
-    background: none; border: 0; outline: 0; color: #fff; font-size: 13px;
+    flex: 1; min-width: 0; height: 32px; padding: 0 12px;
+    background: none; border: 0; outline: 0; color: #fff; font-size: 12px;
   }
   .cart-sheet .coupon-box .btn {
     flex-shrink: 0;
-    height: 38px; padding: 0 18px; border-radius: 100px;
+    height: 32px; padding: 0 15px; border-radius: 100px;
     background: none; border: 1px solid #ffe500; color: #ffe500;
-    font-size: 13px; font-weight: 800;
+    font-size: 12px; font-weight: 800;
   }
 
   .cart-sheet.home-legacy .cart-summary > .cart-total,
   .cart-sheet .cart-summary > .cart-total {
     display: block;
-    padding: 11px 14px; border-radius: 14px;
+    padding: 9px 13px; border-radius: 13px;
     background: rgba(255, 255, 255, .05);
     border: 1px solid rgba(255, 255, 255, .1);
   }
   .cart-sheet .cart-total > div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-  .cart-sheet .cart-total span { font-size: 16px; font-weight: 800; color: #fff; }
-  .cart-sheet .cart-total strong { font-size: 21px; font-weight: 800; letter-spacing: -.8px; color: #ffe500; }
+  .cart-sheet .cart-total span { font-size: 14px; font-weight: 800; color: #fff; }
+  .cart-sheet .cart-total strong { font-size: 19px; font-weight: 800; letter-spacing: -.8px; color: #ffe500; }
   .cart-sheet .cart-total p {
     display: flex; align-items: center; gap: 7px;
-    margin: 5px 0 0; font-size: 11.5px; line-height: 1.3; color: #b4b4b4;
+    margin: 4px 0 0; font-size: 11px; line-height: 1.3; color: #b4b4b4;
   }
   .cart-sheet .cart-total p svg { width: 14px; height: 14px; color: #ffe500; flex-shrink: 0; }
 
   .cart-sheet.home-legacy .cart-go,
   .cart-sheet .cart-go {
     display: flex; align-items: center; justify-content: center; gap: 9px;
-    height: 50px; border-radius: 100px;
+    height: 46px; border-radius: 100px;
     background: #ffe500; color: #0b0b0b;
-    font-size: 15px; font-weight: 800;
+    font-size: 14.5px; font-weight: 800;
   }
   .cart-sheet .cart-go svg { width: 17px; height: 17px; }
 
@@ -202,13 +218,13 @@
   .cart-sheet .cart-trust li {
     display: flex; align-items: center; justify-content: center; gap: 7px;
     min-width: 0; text-align: left;
-    font-size: 10.5px; line-height: 1.2; color: #c9c9c9;
+    font-size: 10px; line-height: 1.2; color: #c9c9c9;
   }
   .cart-sheet .cart-trust li + li { border-left: 1px solid rgba(255, 255, 255, .12); }
   .cart-sheet .cart-trust svg { width: 16px; height: 16px; color: #ffe500; flex-shrink: 0; }
 
   .cart-sheet.home-legacy .fineprint,
-  .cart-sheet .fineprint { text-align: center; font-size: 10.5px; color: #9a9a9a; }
+  .cart-sheet .fineprint { text-align: center; font-size: 10px; color: #9a9a9a; }
 }
 
 /* --- Pantallas bajas --------------------------------------------------

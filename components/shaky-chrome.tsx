@@ -117,10 +117,12 @@ export function ShakyChrome() {
 
           {/* La cabecera baja con la lista; abajo solo queda fijo el resumen. */}
           <div className="cart-scroll">
-            <img className="cart-logo" src="/mascot.png" alt="" aria-hidden="true" />
-            <span className="cart-eyebrow">Tu carrito <b>({count})</b></span>
+            <div className="cart-head">
+              <img className="cart-logo" src="/mascot.png" alt="" aria-hidden="true" />
+              <span className="cart-eyebrow">Tu carrito <b>({count})</b></span>
+            </div>
             <SheetTitle className="cart-title">Tu próxima comida<br /><em>empieza aquí.</em></SheetTitle>
-            <SheetDescription className="cart-lead">Revisa tus productos, ajusta las cantidades y finaliza tu pedido.</SheetDescription>
+            <SheetDescription className="cart-lead">Ajusta las cantidades y finaliza tu pedido.</SheetDescription>
 
             {!count ? (
               <div className="empty">
@@ -138,11 +140,15 @@ export function ShakyChrome() {
                   <div>
                     <h3>{p.name}</h3>
                     <p className="cart-item-desc">{p.description}</p>
-                    <p>{money(p.price)}</p>
-                    <div className="quantity">
-                      <button aria-label={'Quitar una unidad de ' + p.name} onClick={() => changeQty(p.id, -1)}><Minus size={15} /></button>
-                      <output>{cart[p.id]}</output>
-                      <button disabled={cart[p.id] >= 99} aria-label={'Añadir una unidad de ' + p.name} onClick={() => changeQty(p.id, 1)}><Plus size={15} /></button>
+                    {/* Precio y cantidad en la misma fila: apilados, la
+                        tarjeta crecia y solo cabian dos en pantalla. */}
+                    <div className="cart-item-foot">
+                      <p>{money(p.price)}</p>
+                      <div className="quantity">
+                        <button aria-label={'Quitar una unidad de ' + p.name} onClick={() => changeQty(p.id, -1)}><Minus size={15} /></button>
+                        <output>{cart[p.id]}</output>
+                        <button disabled={cart[p.id] >= 99} aria-label={'Añadir una unidad de ' + p.name} onClick={() => changeQty(p.id, 1)}><Plus size={15} /></button>
+                      </div>
                     </div>
                   </div>
                   <button className="delete" aria-label={'Eliminar ' + p.name} onClick={() => removeFromCart(p.id)}><Trash2 size={18} /></button>
