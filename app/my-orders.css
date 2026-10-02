@@ -1,13 +1,17 @@
 /* "Mis pedidos": el pedido en curso a la izquierda sobre negro y el
    historial a la derecha sobre el crema. En celular se apilan. */
-.mo { padding: 96px 0 60px; background: #0b0b0b; }
+.mo { padding: 96px 0 0; background: #0b0b0b; }
 .mo-grid {
+  width: min(1450px, 94%); margin: 0 auto 60px;
   display: grid;
   grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
   align-items: start;
   gap: 26px;
 }
 .mo-left, .mo-right { min-width: 0; }
+.mo-inner { min-width: 0; }
+/* El derretido solo trabaja en celular, donde las dos mitades van a sangre. */
+.mo-drip { display: none; }
 .mo-eyebrow {
   display: block;
   font-size: 12px; font-weight: 700; letter-spacing: 2.4px;
@@ -124,7 +128,12 @@
   font-size: clamp(32px, 3.6vw, 50px); font-weight: 800;
   line-height: 1; letter-spacing: -2px; margin: 8px 0 10px;
 }
-.mo-head h1 em { color: #ffe500; font-style: normal; -webkit-text-stroke: 1px #0b0b0b; }
+.mo-head h1 em {
+  font-style: normal; color: #0b0b0b;
+  background: #ffe500;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  padding: 0 12px 3px; margin-left: 2px; border-radius: 10px;
+}
 .mo-head p { margin: 0 0 20px; font-size: 15px; line-height: 1.45; color: #4a4a4a; }
 
 .mo-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
@@ -231,9 +240,30 @@
 
 /* --- Celular ---------------------------------------------------------- */
 @media (max-width: 760px) {
-  .mo { padding: 86px 0 40px; }
-  .mo-grid { gap: 16px; }
-  .mo-current, .mo-right { padding: 18px 15px; border-radius: 20px; }
+  /* Invertido: el pedido en curso deja de ser una tarjeta y es el fondo
+     negro de la pagina; el historial es el blanco a sangre, y entre los
+     dos cae el derretido. */
+  .mo { padding: 86px 0 0; }
+  .mo-grid { width: 100%; margin: 0; gap: 0; }
+  .mo-inner { width: calc(100% - 28px); margin: 0 auto; }
+
+  .mo-left { padding-bottom: 34px; }
+  .mo-current {
+    padding: 0; border: 0; border-radius: 0; background: none;
+  }
+
+  .mo-right {
+    position: relative;
+    padding: 0 0 40px; border-radius: 0;
+    background: #f7f7f4;
+  }
+  .mo-drip {
+    display: block; position: absolute;
+    left: 0; right: 0; top: 0; height: 105px;
+    background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+    z-index: 2; pointer-events: none;
+  }
+  .mo-right > .mo-inner { padding-top: 118px; }
 
   .mo-track { margin: 22px 0; }
   .mo-track::before { top: 19px; }

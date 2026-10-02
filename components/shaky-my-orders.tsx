@@ -203,8 +203,8 @@ export function MyOrders() {
 
   return (
     <main className="mo">
-      <div className="mo-grid shell">
-        <div className="mo-left">
+      <div className="mo-grid">
+        <div className="mo-left"><div className="mo-inner">
           {order
             ? <CurrentOrder o={order} />
             : (
@@ -215,9 +215,13 @@ export function MyOrders() {
                 <Link className="mo-cta" href="/menu">Ver el menú <ChevronRight size={18} aria-hidden="true" /></Link>
               </section>
             )}
-        </div>
+        </div></div>
 
         <div className="mo-right">
+          {/* En celular las dos mitades son secciones a sangre y el cambio
+              de negro a blanco lo hace el derretido, como en el menu. */}
+          <span className="mo-drip" aria-hidden="true" />
+          <div className="mo-inner">
           <header className="mo-head">
             <span className="mo-eyebrow">Mis pedidos</span>
             <h1>Últimos <em>pedidos</em></h1>
@@ -249,6 +253,7 @@ export function MyOrders() {
                 : 'Todavía no has hecho ningún pedido. Los que programes aparecerán aquí.'}
             </p>
           )}
+          </div>
         </div>
       </div>
     </main>
