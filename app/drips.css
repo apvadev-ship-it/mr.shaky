@@ -632,237 +632,146 @@
 .home-legacy .location-map,
 .location-map { width: 100%; }
 
-/* --- Boletín ------------------------------------------------------- */
+/* --- Boletín ---------------------------------------------------------
+   Tarjeta oscura sobre una foto del propio catálogo, muy oscurecida para
+   que haga de textura y no compita con el texto. */
 .sr-only {
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap; border: 0;
 }
-.home-legacy .newsletter-card,
-.newsletter-card {
+
+.nl {
   position: relative;
-  overflow: hidden;
-  background: #151515;
-  border: 1px solid #2a2a2a;
-  border-radius: 22px;
-  padding: 92px 34px 26px;
+  padding: 60px 0;
+  background: url('/assets/menu-hero.webp') center / cover no-repeat;
+  isolation: isolate;
 }
-/* El mismo derretido del resto del sitio, cayendo dentro de la tarjeta. */
-.newsletter-drip {
-  position: absolute; left: 0; right: 0; top: 0;
-  height: 86px;
-  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
-  pointer-events: none;
-}
-.newsletter-top {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 32px;
-}
-.home-legacy .newsletter-title,
-.newsletter-title {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 800;
-  font-size: clamp(28px, 3.4vw, 40px);
-  line-height: 1.04;
-  letter-spacing: -1.4px;
-  margin: 0;
-  color: #fff;
-}
-.home-legacy .newsletter-title em,
-.newsletter-title em { font-style: normal; color: #ffe500; }
-.home-legacy .newsletter-sub,
-.newsletter-sub { margin: 14px 0 0; color: #c9c9c9; font-size: 15px; line-height: 1.45; }
-
-.newsletter-form { display: flex; flex-direction: column; gap: 12px; }
-.newsletter-field {
-  display: flex; align-items: center; gap: 12px;
-  padding: 15px 20px; border-radius: 100px;
-  background: #0b0b0b; border: 1px solid #333;
-  color: #8f8f8f;
-}
-.newsletter-field:focus-within { border-color: #ffe500; }
-.home-legacy .newsletter-field input,
-.newsletter-field input {
-  flex: 1; min-width: 0;
-  background: none; border: 0; outline: 0; padding: 0;
-  color: #fff; font-size: 15px;
-}
-.newsletter-field input::placeholder { color: #8f8f8f; }
-.home-legacy .newsletter-submit,
-.newsletter-submit {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 16px 24px; border-radius: 100px;
-  background: #ffe500; color: #0b0b0b;
-  font-size: 16px; font-weight: 800;
-}
-.newsletter-submit:hover { background: #f7f7f4; }
-.home-legacy .newsletter-fineprint,
-.newsletter-fineprint { text-align: center; font-size: 12px; color: #9a9a9a; }
-
-.home-legacy .newsletter-perks,
-.newsletter-perks {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 30px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.home-legacy .newsletter-perks li,
-.newsletter-perks li {
-  display: flex; align-items: center; gap: 12px;
-  padding: 0 22px;
-  font-size: 14px; line-height: 1.3; color: #f7f7f4;
-}
-.newsletter-perks li + li { border-left: 1px solid #2f2f2f; }
-.newsletter-perks li:first-child { padding-left: 0; }
-.newsletter-perks svg { color: #ffe500; flex-shrink: 0; }
-
-@media (max-width: 860px) {
-  .home-legacy .newsletter-card,
-  .newsletter-card { padding: 78px 20px 22px; }
-  .newsletter-top { grid-template-columns: 1fr; gap: 22px; }
-  .home-legacy .newsletter-perks,
-  .newsletter-perks { grid-template-columns: 1fr; gap: 14px; }
-  .newsletter-perks li + li { border-left: 0; border-top: 1px solid #2f2f2f; padding-top: 14px; }
-  .home-legacy .newsletter-perks li,
-  .newsletter-perks li { padding-left: 0; padding-right: 0; }
-  .newsletter-drip { height: 70px; background-size: 390px 100%; }
+.nl::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: rgba(8, 8, 8, .84);
 }
 
-/* --- Boletín -------------------------------------------------------- */
-.sr-only {
-  position: absolute; width: 1px; height: 1px;
-  padding: 0; margin: -1px; overflow: hidden;
-  clip-path: inset(50%); white-space: nowrap; border: 0;
+.nl-card {
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+  align-items: stretch;
+  border-radius: 28px;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, .09);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
 }
-.home-legacy .newsletter-card,
-.newsletter-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 26px;
-  padding: 96px 40px 30px;
-  background:
-    radial-gradient(120% 160% at 100% 0%, rgba(255, 229, 0, .16) 0%, rgba(255, 229, 0, 0) 55%),
-    #131313;
-  border: 1px solid #2a2a2a;
-}
-.newsletter-drip {
-  position: absolute; left: 0; right: 0; top: 0;
-  height: 90px;
-  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
-  pointer-events: none;
-}
-/* La carita del logo, enorme y recortada por el borde. */
-.newsletter-mark {
-  position: absolute; right: -58px; bottom: -70px;
-  width: 300px; height: 300px;
-  background: url('/mascot.png') center/contain no-repeat;
-  opacity: .07;
-  pointer-events: none;
-}
-.newsletter-top {
-  position: relative; z-index: 1;
-  display: grid; grid-template-columns: 1.05fr .95fr;
-  align-items: center; gap: 40px;
-}
-.home-legacy .newsletter-kicker,
-.newsletter-kicker {
-  display: inline-block;
-  padding: 6px 14px; border-radius: 100px;
-  background: #ffe500; color: #0b0b0b;
-  font-size: 11px; font-weight: 800; letter-spacing: 1.6px;
-  margin-bottom: 16px;
-}
-.home-legacy .newsletter-title,
-.newsletter-title {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 800;
-  font-size: clamp(30px, 3.6vw, 44px);
-  line-height: .98;
-  letter-spacing: -1.6px;
-  margin: 0;
-  color: #fff;
-}
-.home-legacy .newsletter-title em,
-.newsletter-title em { font-style: normal; color: #ffe500; }
-.home-legacy .newsletter-sub,
-.newsletter-sub { margin: 16px 0 0; color: #c9c9c9; font-size: 15px; line-height: 1.5; max-width: 34ch; }
 
-.newsletter-form { display: flex; flex-direction: column; gap: 12px; }
-/* Campo y botón en una sola píldora, como una barra de búsqueda. */
-.newsletter-field {
-  display: flex; align-items: center; gap: 12px;
-  padding: 7px 7px 7px 22px; border-radius: 100px;
-  background: #0b0b0b; border: 1px solid #343434;
-  color: #8e8e8e;
-  transition: border-color .2s ease;
-}
-.newsletter-field:focus-within { border-color: #ffe500; }
-.home-legacy .newsletter-field input,
-.newsletter-field input {
-  flex: 1; min-width: 0;
-  background: none; border: 0; outline: 0; padding: 0;
-  color: #fff; font-size: 15px;
-}
-.newsletter-field input::placeholder { color: #8e8e8e; }
-.home-legacy .newsletter-submit,
-.newsletter-submit {
-  display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
-  padding: 13px 22px; border-radius: 100px;
-  background: #ffe500; color: #0b0b0b;
-  font-size: 14px; font-weight: 800;
-  transition: background .2s ease;
-}
-.newsletter-submit:hover { background: #fff; }
-.home-legacy .newsletter-fineprint,
-.newsletter-fineprint { padding-left: 22px; font-size: 12px; color: #b5b5b5; }
-
-.home-legacy .newsletter-perks,
-.newsletter-perks {
-  position: relative; z-index: 1;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-  margin: 34px 0 0; padding: 0; list-style: none;
-}
-.home-legacy .newsletter-perks li,
-.newsletter-perks li {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 16px; border-radius: 14px;
-  background: #0b0b0b; border: 1px solid #262626;
-  font-size: 13px; line-height: 1.3; color: #f7f7f4;
-}
-.newsletter-perk-icon {
-  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+.nl-body { padding: 42px; display: flex; flex-direction: column; align-items: flex-start; }
+.nl-icon {
   display: grid; place-items: center;
-  background: rgba(255, 229, 0, .14); color: #ffe500;
+  width: 62px; height: 62px; margin-bottom: 20px;
+  border-radius: 16px;
+  border: 2px solid #ffe500; color: #ffe500;
 }
-.newsletter-success {
+.nl-title {
+  margin: 0 0 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(27px, 3vw, 41px); font-weight: 800;
+  line-height: 1.08; letter-spacing: -1.4px; color: #fff;
+}
+.nl-title em { color: #ffe500; font-style: normal; }
+.nl-lead {
+  margin: 0 0 26px; max-width: 460px;
+  font-size: 15.5px; line-height: 1.5; color: #c4c4c4;
+}
+
+.nl-form { display: flex; flex-wrap: wrap; gap: 14px; width: 100%; max-width: 660px; }
+.nl-field {
+  flex: 1 1 260px; min-width: 0;
   display: flex; align-items: center; gap: 12px;
-  padding: 20px; border-radius: 16px;
-  background: rgba(255, 229, 0, .1); border: 1px solid #ffe500; color: #fff;
+  padding: 0 20px; height: 62px; border-radius: 15px;
+  background: #1c1c1c; border: 1px solid #333;
+}
+.nl-field:focus-within { border-color: #ffe500; }
+.nl-field svg { color: #8e8e8e; flex-shrink: 0; }
+.nl-field input {
+  flex: 1; min-width: 0; height: 100%;
+  background: none; border: 0; outline: 0;
+  font: inherit; font-size: 16px; color: #fff;
+}
+.nl-field input::placeholder { color: #8e8e8e; }
+
+.nl-submit {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  height: 62px; padding: 0 34px; border-radius: 15px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 17px; font-weight: 800; letter-spacing: -.2px;
+  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+.nl-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(255, 229, 0, .26); }
+
+.nl-consent {
+  flex: 1 1 100%;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; line-height: 1.4; color: #c4c4c4; cursor: pointer;
+}
+.nl-consent input { position: absolute; opacity: 0; width: 0; height: 0; }
+.nl-box {
+  display: grid; place-items: center; flex-shrink: 0;
+  width: 24px; height: 24px; border-radius: 7px;
+  background: none; border: 2px solid #5a5a5a; color: transparent;
+  transition: background .16s ease, border-color .16s ease, color .16s ease;
+}
+.nl-consent input:checked + .nl-box { background: #ffe500; border-color: #ffe500; color: #0b0b0b; }
+.nl-consent input:focus-visible + .nl-box { outline: 3px solid #ffe500; outline-offset: 3px; }
+
+.nl-error {
+  flex: 1 1 100%; margin: -4px 0 0;
+  font-size: 13.5px; font-weight: 600; color: #ffb4b4;
 }
 
-@media (max-width: 860px) {
-  .home-legacy .newsletter-card,
-  .newsletter-card { padding: 80px 20px 22px; border-radius: 22px; }
-  .newsletter-top { grid-template-columns: 1fr; gap: 24px; }
-  .home-legacy .newsletter-perks,
-  .newsletter-perks { grid-template-columns: 1fr; gap: 10px; margin-top: 24px; }
-  .newsletter-drip { height: 72px; background-size: 390px 100%; }
-  .newsletter-mark { width: 210px; height: 210px; right: -46px; bottom: -56px; }
-  .newsletter-field { flex-wrap: wrap; border-radius: 22px; padding: 14px; gap: 10px; }
-  .newsletter-field input { flex: 1 0 60%; }
-  .home-legacy .newsletter-submit,
-  .newsletter-submit { width: 100%; justify-content: center; padding: 14px; }
-  .home-legacy .newsletter-fineprint,
-  .newsletter-fineprint { padding-left: 0; text-align: center; }
+.nl-done {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin: 0; padding: 18px 26px; border-radius: 15px;
+  background: rgba(255, 229, 0, .12); border: 1px solid #ffe500;
+  font-size: 16px; font-weight: 700; color: #ffe500;
 }
 
-/* El contenedor del formulario traía su propia caja oscura de la hoja
-   antigua; sobra dentro de la tarjeta. */
-:root.home-legacy .newsletter-panel,
-.newsletter-panel { background: none; border: 0; padding: 0; }
+/* La foto sangra hasta el borde derecho de la tarjeta. */
+.nl-photo { position: relative; min-height: 340px; }
+.nl-photo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  mask-image: linear-gradient(90deg, transparent, #000 26%);
+}
+.nl-note {
+  position: absolute; right: 22px; top: 30px;
+  max-width: 180px;
+  font-size: 19px; color: #fff; text-align: right;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .8);
+}
+.nl-note svg { display: block; width: 62px; margin: 6px 0 0 auto; }
+
+/* --- Tablet ----------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .nl-card { grid-template-columns: minmax(0, 1fr); }
+  .nl-body { padding: 32px 26px; order: 2; }
+  .nl-photo { order: 1; min-height: 210px; }
+  .nl-photo img { mask-image: linear-gradient(180deg, #000 48%, transparent); }
+  .nl-note { top: 18px; right: 18px; font-size: 17px; }
+}
+
+/* --- Celular ---------------------------------------------------------- */
+@media (max-width: 640px) {
+  .nl { padding: 40px 0; }
+  .nl-card { border-radius: 22px; }
+  .nl-body { padding: 24px 18px; }
+  .nl-icon { width: 52px; height: 52px; margin-bottom: 16px; border-radius: 14px; }
+  .nl-lead { margin-bottom: 20px; font-size: 14.5px; }
+  .nl-form { gap: 11px; }
+  .nl-field { flex: 1 1 100%; height: 56px; padding: 0 16px; border-radius: 13px; }
+  .nl-submit { flex: 1 1 100%; height: 56px; border-radius: 13px; font-size: 16px; }
+  .nl-photo { min-height: 170px; }
+  .nl-note { font-size: 15px; max-width: 150px; }
+  .nl-note svg { width: 48px; }
+}
 
 /* --- Colores por macro ----------------------------------------------
    Un color para cada tipo, el mismo en las fichas del reverso de la
