@@ -1,0 +1,198 @@
+/* "Arma tu Bowl" en escritorio: los tres pasos a la vista a la izquierda,
+   el resumen del bowl a la derecha. Desde 1101px; abajo, el flujo por pasos. */
+.bd { display: none; }
+
+@media (min-width: 1101px) {
+  .bd { display: block; background: #0b0b0b; padding: 112px 0 60px; }
+  .bd-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 470px;
+    align-items: start;
+    gap: 26px;
+  }
+
+  .bd-back {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: none; border: 0; padding: 0;
+    color: #f7f7f4; font-size: 17px; font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .bd-back:hover { color: #ffe500; }
+
+  .bd-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+  .bd-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(44px, 4.6vw, 66px);
+    font-weight: 800; line-height: .94; letter-spacing: -2.6px;
+    color: #fff; margin: 0;
+  }
+  .bd-title em { font-style: normal; color: #ffe500; }
+  .bd-lead { margin: 10px 0 0; font-size: 16px; color: #c9c9c9; max-width: 56ch; }
+  .bd-sticker {
+    display: flex; flex-direction: column; align-items: center; flex-shrink: 0;
+    padding: 12px 30px; border-radius: 14px;
+    background: #ffe500; color: #0b0b0b;
+    transform: rotate(-2deg);
+    font-size: 15px; font-weight: 700; line-height: 1.1;
+  }
+  .bd-sticker strong { font-size: 34px; font-weight: 800; letter-spacing: -1.2px; }
+
+  /* --- Tarjetas de paso --- */
+  .bd-card {
+    background: #faf8f0; color: #0b0b0b;
+    border-radius: 22px; padding: 20px 22px 22px;
+    margin-bottom: 16px;
+  }
+  .bd-card-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .bd-step-n {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: #0b0b0b; color: #ffe500;
+    font-size: 16px; font-weight: 800;
+  }
+  .bd-card-head h2 { font-size: 21px; font-weight: 800; letter-spacing: -.5px; margin: 0; }
+  .bd-required {
+    padding: 5px 13px; border-radius: 100px;
+    background: #ffe500; color: #0b0b0b;
+    font-size: 12px; font-weight: 700;
+  }
+  .bd-counter {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 10px;
+    font-size: 14px; font-weight: 600; color: #4a4a4a;
+  }
+  .bd-dots { display: inline-flex; gap: 6px; }
+  .bd-dots i { width: 17px; height: 17px; border-radius: 50%; background: #e0ded2; display: block; }
+  .bd-dots i.on { background: #ffe500; }
+
+  .bd-options { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+  .bd-option {
+    display: flex; flex-direction: column; gap: 0;
+    padding: 0; border: 2px solid transparent; border-radius: 14px;
+    background: #fff; color: #0b0b0b; overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+    transition: border-color .18s ease, transform .18s ease;
+  }
+  .bd-option:hover { transform: translateY(-2px); border-color: #e0d88a; }
+  .bd-option.chosen { border-color: #ffe500; }
+  .bd-option.blocked { opacity: .45; }
+  .bd-option-photo { position: relative; display: block; }
+  .bd-option-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .bd-check {
+    position: absolute; top: 7px; right: 7px;
+    width: 27px; height: 27px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #ffe500; color: #0b0b0b;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
+  }
+  .bd-option-name { padding: 10px 6px; font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .bd-hint { margin: 12px 0 0; font-size: 13px; color: #5f5f5f; }
+
+  /* --- Resumen del bowl --- */
+  .bd-aside {
+    position: sticky; top: 104px;
+    background: #141414; border: 1px solid #2a2a2a;
+    border-radius: 24px; padding: 22px;
+  }
+  .bd-aside-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .bd-bag { color: #ffe500; flex-shrink: 0; }
+  .bd-aside-head h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px; font-weight: 800; letter-spacing: -.8px;
+    color: #fff; margin: 0;
+  }
+
+  .bd-preview { position: relative; border-radius: 16px; overflow: hidden; }
+  .bd-preview img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+  .bd-preview-price {
+    position: absolute; right: 10px; bottom: 12px;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 8px 18px; border-radius: 10px;
+    background: #ffe500; color: #0b0b0b;
+    transform: rotate(-2deg);
+    font-size: 12px; font-weight: 700; line-height: 1.15;
+  }
+  .bd-preview-price strong { font-size: 23px; font-weight: 800; letter-spacing: -.8px; }
+
+  .bd-picks { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+  .bd-picks > li {
+    display: flex; align-items: center; gap: 13px;
+    padding: 11px; border-radius: 14px;
+    background: #0b0b0b; border: 1px solid #262626;
+  }
+  .bd-picks > li > img { width: 58px; height: 58px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+  .bd-picks > li > div { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .bd-picks span { font-size: 15px; font-weight: 800; color: #fff; }
+  .bd-picks strong { font-size: 14px; font-weight: 500; color: #c9c9c9; }
+  .bd-picks button {
+    display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+    background: none; border: 0; padding: 6px;
+    color: #ffe500; font-size: 13px; font-weight: 700;
+  }
+  .bd-picks button:hover { text-decoration: underline; }
+
+  .bd-picks-sides { flex-direction: column; align-items: stretch; gap: 10px; }
+  .bd-picks-thumbs { display: flex; gap: 10px; }
+  .bd-picks-thumbs figure { margin: 0; flex: 1; min-width: 0; text-align: center; }
+  .bd-picks-thumbs img { width: 100%; aspect-ratio: 1 / 1; border-radius: 10px; object-fit: cover; display: block; }
+  .bd-picks-thumbs figcaption { margin-top: 5px; font-size: 11px; color: #c9c9c9; line-height: 1.2; }
+  .bd-empty-thumb {
+    display: block; width: 100%; height: 58px; border-radius: 10px;
+    border: 1px dashed #3a3a3a;
+  }
+  .bd-picks-label { display: flex; align-items: center; justify-content: space-between; }
+
+  .bd-summary-title { font-size: 17px; font-weight: 800; color: #fff; margin: 20px 0 10px; }
+  .bd-summary {
+    display: flex; gap: 13px; align-items: flex-start;
+    padding: 12px; border-radius: 14px;
+    background: #0b0b0b; border: 1px solid #262626;
+  }
+  .bd-summary > img { width: 62px; height: 62px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+  .bd-summary-copy { flex: 1; min-width: 0; }
+  .bd-summary-copy strong { display: block; font-size: 15px; color: #fff; }
+  .bd-summary-copy p { margin: 3px 0 7px; font-size: 12px; line-height: 1.35; color: #9a9a9a; }
+  .bd-summary-price { font-size: 15px; font-weight: 800; color: #fff; }
+  .bd-summary-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .bd-qty {
+    display: flex; align-items: center; gap: 5px;
+    padding: 4px; border-radius: 100px;
+    background: #181818; border: 1px solid #333;
+  }
+  .bd-qty button {
+    width: 28px; height: 28px; border-radius: 50%; border: 0;
+    display: grid; place-items: center;
+    background: #262626; color: #fff;
+  }
+  .bd-qty button:hover:not([disabled]) { background: #ffe500; color: #0b0b0b; }
+  .bd-qty button[disabled] { opacity: .4; }
+  .bd-qty output { min-width: 22px; text-align: center; font-weight: 800; color: #fff; }
+  .bd-clear { background: none; border: 0; color: #8e8e8e; padding: 4px; }
+  .bd-clear:hover { color: #ffe500; }
+
+  .bd-total {
+    display: flex; align-items: center; justify-content: space-between;
+    margin: 18px 0 14px; padding-top: 16px;
+    border-top: 1px solid #2a2a2a;
+  }
+  .bd-total span { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.6px; }
+  .bd-total strong { font-size: 34px; font-weight: 800; color: #ffe500; letter-spacing: -1.4px; }
+
+  .bd-submit {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    width: 100%; padding: 19px; border-radius: 100px; border: 0;
+    background: #ffe500; color: #0b0b0b;
+    font-size: 18px; font-weight: 800;
+  }
+  .bd-submit:hover:not([disabled]) { background: #fff; }
+  .bd-submit[disabled] { opacity: .45; }
+  .bd-submit-hint { margin: 10px 0 0; text-align: center; font-size: 13px; color: #9a9a9a; }
+
+  /* En pantallas menos anchas la rejilla de opciones baja a 4 por fila. */
+  @media (max-width: 1400px) {
+    .bd-grid { grid-template-columns: minmax(0, 1fr) 400px; }
+    .bd-options { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  /* Esta vista reemplaza al flujo por pasos en escritorio. */
+  .bd ~ .bowl-page { display: none; }
+}

@@ -5,6 +5,7 @@ import {RadioGroup,RadioGroupItem} from '@/components/ui/radio-group';
 import {Checkbox} from '@/components/ui/checkbox';
 import {proteins,sides,sauces,BowlConfig} from './bowl-data';
 import {asset,money} from './data';
+import {BowlDesktop} from '@/components/shaky-bowl-desktop';
 
 const STEPS=['Proteína','Acompañantes','Vinagreta','Tu bowl'];
 
@@ -25,7 +26,7 @@ const choices=[{name:proteins[protein],image:`protein-${protein}`},...[...select
 // Cada paso se valida antes de dejar avanzar.
 const canContinue=step===1?selected.length===3:true;
 
-return <main className="bowl-page">
+return <><BowlDesktop onAdd={onAdd} go={go}/><main className="bowl-page">
   <section className="bowl-hero shell">
     <span className="drip" aria-hidden="true"/>
     <img className="bowl-hero-photo" src={asset('bowl-hero')} alt="Bowl de pollo, arroz y vegetales"/>
@@ -85,5 +86,5 @@ return <main className="bowl-page">
       </button>
     </div>}
   </div>
-</main>;
+</main></>;
 }
