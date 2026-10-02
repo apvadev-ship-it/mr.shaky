@@ -57,7 +57,24 @@ export function ShakyChrome() {
 
   return (
     <>
-      <Toaster richColors position="top-center" />
+      <Toaster
+        position="top-center"
+        offset={{ top: '88px' }}
+        // En pantallas estrechas sonner usa su propio desplazamiento, y por
+        // defecto deja el aviso debajo de la barra superior, que es fija.
+        mobileOffset={{ top: '88px', left: '12px', right: '12px' }}
+        gap={10}
+        duration={3200}
+        toastOptions={{ className: 'shaky-toast' }}
+        style={{
+          // Sonner inyecta su hoja en runtime, despues de la nuestra: estas
+          // son las variables que lee, y asi no hace falta pelear la cascada.
+          '--normal-bg': 'rgba(16, 16, 16, .94)',
+          '--normal-text': '#fff',
+          '--normal-border': 'rgba(255, 255, 255, .14)',
+          '--border-radius': '16px',
+        } as React.CSSProperties}
+      />
       <a className="skip" href="/menu">Ir al menú</a>
       <header className={'header wrap' + (cartOpen ? ' header-hidden' : '')}>
         <Link href="/" aria-label="Mr. Shaky, inicio"><img className="wordmark" src="/mascot.png" alt="Mr. Shaky" /></Link>

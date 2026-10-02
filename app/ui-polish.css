@@ -689,3 +689,58 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) {
   :root:not(.home-legacy) .compare-dock { animation: none; }
 }
+
+/* --- Avisos (sonner) -------------------------------------------------
+   Antes habia dos Toaster montados y cada aviso salia duplicado; ahora
+   solo lo monta ShakyChrome. Sonner inyecta su hoja en runtime, despues
+   de esta, asi que las reglas se apoyan en la clase propia del aviso
+   (toastOptions.className) para ganar por especificidad. */
+[data-sonner-toaster] {
+  --width: 380px;
+  font-family: 'Poppins', Arial, sans-serif;
+  z-index: 120;
+}
+[data-sonner-toast][data-styled="true"].shaky-toast {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(16, 16, 16, .94);
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
+  backdrop-filter: blur(14px);
+  color: #fff;
+}
+[data-sonner-toast][data-styled="true"].shaky-toast [data-icon] {
+  display: grid; place-items: center;
+  width: 32px; height: 32px; margin: 0; flex-shrink: 0;
+  border-radius: 50%;
+  background: #ffe500; color: #0b0b0b;
+}
+[data-sonner-toast][data-styled="true"].shaky-toast [data-icon] > svg { width: 18px; height: 18px; }
+[data-sonner-toast][data-styled="true"].shaky-toast [data-content] { display: grid; gap: 2px; min-width: 0; }
+[data-sonner-toast][data-styled="true"].shaky-toast [data-title] {
+  font-size: 14px; font-weight: 700; line-height: 1.25; color: #fff;
+}
+[data-sonner-toast][data-styled="true"].shaky-toast [data-description] {
+  font-size: 12px; line-height: 1.35; color: #b9b9b9;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+[data-sonner-toast][data-styled="true"].shaky-toast[data-type="error"] [data-icon] {
+  background: var(--macro-calories, #ff4d4d); color: #0b0b0b;
+}
+[data-sonner-toast][data-styled="true"].shaky-toast [data-close-button] {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .16);
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  /* Sonner fija width:100% en pantallas estrechas, asi que con los margenes
+     laterales el aviso se salia 12px por la derecha. Con los dos lados
+     puestos, el ancho lo resuelve el navegador. Hacen falta las tres
+     repeticiones del selector: su hoja se inyecta despues de esta. */
+  [data-sonner-toaster][data-sonner-toaster][data-sonner-toaster] { width: auto; }
+  [data-sonner-toast][data-styled="true"].shaky-toast { padding: 12px 14px; border-radius: 14px; gap: 10px; }
+  [data-sonner-toast][data-styled="true"].shaky-toast [data-title] { font-size: 13px; }
+  [data-sonner-toast][data-styled="true"].shaky-toast [data-description] { font-size: 11px; }
+}

@@ -101,7 +101,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
     if (loaded) try { localStorage.setItem('shaky-demo-v1', JSON.stringify({ cart, favorites, bowls, orders, reviews: reviews.filter(r => !r.id.startsWith('r')), order, customerName, customerPhone, appliedCoupon })) } catch { }
   }, [cart, favorites, bowls, orders, reviews, order, customerName, customerPhone, appliedCoupon, loaded]);
 
-  const add = (id: string) => { setCart(c => ({ ...c, [id]: Math.min(99, (c[id] || 0) + 1) })); toast.success('Agregado a tu carrito', { description: catalog.find(p => p.id === id)?.name }) };
+  const add = (id: string) => { setCart(c => ({ ...c, [id]: Math.min(99, (c[id] || 0) + 1) })); toast.success('Agregado a tu carrito', { id: 'cart-add', description: catalog.find(p => p.id === id)?.name }) };
   const changeQty = (id: string, delta: number) => setCart(c => { const next = { ...c, [id]: Math.min(99, (c[id] || 0) + delta) }; if (next[id] <= 0) delete next[id]; return next });
   const removeFromCart = (id: string) => setCart(c => { const next = { ...c }; delete next[id]; return next });
   const clearCart = () => { setCart({}); setBowls([]) };
@@ -125,7 +125,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
     const id = bowlId(config);
     setBowls(list => list.some(b => bowlId(b) === id) ? list : [...list, config]);
     setCart(c => ({ ...c, [id]: Math.min(99, (c[id] || 0) + 1) }));
-    toast.success('Agregado a tu carrito', { description: bowlItem(config).name });
+    toast.success('Agregado a tu carrito', { id: 'cart-add', description: bowlItem(config).name });
   };
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   const subtotal = catalog.reduce((sum, p) => sum + (cart[p.id] || 0) * p.price, 0);
