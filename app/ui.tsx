@@ -28,10 +28,10 @@ return <article className="product flip-card">
     <div className="flip-back-body">
       <h3>{p.name}</h3>
       <div className="flip-tiles">
-        <span className="flip-tile"><b>{p.protein}g</b>Proteína</span>
-        <span className="flip-tile"><b>{p.carbs}g</b>Carbohidratos</span>
-        <span className="flip-tile"><b>{p.fat}g</b>Grasas</span>
-        <span className="flip-tile"><b>{p.calories}</b>Calorías</span>
+        <span className="flip-tile macro-protein"><b>{p.protein}g</b>Proteína</span>
+        <span className="flip-tile macro-carbs"><b>{p.carbs}g</b>Carbohidratos</span>
+        <span className="flip-tile macro-fat"><b>{p.fat}g</b>Grasas</span>
+        <span className="flip-tile macro-calories"><b>{p.calories}</b>Calorías</span>
       </div>
     </div>
   </div>

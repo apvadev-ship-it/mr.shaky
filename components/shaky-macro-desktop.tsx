@@ -170,17 +170,17 @@ export function MacroDesktop({ go }: { go: (r: string) => void }) {
                     <small>kcal</small>
                     <span className="md-tag">{GOALS.find(g => g.id === goal)!.copy}</span>
                   </div>
-                  <div className="md-macro">
+                  <div className="md-macro md-macro-protein">
                     <Drumstick size={20} aria-hidden="true" />
                     <span>Proteínas</span><strong>{show(result.protein)} g</strong>
                     <small>30% ({show(result.protein * 4)} kcal)</small>
                   </div>
-                  <div className="md-macro">
+                  <div className="md-macro md-macro-carbs">
                     <Wheat size={20} aria-hidden="true" />
                     <span>Carbohidratos</span><strong>{show(result.carbs)} g</strong>
                     <small>40% ({show(result.carbs * 4)} kcal)</small>
                   </div>
-                  <div className="md-macro">
+                  <div className="md-macro md-macro-fat">
                     <Droplet size={20} aria-hidden="true" />
                     <span>Grasas</span><strong>{show(result.fat)} g</strong>
                     <small>30% ({show(result.fat * 9)} kcal)</small>

@@ -866,3 +866,18 @@
    antigua; sobra dentro de la tarjeta. */
 :root.home-legacy .newsletter-panel,
 .newsletter-panel { background: none; border: 0; padding: 0; }
+
+/* --- Colores por macro ----------------------------------------------
+   Un color para cada tipo, el mismo en las fichas del reverso de la
+   tarjeta del menú y en los anillos del detalle y la comparativa.
+   Todos llevan texto negro encima: el peor caso es el rojo, 6.4:1. */
+:root {
+  --macro-calories: #ff4d4d;
+  --macro-protein: #2fd36f;
+  --macro-carbs: #ffe500;
+  --macro-fat: #3aa0ff;
+}
+.flip-tile.macro-calories { background: var(--macro-calories); }
+.flip-tile.macro-protein { background: var(--macro-protein); }
+.flip-tile.macro-carbs { background: var(--macro-carbs); }
+.flip-tile.macro-fat { background: var(--macro-fat); }

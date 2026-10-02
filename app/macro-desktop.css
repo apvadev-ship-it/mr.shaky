@@ -187,6 +187,9 @@
     background: #fafafa; border: 1px solid #e6e6e6; text-align: center;
   }
   .md-macro svg { color: #0b0b0b; }
+  .md-macro-protein { border-color: var(--macro-protein); }
+  .md-macro-carbs { border-color: var(--macro-carbs); }
+  .md-macro-fat { border-color: var(--macro-fat); }
   .md-macro > span { font-size: 12px; color: #5a5a5a; }
   .md-macro strong { font-size: 21px; font-weight: 800; letter-spacing: -.8px; }
   .md-macro small { font-size: 10px; color: #5a5a5a; }
@@ -196,9 +199,9 @@
     margin: 18px 0 12px;
   }
   .md-split i { display: block; }
-  .md-seg-protein { background: #ffe500; }
-  .md-seg-carbs { background: #0b0b0b; }
-  .md-seg-fat { background: #d6d6d6; }
+  .md-seg-protein { background: var(--macro-protein); }
+  .md-seg-carbs { background: var(--macro-carbs); }
+  .md-seg-fat { background: var(--macro-fat); }
   .md-legend {
     list-style: none; margin: 0; padding: 0;
     display: flex; flex-wrap: wrap; gap: 8px 16px;

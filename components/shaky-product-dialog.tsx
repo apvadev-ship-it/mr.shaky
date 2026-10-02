@@ -1,4 +1,5 @@
 "use client";
+import { Fragment, useState } from 'react';
 import { ArrowLeftRight, Bird, Dumbbell, Flame, Heart, Leaf, Minus, Plus, Scale, ShoppingBag, Sparkles, Wheat, X } from 'lucide-react';
 import { money, type Product } from '@/lib/demo-data';
 import { MacroRings, macroDeltas } from '@/components/shaky-macro-rings';
@@ -22,11 +23,12 @@ function traits(p: Product) {
 }
 
 export function ProductDetail({
-  p, qty, onQty, onAdd, onClose, favorite, onFavorite,
+  p, onAdd, onClose, favorite, onFavorite,
 }: {
-  p: Product; qty: number; onQty: (n: number) => void; onAdd: () => void;
+  p: Product; onAdd: (qty: number) => void;
   onClose: () => void; favorite: boolean; onFavorite: () => void;
 }) {
+  const [qty, setQty] = useState(1);
   const { icon: BadgeIcon, text: badgeText } = badge(p);
 
   return (
@@ -59,9 +61,9 @@ export function ProductDetail({
           <div className="pd-buy">
             <strong className="pd-price">{money(p.price)}</strong>
             <div className="pd-qty">
-              <button type="button" aria-label="Quitar una unidad" disabled={qty <= 1} onClick={() => onQty(qty - 1)}><Minus size={17} /></button>
+              <button type="button" aria-label="Quitar una unidad" disabled={qty <= 1} onClick={() => setQty(n => Math.max(1, n - 1))}><Minus size={17} /></button>
               <output aria-label="Cantidad">{qty}</output>
-              <button type="button" aria-label="Añadir una unidad" disabled={qty >= 20} onClick={() => onQty(qty + 1)}><Plus size={17} /></button>
+              <button type="button" aria-label="Añadir una unidad" disabled={qty >= 20} onClick={() => setQty(n => Math.min(20, n + 1))}><Plus size={17} /></button>
             </div>
           </div>
         </div>
@@ -80,7 +82,7 @@ export function ProductDetail({
 
       <footer className="pd-foot">
         <p className="pd-allergens">{p.allergens}</p>
-        <button type="button" className="pd-add" onClick={onAdd}>
+        <button type="button" className="pd-add" onClick={() => onAdd(qty)}>
           <ShoppingBag size={20} aria-hidden="true" />
           Agregar al pedido
           <span>{money(p.price * qty)}</span>
@@ -92,6 +94,7 @@ export function ProductDetail({
 
 export function CompareView({ items, onClose }: { items: Product[]; onClose: () => void }) {
   const [a, b] = items;
+  const pair = items.length === 2;
   return (
     <div className="cmp">
       <button type="button" className="cmp-close" onClick={onClose} aria-label="Cerrar"><X size={21} /></button>
@@ -101,36 +104,40 @@ export function CompareView({ items, onClose }: { items: Product[]; onClose: () 
         <p className="cmp-empty"><Scale size={24} aria-hidden="true" />Elige dos productos del menú para compararlos.</p>
       ) : (
         <>
-          <div className="cmp-grid">
-            <article className="cmp-side">
-              <img src={a.image} alt="" aria-hidden="true" />
-              <h3>{a.name}</h3>
-              <p>{a.description}</p>
-              <strong>{money(a.price)}</strong>
-              <MacroRings p={a} compact />
-            </article>
-
-            <div className="cmp-middle" aria-hidden="true">
-              <span className="cmp-vs"><ArrowLeftRight size={20} /></span>
-            </div>
-
-            <article className="cmp-side">
-              <img src={b.image} alt="" aria-hidden="true" />
-              <h3>{b.name}</h3>
-              <p>{b.description}</p>
-              <strong>{money(b.price)}</strong>
-              <MacroRings p={b} compact />
-            </article>
+          <div className={'cmp-grid' + (pair ? '' : ' cmp-grid-wide')}>
+            {items.map((p, i) => (
+              <Fragment key={p.id}>
+                {pair && i === 1 && (
+                  <div className="cmp-middle" aria-hidden="true">
+                    <span className="cmp-vs"><ArrowLeftRight size={20} /></span>
+                  </div>
+                )}
+                <article className="cmp-side">
+                  <img src={p.image} alt="" aria-hidden="true" />
+                  <h3>{p.name}</h3>
+                  <p>{p.description}</p>
+                  <strong>{money(p.price)}</strong>
+                  <MacroRings p={p} compact />
+                </article>
+              </Fragment>
+            ))}
           </div>
 
+          {!pair && (
+            <p className="cmp-note">
+              Las diferencias se muestran al comparar dos productos. Quita uno para verlas.
+            </p>
+          )}
+
+          {pair && <>
           <h4 className="cmp-sub">Diferencia entre los dos</h4>
           <ul className="cmp-deltas">
-            {macroDeltas(a, b).map(({ key, label, unit, diff, a: va, b: vb }) => {
+            {macroDeltas(a, b).map(({ key, label, unit, tone, diff, a: va, b: vb }) => {
               const g = unit === 'g' ? 'g' : '';
               const total = va + vb || 1;
               const winner = diff === 0 ? null : diff > 0 ? a.name : b.name;
               return (
-                <li key={key}>
+                <li key={key} style={{ ['--tone' as string]: `var(--macro-${tone})` }}>
                   <b className="cmp-val">{va}{g}</b>
                   <span className="cmp-bar" aria-hidden="true">
                     <i className={diff >= 0 ? 'lead' : ''} style={{ width: (va / total * 100) + '%' }} />
@@ -143,6 +150,7 @@ export function CompareView({ items, onClose }: { items: Product[]; onClose: () 
               );
             })}
           </ul>
+          </>}
         </>
       )}
     </div>
