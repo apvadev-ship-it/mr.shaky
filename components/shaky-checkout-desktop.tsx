@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Bike, CreditCard, Check, Crosshair, Lock, Mail, MapPin, Phone, ShoppingBag, Smartphone, Store, Tag, Truck, UserRound, Wallet } from 'lucide-react';
 import { branches, money, storeAddress } from '@/lib/demo-data';
 import { useShaky } from '@/components/shaky-store';
@@ -167,7 +168,7 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
             <ShoppingBag size={22} aria-hidden="true" />Confirmar pedido y pagar <ArrowRight size={22} aria-hidden="true" />
           </button>
           {touched && !ready && count > 0 && <p className="ck-submit-hint">Completa los campos marcados para continuar.</p>}
-          <p className="ck-terms">Al confirmar, aceptas nuestros <a href="/nosotros">Términos y Condiciones</a> y nuestra <a href="/nosotros">Política de Privacidad</a>.</p>
+          <p className="ck-terms">Al confirmar, aceptas nuestros <Link href="/nosotros">Términos y Condiciones</Link> y nuestra <Link href="/nosotros">Política de Privacidad</Link>.</p>
         </aside>
       </form>
     </section>
