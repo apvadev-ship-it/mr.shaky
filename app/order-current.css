@@ -1,0 +1,191 @@
+/* "Tu pedido actual" en escritorio: pedido a la izquierda, sugerencias a
+   la derecha. Solo se muestra desde 1101px; abajo manda el flujo por pasos. */
+.oc { display: none; }
+
+@media (min-width: 1101px) {
+  .oc { display: block; background: #0b0b0b; padding: 118px 0 60px; }
+  .oc-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    align-items: start;
+    gap: 28px;
+  }
+
+  /* --- Cabecera --- */
+  .oc-crumb {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: #c9c9c9; margin-bottom: 6px;
+  }
+  .oc-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(42px, 4.4vw, 62px);
+    font-weight: 800; line-height: .95; letter-spacing: -2.5px;
+    color: #fff; margin: 0;
+  }
+  .oc-title em { font-style: normal; color: #ffe500; }
+  .oc-lead { margin: 10px 0 0; font-size: 17px; color: #c9c9c9; }
+
+  /* --- Fecha, hora y sucursal --- */
+  .oc-controls {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px; margin: 24px 0 18px;
+  }
+  .oc-control {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 18px; border-radius: 18px;
+    background: #141414; border: 1px solid #262626;
+  }
+  .oc-control > div { flex: 1; min-width: 0; }
+  .oc-control-icon { color: #fff; flex-shrink: 0; }
+  .oc-control-label { display: block; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+
+  .oc-select {
+    display: flex; align-items: center; gap: 9px;
+    padding: 11px 14px; border-radius: 11px;
+    background: #0b0b0b; border: 1px solid #333; color: #9a9a9a;
+  }
+  .oc-select:focus-within { border-color: #ffe500; }
+  .oc-select select,
+  .oc-select input {
+    flex: 1; min-width: 0;
+    background: none; border: 0; outline: 0; padding: 0;
+    color: #f7f7f4; font-size: 13px; font-family: inherit;
+    color-scheme: dark;
+  }
+  .oc-times { display: flex; flex-wrap: wrap; gap: 7px; }
+  .oc-times-custom { margin-top: 8px; }
+  .oc-times button {
+    padding: 8px 13px; border-radius: 9px;
+    background: #0b0b0b; border: 1px solid #333; color: #f7f7f4;
+    font-size: 12px; font-weight: 600;
+  }
+  .oc-times button:hover { border-color: #6a6a6a; }
+  .oc-times button.chosen { background: #ffe500; border-color: #ffe500; color: #0b0b0b; font-weight: 800; }
+  .oc-time-field { flex: 1; min-width: 118px; padding: 7px 12px; }
+
+  /* --- Líneas del pedido --- */
+  .oc-lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .oc-line {
+    display: grid;
+    grid-template-columns: 148px minmax(0, 1fr) auto auto auto;
+    align-items: center; gap: 20px;
+    background: #f7f7f4; color: #0b0b0b;
+    border-radius: 18px; padding: 10px 22px 10px 10px;
+  }
+  .oc-line > img { width: 148px; height: 110px; border-radius: 12px; object-fit: cover; display: block; }
+  .oc-line-copy h3 { font-size: 19px; font-weight: 800; margin: 0 0 4px; letter-spacing: -.4px; }
+  .oc-line-copy p { font-size: 14px; line-height: 1.35; color: #4a4a4a; margin: 0 0 8px; max-width: 34ch; }
+  .oc-line-rating { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; }
+  .oc-line-rating > span { color: #ffc400; letter-spacing: -1px; font-size: 17px; }
+  .oc-line-rating small { color: #5f5f5f; font-weight: 500; }
+
+  .oc-qty {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px; border-radius: 100px;
+    background: #fff; border: 1px solid #e2e2dd;
+  }
+  .oc-qty button {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #f1f1ec; color: #0b0b0b; border: 0;
+  }
+  .oc-qty button:hover { background: #ffe500; }
+  .oc-qty output { min-width: 26px; text-align: center; font-weight: 800; font-size: 16px; }
+  .oc-line-price { font-size: 26px; font-weight: 800; letter-spacing: -.8px; white-space: nowrap; }
+  .oc-remove { color: #6a6a6a; background: none; border: 0; padding: 6px; }
+  .oc-remove:hover { color: #0b0b0b; }
+  .oc-empty { color: #9a9a9a; padding: 26px 0; }
+
+  /* --- Total --- */
+  .oc-total {
+    display: flex; align-items: center; gap: 18px;
+    margin-top: 14px; padding: 18px 22px;
+    border-radius: 18px;
+    background: #fdf6cf; color: #0b0b0b;
+    border: 1px solid #f2e59a;
+  }
+  .oc-total-icon { color: #0b0b0b; display: grid; place-items: center; }
+  .oc-total-copy { display: flex; flex-direction: column; }
+  .oc-total-copy strong { font-size: 20px; font-weight: 800; letter-spacing: -.4px; }
+  .oc-total-copy span { font-size: 14px; color: #5f5f5f; }
+  .oc-total-amount {
+    margin-left: auto; padding-right: 24px;
+    font-size: 36px; font-weight: 800; letter-spacing: -1.4px;
+    border-right: 1px solid #e3d79a;
+  }
+  .oc-confirm {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 18px 30px; border-radius: 100px;
+    background: #ffe500; color: #0b0b0b; border: 0;
+    font-size: 18px; font-weight: 800;
+  }
+  .oc-confirm:hover { background: #0b0b0b; color: #ffe500; }
+  .oc-confirm[disabled] { opacity: .45; }
+
+  /* --- Columna de sugerencias --- */
+  .oc-aside {
+    position: sticky; top: 112px;
+    background: #141414; border: 1px solid #262626;
+    border-radius: 22px; padding: 22px;
+  }
+  .oc-aside-head { display: flex; align-items: center; gap: 14px; }
+  .oc-bulb { color: #ffe500; flex-shrink: 0; }
+  .oc-aside-head h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 27px; font-weight: 800; line-height: 1; letter-spacing: -1px;
+    color: #fff; margin: 0;
+  }
+  .oc-aside-head h2 em { font-style: normal; color: #ffe500; }
+  .oc-aside-lead { margin: 14px 0 16px; font-size: 15px; line-height: 1.4; color: #c9c9c9; }
+
+  .oc-suggestions { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .oc-suggestions li {
+    display: grid; grid-template-columns: 86px minmax(0, 1fr) auto;
+    align-items: center; gap: 14px;
+    background: #f7f7f4; color: #0b0b0b;
+    border-radius: 16px; padding: 8px 14px 8px 8px;
+  }
+  .oc-suggestions img { width: 86px; height: 78px; border-radius: 11px; object-fit: cover; display: block; }
+  .oc-suggestions h3 { font-size: 16px; font-weight: 800; margin: 0 0 3px; letter-spacing: -.3px; }
+  .oc-suggestions p { font-size: 12px; line-height: 1.3; color: #5f5f5f; margin: 0 0 6px; }
+  .oc-suggestions strong { font-size: 20px; font-weight: 800; letter-spacing: -.5px; }
+  .oc-suggestions li > button {
+    width: 42px; height: 42px; border-radius: 50%; border: 0;
+    display: grid; place-items: center;
+    background: #ffe500; color: #0b0b0b;
+  }
+  .oc-suggestions li > button:hover { background: #0b0b0b; color: #ffe500; }
+
+  .oc-more {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 12px; padding: 16px;
+    border-radius: 16px;
+    background: #fdf6cf; color: #0b0b0b; border: 1px solid #f2e59a;
+  }
+  .oc-more-icon {
+    width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: #ffe500; color: #0b0b0b;
+  }
+  .oc-more strong { display: block; font-size: 17px; font-weight: 800; }
+  .oc-more p { margin: 2px 0 0; font-size: 13px; line-height: 1.3; color: #5f5f5f; }
+  .oc-more > svg { margin-left: auto; flex-shrink: 0; }
+
+  /* Debajo de 1400px la columna se estrecha antes de romperse. */
+  @media (max-width: 1400px) {
+    .oc-grid { grid-template-columns: minmax(0, 1fr) 360px; }
+    .oc-line { grid-template-columns: 120px minmax(0, 1fr) auto auto auto; gap: 14px; }
+    .oc-line > img { width: 120px; height: 96px; }
+    .oc-total-amount { font-size: 30px; padding-right: 18px; }
+    .oc-confirm { padding: 16px 22px; font-size: 16px; }
+  }
+}
+
+/* En escritorio esta vista reemplaza al flujo por pasos y a su titular;
+   por debajo de 1101px sigue mandando el flujo por pasos. */
+@media (min-width: 1101px) {
+  .order-v2 > .page-title,
+  .order-v2 > .new-order-main,
+  .order-v2 > .shell { display: none; }
+}
