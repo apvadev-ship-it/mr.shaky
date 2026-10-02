@@ -15,7 +15,7 @@ const PAYMENTS = [
 export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
   const {
     cart, catalog, count, subtotal, discount, total,
-    branch, setBranch, customerName, setCustomerName, customerPhone, setCustomerPhone,
+    branch, setBranch, date, time, customerName, setCustomerName, customerPhone, setCustomerPhone,
     couponInput, setCouponInput, appliedCoupon, couponError, applyCoupon, removeCoupon, submitOrder,
   } = useShaky();
 
@@ -27,7 +27,8 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
 
   const lines = catalog.filter(p => cart[p.id]);
   const missingAddress = delivery === 'delivery' && address.trim().length < 8;
-  const ready = Boolean(customerName.trim() && customerPhone.trim() && !missingAddress && count);
+  const schedule = Boolean(date && time) && new Date(date + 'T' + time).getTime() > Date.now() + 30 * 60000;
+  const ready = Boolean(customerName.trim() && customerPhone.trim() && !missingAddress && count && schedule);
 
   return (
     <section className="ck">
@@ -167,7 +168,13 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
           <button className="ck-submit" type="submit" disabled={!count}>
             <ShoppingBag size={22} aria-hidden="true" />Confirmar pedido y pagar <ArrowRight size={22} aria-hidden="true" />
           </button>
-          {touched && !ready && count > 0 && <p className="ck-submit-hint">Completa los campos marcados para continuar.</p>}
+          {touched && !schedule && count > 0 && (
+            <p className="ck-submit-hint">
+              Falta la fecha y la hora de recogida, con 30 minutos de margen.{' '}
+              <button type="button" onClick={onBack}>Elegirlas</button>
+            </p>
+          )}
+          {touched && !ready && schedule && count > 0 && <p className="ck-submit-hint">Completa los campos marcados para continuar.</p>}
           <p className="ck-terms">Al confirmar, aceptas nuestros <Link href="/nosotros">Términos y Condiciones</Link> y nuestra <Link href="/nosotros">Política de Privacidad</Link>.</p>
         </aside>
       </form>

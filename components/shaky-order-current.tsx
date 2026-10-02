@@ -3,20 +3,17 @@ import { useMemo, useState } from 'react';
 import { ArrowRight, CalendarDays, ChevronRight, Clock, Gift, Lightbulb, MapPin, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react';
 import { branches, money, products, storeAddress } from '@/lib/demo-data';
 import { useShaky } from '@/components/shaky-store';
-import { CheckoutDesktop } from '@/components/shaky-checkout-desktop';
 
 const QUICK_TIMES = ['11:00', '13:00', '15:00', '17:00'];
 const dateKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
 /** Vista de escritorio de "Tu pedido actual": repasar, ajustar y confirmar. */
-export function OrderCurrent() {
+export function OrderCurrent({ onCheckout }: { onCheckout: () => void }) {
   const {
     cart, catalog, changeQty, removeFromCart, add,
     count, total, branch, setBranch, date, setDate, time, setTime,
   } = useShaky();
   const [custom, setCustom] = useState(false);
-  // 'cart' repasa el pedido; 'datos' es el paso final de la referencia.
-  const [view, setView] = useState<'cart' | 'datos'>('cart');
 
   const lines = catalog.filter(p => cart[p.id]);
   const suggestions = useMemo(() => products.filter(p => !cart[p.id]).slice(0, 4), [cart]);
@@ -28,8 +25,6 @@ export function OrderCurrent() {
   }), []);
 
   const rating = (id: string) => products.find(p => p.id === id);
-
-  if (view === 'datos') return <CheckoutDesktop onBack={() => setView('cart')} />;
 
   return (
     <section className="oc">
@@ -126,7 +121,7 @@ export function OrderCurrent() {
               <span>{count} {count === 1 ? 'producto' : 'productos'}</span>
             </div>
             <span className="oc-total-amount">{money(total)}</span>
-            <button className="oc-confirm" type="button" disabled={!count} onClick={() => setView('datos')}>
+            <button className="oc-confirm" type="button" disabled={!count} onClick={onCheckout}>
               <ShoppingBag size={20} aria-hidden="true" />Confirmar pedido <ArrowRight size={20} aria-hidden="true" />
             </button>
           </div>

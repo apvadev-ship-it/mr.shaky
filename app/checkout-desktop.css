@@ -1,6 +1,5 @@
 /* "Completa tus datos" en escritorio: formulario a la izquierda, resumen
    del pedido a la derecha. Vive dentro de .oc, que ya es solo de PC. */
-@media (max-width: 1100px) { .ck { display: none; } }
 .ck { background: #0b0b0b; padding: 112px 0 60px; }
 .ck-grid {
   display: grid;
@@ -176,4 +175,36 @@
   .ck-grid { grid-template-columns: minmax(0, 1fr) 380px; }
   .ck-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ck-choices-three { grid-template-columns: 1fr; }
+}
+
+/* --- Celular: la misma pantalla, en una columna ---------------------- */
+@media (max-width: 1100px) {
+  .ck { padding: 104px 0 40px; }
+  .ck-grid { grid-template-columns: 1fr; gap: 20px; }
+  .ck-title { font-size: clamp(34px, 11vw, 48px); letter-spacing: -1.8px; }
+  .ck-lead { font-size: 15px; margin-bottom: 18px; }
+  .ck-card { padding: 18px 16px 20px; border-radius: 18px; }
+  .ck-card h2 { font-size: 19px; }
+  /* Un campo por fila: en móvil tres columnas aprietan demasiado. */
+  .ck-fields,
+  .ck-fields-two { grid-template-columns: 1fr; gap: 14px; }
+  .ck-choices,
+  .ck-choices-three { grid-template-columns: 1fr; gap: 10px; }
+  .ck-choice { padding: 14px; }
+  /* El resumen va debajo del formulario, no pegado arriba. */
+  .ck-aside { position: static; }
+  .ck-aside-card { padding: 18px 16px; border-radius: 18px; }
+  .ck-aside-head h2 { font-size: 21px; }
+  .ck-lines img { width: 54px; height: 54px; }
+  .ck-grand strong { font-size: 26px; }
+  .ck-submit { padding: 18px; font-size: 17px; }
+  .ck-coupon-row { flex-wrap: wrap; }
+  .ck-coupon-row input { flex: 1 0 100%; }
+  .ck-coupon-row button { width: 100%; }
+}
+
+.ck-submit-hint button {
+  background: none; border: 0; padding: 0;
+  color: #ffe500; font: inherit; font-weight: 800;
+  text-decoration: underline; cursor: pointer;
 }
