@@ -188,14 +188,14 @@ export function MacroDesktop({ go }: { go: (r: string) => void }) {
                 </div>
 
                 <div className="md-split" aria-hidden="true">
-                  <i style={{ width: '30%', background: '#ffe500' }} />
-                  <i style={{ width: '40%', background: '#2fd36f' }} />
-                  <i style={{ width: '30%', background: '#ff8a4d' }} />
+                  <i className="md-seg-protein" style={{ width: '30%' }} />
+                  <i className="md-seg-carbs" style={{ width: '40%' }} />
+                  <i className="md-seg-fat" style={{ width: '30%' }} />
                 </div>
                 <ul className="md-legend">
-                  <li><i style={{ background: '#ffe500' }} />Proteínas <b>30%</b></li>
-                  <li><i style={{ background: '#2fd36f' }} />Carbohidratos <b>40%</b></li>
-                  <li><i style={{ background: '#ff8a4d' }} />Grasas <b>30%</b></li>
+                  <li><i className="md-seg-protein" />Proteínas <b>30%</b></li>
+                  <li><i className="md-seg-carbs" />Carbohidratos <b>40%</b></li>
+                  <li><i className="md-seg-fat" />Grasas <b>30%</b></li>
                 </ul>
               </>
             ) : (

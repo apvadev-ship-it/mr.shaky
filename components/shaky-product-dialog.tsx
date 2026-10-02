@@ -1,6 +1,5 @@
 "use client";
-import { useState } from 'react';
-import { ArrowLeft, Bird, Dumbbell, Flame, Heart, Leaf, Minus, Plus, Scale, ShoppingBag, Sparkles, Wheat, X } from 'lucide-react';
+import { ArrowLeftRight, Bird, Dumbbell, Flame, Heart, Leaf, Minus, Plus, Scale, ShoppingBag, Sparkles, Wheat, X } from 'lucide-react';
 import { money, type Product } from '@/lib/demo-data';
 import { MacroRings, macroDeltas } from '@/components/shaky-macro-rings';
 
@@ -28,67 +27,65 @@ export function ProductDetail({
   p: Product; qty: number; onQty: (n: number) => void; onAdd: () => void;
   onClose: () => void; favorite: boolean; onFavorite: () => void;
 }) {
-  const [shot, setShot] = useState(0);
-  // El catálogo guarda una foto por producto; la galería ya admite varias.
-  const gallery = [p.image];
   const { icon: BadgeIcon, text: badgeText } = badge(p);
 
   return (
     <div className="pd">
-      <header className="pd-top">
-        <button type="button" onClick={onClose} aria-label="Volver"><ArrowLeft size={22} /></button>
-        <h2>Detalle del producto</h2>
-        <button type="button" onClick={onFavorite} aria-pressed={favorite} aria-label={(favorite ? 'Quitar de' : 'Guardar en') + ' favoritos'}>
-          <Heart size={22} fill={favorite ? 'currentColor' : 'none'} />
-        </button>
-      </header>
+      <button type="button" className="pd-close" onClick={onClose} aria-label="Cerrar"><X size={21} /></button>
 
       <div className="pd-hero">
-        <div className="pd-gallery">
-          <img className="pd-shot" src={gallery[shot]} alt={p.name} />
-          {gallery.length > 1 && (
-            <div className="pd-thumbs">
-              {gallery.map((src, i) => (
-                <button type="button" key={src} className={i === shot ? 'chosen' : ''} aria-label={`Foto ${i + 1}`} onClick={() => setShot(i)}>
-                  <img src={src} alt="" aria-hidden="true" />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        <figure className="pd-shot">
+          <img src={p.image} alt={p.name} />
+          <figcaption className="pd-badge"><BadgeIcon size={15} aria-hidden="true" />{badgeText}</figcaption>
+        </figure>
 
         <div className="pd-copy">
-          <span className="pd-badge"><BadgeIcon size={16} aria-hidden="true" />{badgeText}</span>
-          <h3>{p.name}</h3>
-          <p>{p.description}</p>
-          <span className="pd-rating">
-            <span aria-hidden="true">★★★★★</span>{p.rating} <small>({p.reviews})</small>
-          </span>
-          <strong className="pd-price">{money(p.price)}</strong>
-          <div className="pd-qty">
-            <button type="button" aria-label="Quitar una unidad" disabled={qty <= 1} onClick={() => onQty(qty - 1)}><Minus size={18} /></button>
-            <output>{qty}</output>
-            <button type="button" aria-label="Añadir una unidad" disabled={qty >= 20} onClick={() => onQty(qty + 1)}><Plus size={18} /></button>
+          <div className="pd-headline">
+            <h3>{p.name}</h3>
+            <button type="button" className="pd-fav" onClick={onFavorite} aria-pressed={favorite}
+              aria-label={(favorite ? 'Quitar de' : 'Guardar en') + ' favoritos'}>
+              <Heart size={20} fill={favorite ? 'currentColor' : 'none'} />
+            </button>
+          </div>
+
+          <p className="pd-lead">{p.description}</p>
+
+          <div className="pd-meta">
+            <span className="pd-rating"><span aria-hidden="true">★★★★★</span>{p.rating}<small>({p.reviews})</small></span>
+            <span className="pd-dot" aria-hidden="true" />
+            <span className="pd-cat">{p.category}</span>
+          </div>
+
+          <div className="pd-buy">
+            <strong className="pd-price">{money(p.price)}</strong>
+            <div className="pd-qty">
+              <button type="button" aria-label="Quitar una unidad" disabled={qty <= 1} onClick={() => onQty(qty - 1)}><Minus size={17} /></button>
+              <output aria-label="Cantidad">{qty}</output>
+              <button type="button" aria-label="Añadir una unidad" disabled={qty >= 20} onClick={() => onQty(qty + 1)}><Plus size={17} /></button>
+            </div>
           </div>
         </div>
       </div>
 
       <section className="pd-nutrition">
-        <h4>Información nutricional<small>Por porción</small></h4>
+        <header><h4>Información nutricional</h4><span>Por porción</span></header>
         <MacroRings p={p} />
       </section>
 
       <ul className="pd-traits">
         {traits(p).map(({ icon: Icon, text }) => (
-          <li key={text}><Icon size={24} aria-hidden="true" />{text}</li>
+          <li key={text}><Icon size={19} aria-hidden="true" />{text}</li>
         ))}
       </ul>
 
-      <p className="pd-allergens">{p.allergens}</p>
-
-      <button type="button" className="pd-add" onClick={onAdd}>
-        <ShoppingBag size={22} aria-hidden="true" />Agregar al pedido <span>{money(p.price * qty)}</span>
-      </button>
+      <footer className="pd-foot">
+        <p className="pd-allergens">{p.allergens}</p>
+        <button type="button" className="pd-add" onClick={onAdd}>
+          <ShoppingBag size={20} aria-hidden="true" />
+          Agregar al pedido
+          <span>{money(p.price * qty)}</span>
+        </button>
+      </footer>
     </div>
   );
 }
@@ -97,42 +94,56 @@ export function CompareView({ items, onClose }: { items: Product[]; onClose: () 
   const [a, b] = items;
   return (
     <div className="cmp">
-      <button type="button" className="cmp-close" onClick={onClose} aria-label="Cerrar"><X size={22} /></button>
+      <button type="button" className="cmp-close" onClick={onClose} aria-label="Cerrar"><X size={21} /></button>
       <h2 className="cmp-title">COMPARATIVA</h2>
 
       {items.length < 2 ? (
-        <p className="cmp-empty"><Scale size={26} aria-hidden="true" />Elige dos productos del menú para compararlos.</p>
+        <p className="cmp-empty"><Scale size={24} aria-hidden="true" />Elige dos productos del menú para compararlos.</p>
       ) : (
-        <div className="cmp-grid">
-          <article className="cmp-side">
-            <img src={a.image} alt="" aria-hidden="true" />
-            <h3>{a.name}</h3>
-            <p>{a.description}</p>
-            <MacroRings p={a} compact />
-          </article>
+        <>
+          <div className="cmp-grid">
+            <article className="cmp-side">
+              <img src={a.image} alt="" aria-hidden="true" />
+              <h3>{a.name}</h3>
+              <p>{a.description}</p>
+              <strong>{money(a.price)}</strong>
+              <MacroRings p={a} compact />
+            </article>
 
+            <div className="cmp-middle" aria-hidden="true">
+              <span className="cmp-vs"><ArrowLeftRight size={20} /></span>
+            </div>
+
+            <article className="cmp-side">
+              <img src={b.image} alt="" aria-hidden="true" />
+              <h3>{b.name}</h3>
+              <p>{b.description}</p>
+              <strong>{money(b.price)}</strong>
+              <MacroRings p={b} compact />
+            </article>
+          </div>
+
+          <h4 className="cmp-sub">Diferencia entre los dos</h4>
           <ul className="cmp-deltas">
-            {macroDeltas(a, b).map(({ key, label, unit, color, diff }) => (
-              <li key={key}>
-                <span className="cmp-dot" style={{ background: color }} aria-hidden="true" />
-                <strong style={{ color }}>{diff > 0 ? '+' : ''}{diff}{unit === 'g' ? 'g' : ''}</strong>
-                <span className="cmp-delta-label">{unit === 'kcal' ? 'kcal' : label}</span>
-                <small>
-                  {diff === 0
-                    ? `Igual en ambos`
-                    : `Más ${unit === 'kcal' ? 'energía' : label} en ${diff > 0 ? a.name : b.name}`}
-                </small>
-              </li>
-            ))}
+            {macroDeltas(a, b).map(({ key, label, unit, diff, a: va, b: vb }) => {
+              const g = unit === 'g' ? 'g' : '';
+              const total = va + vb || 1;
+              const winner = diff === 0 ? null : diff > 0 ? a.name : b.name;
+              return (
+                <li key={key}>
+                  <b className="cmp-val">{va}{g}</b>
+                  <span className="cmp-bar" aria-hidden="true">
+                    <i className={diff >= 0 ? 'lead' : ''} style={{ width: (va / total * 100) + '%' }} />
+                    <i className={diff <= 0 ? 'lead' : ''} style={{ width: (vb / total * 100) + '%' }} />
+                  </span>
+                  <b className="cmp-val">{vb}{g}</b>
+                  <span className="cmp-delta-head">{label}</span>
+                  <small>{winner ? `${Math.abs(diff)}${g} más en ${winner}` : 'Igual en ambos'}</small>
+                </li>
+              );
+            })}
           </ul>
-
-          <article className="cmp-side">
-            <img src={b.image} alt="" aria-hidden="true" />
-            <h3>{b.name}</h3>
-            <p>{b.description}</p>
-            <MacroRings p={b} compact />
-          </article>
-        </div>
+        </>
       )}
     </div>
   );

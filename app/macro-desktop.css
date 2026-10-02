@@ -196,6 +196,9 @@
     margin: 18px 0 12px;
   }
   .md-split i { display: block; }
+  .md-seg-protein { background: #ffe500; }
+  .md-seg-carbs { background: #0b0b0b; }
+  .md-seg-fat { background: #d6d6d6; }
   .md-legend {
     list-style: none; margin: 0; padding: 0;
     display: flex; flex-wrap: wrap; gap: 8px 16px;
