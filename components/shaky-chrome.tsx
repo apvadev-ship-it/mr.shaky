@@ -147,7 +147,7 @@ export function ShakyChrome() {
                 {discount > 0 && <div className="coupon-line discount"><span>Descuento</span><span>-{money(discount)}</span></div>}
                 <div><span>Total</span><strong>{money(total)}</strong></div>
                 <p>Recogida en sucursal · Sin costo de envío</p>
-                <Link className="btn" href="/checkout" onClick={() => setCartOpen(false)}>Elegir hora de recogida <ArrowRight size={18} /></Link>
+                <Link className="btn" href="/pedido" onClick={() => setCartOpen(false)}>Finalizar pedido <ArrowRight size={18} /></Link>
                 <span className="fineprint">No se realizan cobros ni pedidos reales.</span>
               </div>
             </>
