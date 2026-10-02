@@ -224,6 +224,14 @@
 }
 .cmp-side > strong { font-size: 21px; font-weight: 800; letter-spacing: -.8px; color: #ffe500; }
 .cmp-side .macro-rings { margin-top: 8px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.cmp-add {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; margin-top: auto; padding: 12px; border-radius: 100px;
+  background: #ffe500; color: #0b0b0b;
+  font-size: 14px; font-weight: 800;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.cmp-add:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 229, 0, .26); }
 
 .cmp-grid-wide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .cmp-note {
@@ -295,6 +303,7 @@
   .cmp-grid-wide .macro-rings-compact .macro-dial { max-width: 40px; }
   .cmp-middle { display: none; }
   .cmp-side { padding: 11px; gap: 7px; border-radius: 16px; }
+  .cmp-add { margin-top: 4px; padding: 10px; font-size: 13px; gap: 6px; }
   .cmp-side img { aspect-ratio: 1; border-radius: 12px; }
   .cmp-side h3 { margin: 2px 0 0; font-size: 15px; letter-spacing: -.4px; }
   .cmp-side p { display: none; }

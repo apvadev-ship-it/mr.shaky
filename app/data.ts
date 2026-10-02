@@ -17,7 +17,7 @@ export const categories = catalogCategories;
 export const money = formatMoney;
 
 export const goals = ['Ganancia muscular', 'Pérdida de grasa', 'Mantenimiento', 'Salud y bienestar'];
-export const branches = storeBranches.map(b => ({ name: b.name, address: storeAddress }));
+export const branches = storeBranches.map(b => ({ name: b.name, city: b.city, address: storeAddress }));
 export const brand = { instagram: instagramUrl, spotify: spotifyPlaylistId as string | null };
 export const asset = (name: string) => `/assets/${name}.webp`;
 export const nav = [['inicio', 'Inicio'], ['menu', 'Menú'], ['bowl', 'Arma tu bowl'], ['calculadoras', 'Calculadoras'], ['pedido', 'Planifica'], ['nosotros', 'Nosotros'], ['comunidad', 'Comunidad']];

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { ArrowUpRight, Mail, Zap, Gift, Bell } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { storeAddress } from '@/lib/demo-data';
 
 export function LocationSection() {
@@ -27,7 +28,7 @@ export function LocationSection() {
   );
 }
 
-const PERKS: [any, string][] = [
+const PERKS: [LucideIcon, string][] = [
   [Zap, 'Recetas nuevas antes que nadie'],
   [Gift, 'Promos y descuentos exclusivos'],
   [Bell, 'Avisos de lanzamientos y eventos'],

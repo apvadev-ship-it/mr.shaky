@@ -92,7 +92,7 @@ export function ProductDetail({
   );
 }
 
-export function CompareView({ items, onClose }: { items: Product[]; onClose: () => void }) {
+export function CompareView({ items, onClose, onAdd }: { items: Product[]; onClose: () => void; onAdd: (id: string) => void }) {
   const [a, b] = items;
   const pair = items.length === 2;
   return (
@@ -118,6 +118,9 @@ export function CompareView({ items, onClose }: { items: Product[]; onClose: () 
                   <p>{p.description}</p>
                   <strong>{money(p.price)}</strong>
                   <MacroRings p={p} compact />
+                  <button type="button" className="cmp-add" onClick={() => onAdd(p.id)}>
+                    <Plus size={17} aria-hidden="true" />Agregar
+                  </button>
                 </article>
               </Fragment>
             ))}

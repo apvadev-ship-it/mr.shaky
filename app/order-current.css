@@ -53,6 +53,34 @@
     color: #f7f7f4; font-size: 13px; font-family: inherit;
     color-scheme: dark;
   }
+  /* Con la sucursal a lo ancho sobraba una tercera columna vacia arriba. */
+  .oc-controls:has(.oc-branch-single) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* La sucursal unica ocupa la fila entera, debajo de fecha y hora. */
+  .oc-branch-single {
+    grid-column: 1 / -1;
+    align-items: center;
+    gap: 18px;
+    padding: 14px;
+  }
+  .oc-branch-single > img {
+    width: 150px; height: 96px; flex-shrink: 0;
+    object-fit: cover; border-radius: 13px;
+  }
+  .oc-branch-single > div { display: grid; gap: 3px; }
+  .oc-branch-single .oc-control-label { margin-bottom: 2px; font-size: 12px; color: #9a9a9a; }
+  .oc-branch-single strong {
+    font-size: 26px; font-weight: 800; letter-spacing: -1px; line-height: 1; color: #fff;
+  }
+  .oc-branch-single p { margin: 0; font-size: 14px; line-height: 1.35; color: #c9c9c9; }
+  .oc-branch-map {
+    display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+    padding: 12px 18px; border-radius: 100px;
+    background: #ffe500; color: #0b0b0b;
+    font-size: 14px; font-weight: 800; text-decoration: none;
+  }
+  .oc-branch-map:hover { background: #fff; }
+
   .oc-times { display: flex; flex-wrap: wrap; gap: 7px; }
   .oc-times-custom { margin-top: 8px; }
   .oc-times button {

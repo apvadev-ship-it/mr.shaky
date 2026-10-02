@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowRight, BarChart3, Check } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -47,8 +48,8 @@ export function ShakyDialogs() {
                 </div>
               );
             })}</div>
-            <a className="text-button" href="/menu"><ArrowRight size={17} />Elegir otro producto</a>
-          </> : <div className="empty"><BarChart3 size={40} /><p>Marca «Comparar» en tus productos favoritos.</p><a className="btn" href="/menu">Elegir productos</a></div>}
+            <Link className="text-button" href="/menu"><ArrowRight size={17} />Elegir otro producto</Link>
+          </> : <div className="empty"><BarChart3 size={40} /><p>Marca «Comparar» en tus productos favoritos.</p><Link className="btn" href="/menu">Elegir productos</Link></div>}
         </DialogContent>
       </Dialog>
       <Dialog open={orderOpen} onOpenChange={setOrderOpen}>

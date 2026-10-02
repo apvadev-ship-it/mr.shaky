@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Bike, CreditCard, Check, Crosshair, Lock, Mail, MapPin, Phone, ShoppingBag, Smartphone, Store, Tag, Truck, UserRound, Wallet } from 'lucide-react';
 import { branches, money, storeAddress } from '@/lib/demo-data';
 import { useShaky } from '@/components/shaky-store';
+import { useNow } from '@/components/shaky-now';
 
 const PAYMENTS = [
   { id: 'cash', icon: Wallet, name: 'Pago contraentrega', copy: 'Paga en efectivo cuando recibas tu pedido.' },
@@ -19,6 +20,7 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
     couponInput, setCouponInput, appliedCoupon, couponError, applyCoupon, removeCoupon, submitOrder,
   } = useShaky();
 
+  const now = useNow();
   const [email, setEmail] = useState('');
   const [delivery, setDelivery] = useState<'delivery' | 'pickup'>('delivery');
   const [address, setAddress] = useState('');
@@ -27,7 +29,7 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
 
   const lines = catalog.filter(p => cart[p.id]);
   const missingAddress = delivery === 'delivery' && address.trim().length < 8;
-  const schedule = Boolean(date && time) && new Date(date + 'T' + time).getTime() > Date.now() + 30 * 60000;
+  const schedule = Boolean(date && time) && new Date(date + 'T' + time).getTime() > now + 30 * 60000;
   const ready = Boolean(customerName.trim() && customerPhone.trim() && !missingAddress && count && schedule);
 
   return (

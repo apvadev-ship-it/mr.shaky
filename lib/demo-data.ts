@@ -13,7 +13,7 @@ export const products:Product[]=[
 {id:'cacao',name:'Cacao Cold',category:'Bebidas',description:'Cacao frío con bebida de almendras, sin proteína añadida.',image:'/assets/chocolate.webp',price:12900,protein:5,carbs:18,fat:6,calories:146,rating:4.8,reviews:57,veggie:true,allergens:'Contiene almendras.',goals:['Salud y bienestar']}
 ];
 export const categories=['Todos','Bowls','Sandwich','Bebidas','Helados'];
-export const branches=[{id:'turbo',name:'Turbo'}];
+export const branches=[{id:'turbo',name:'Turbo',city:'Turbo'}];
 export const storeAddress='Al lado del parqueadero del Imperio, Turbo, Antioquia';
 export const spotifyPlaylistId='0weiv18dAKsxRre2LeTDqD';
 export const instagramHandle='mr_shaky_nutribar';

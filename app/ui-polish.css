@@ -744,3 +744,79 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
   [data-sonner-toast][data-styled="true"].shaky-toast [data-title] { font-size: 13px; }
   [data-sonner-toast][data-styled="true"].shaky-toast [data-description] { font-size: 11px; }
 }
+
+/* --- Sucursal unica --------------------------------------------------
+   La galeria reparte las sucursales en columnas. Con una sola quedaba una
+   tarjeta diminuta en una esquina, asi que se despliega a lo ancho. */
+:root:not(.home-legacy) .branch-gallery-single,
+:root:not(.home-legacy) .order-v2 .branch-gallery-single {
+  display: block;
+}
+:root:not(.home-legacy) .branch-gallery-single > label,
+:root:not(.home-legacy) .order-v2 .branch-gallery-single > label {
+  display: grid;
+  grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 18px;
+}
+:root:not(.home-legacy) .branch-gallery-single > label > img,
+:root:not(.home-legacy) .order-v2 .branch-gallery-single img {
+  width: 100%; height: 150px;
+  margin: 0; border-radius: 13px;
+  object-fit: cover;
+}
+:root:not(.home-legacy) .branch-gallery-single .branch-copy {
+  display: grid; gap: 7px; min-width: 0; padding-right: 44px;
+}
+:root:not(.home-legacy) .branch-gallery-single b,
+:root:not(.home-legacy) .order-v2 .branch-gallery-single b {
+  padding: 0;
+  font-size: 27px; font-weight: 800; letter-spacing: -1px; line-height: 1;
+}
+:root:not(.home-legacy) .branch-gallery-single small,
+:root:not(.home-legacy) .order-v2 .branch-gallery-single small {
+  padding: 0;
+  font-size: 14px; line-height: 1.4;
+}
+:root:not(.home-legacy) .branch-gallery-single [role="radio"],
+:root:not(.home-legacy) .order-v2 .branch-gallery-single [role="radio"] {
+  width: 28px; height: 28px; top: 50%; right: 16px;
+  transform: translateY(-50%);
+}
+:root:not(.home-legacy) .branch-gallery-single .branch-check,
+:root:not(.home-legacy) .order-v2 .branch-gallery-single .branch-check {
+  top: 50%; right: 21px; width: 18px; height: 18px;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 700px) {
+  /* En celular la foto va arriba: a lo ancho no caben dos columnas. */
+  :root:not(.home-legacy) .branch-gallery-single > label,
+  :root:not(.home-legacy) .order-v2 .branch-gallery-single > label {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 11px;
+    padding: 9px;
+    border-radius: 15px;
+  }
+  :root:not(.home-legacy) .branch-gallery-single > label > img,
+  :root:not(.home-legacy) .order-v2 .branch-gallery-single img { height: 118px; }
+  :root:not(.home-legacy) .branch-gallery-single .branch-copy {
+    gap: 4px; padding: 0 44px 5px 5px;
+  }
+  :root:not(.home-legacy) .branch-gallery-single b,
+  :root:not(.home-legacy) .order-v2 .branch-gallery-single b { font-size: 21px; }
+  :root:not(.home-legacy) .branch-gallery-single small,
+  :root:not(.home-legacy) .order-v2 .branch-gallery-single small { font-size: 12.5px; }
+  :root:not(.home-legacy) .branch-gallery-single [role="radio"],
+  :root:not(.home-legacy) .order-v2 .branch-gallery-single [role="radio"] {
+    top: auto; bottom: 14px; right: 12px; transform: none;
+    width: 26px; height: 26px;
+  }
+  :root:not(.home-legacy) .branch-gallery-single .branch-check,
+  :root:not(.home-legacy) .order-v2 .branch-gallery-single .branch-check {
+    top: auto; bottom: 18px; right: 17px; transform: none;
+  }
+}

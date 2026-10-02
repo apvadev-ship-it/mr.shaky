@@ -75,7 +75,7 @@ export function ShakyChrome() {
           '--border-radius': '16px',
         } as React.CSSProperties}
       />
-      <a className="skip" href="/menu">Ir al menú</a>
+      <Link className="skip" href="/menu">Ir al menú</Link>
       <header className={'header wrap' + (cartOpen ? ' header-hidden' : '')}>
         <Link href="/" aria-label="Mr. Shaky, inicio"><img className="wordmark" src="/mascot.png" alt="Mr. Shaky" /></Link>
         <nav>{NAV_LINKS.map(([label, href]) => <Link key={label} href={href} className={isActive(href) ? 'active' : ''} onClick={() => setHash(href.includes('#') ? href.slice(href.indexOf('#')) : '')}>{label}</Link>)}</nav>

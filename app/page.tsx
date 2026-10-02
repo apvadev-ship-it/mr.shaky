@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { ArrowUpRight, Leaf, Dumbbell, Timer, Heart, Calculator, CalendarDays, Utensils } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { MenuPreviewSection } from '@/components/shaky-menu-preview';
 import { PopularSection } from '@/components/shaky-popular-section';
 import { ComunidadSection } from '@/components/shaky-comunidad-section';
@@ -17,7 +18,7 @@ function useLegacyScope() {
   }, []);
 }
 
-const QUICK_LINKS: [any, string, string, string][] = [
+const QUICK_LINKS: [LucideIcon, string, string, string][] = [
   [Calculator, 'Calcula tus macros', 'Descubre lo que tu cuerpo necesita.', '/calculadoras'],
   [Dumbbell, 'Encuentra tu plato', 'Cuéntanos qué entrenaste hoy.', '/calculadoras#quiz'],
   [CalendarDays, 'Programa tu pedido', 'Tú entrenas. Nosotros cocinamos.', '/pedido'],

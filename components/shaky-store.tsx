@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { toast } from 'sonner';
-import { products, demoReviews } from '@/lib/demo-data';
+import { branches, products, demoReviews } from '@/lib/demo-data';
 import { getCouponPercent, applyDiscount } from '@/lib/coupons';
 import { type BowlConfig, type CartItem, bowlId, bowlItem, validBowl } from '@/app/bowl-data';
 
@@ -23,7 +23,6 @@ type Ctx = {
   branch: string; setBranch: (v: string) => void;
   date: string; setDate: (v: string) => void;
   time: string; setTime: (v: string) => void;
-  slots: string[];
   customerName: string; setCustomerName: (v: string) => void;
   customerPhone: string; setCustomerPhone: (v: string) => void;
   paymentMethod: PaymentMethod; setPaymentMethod: (v: PaymentMethod) => void;
@@ -61,7 +60,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   const [navOpen, setNavOpen] = useState(false);
   const [compare, setCompare] = useState<string[]>([]);
   const [compareOpen, setCompareOpen] = useState(false);
-  const [branch, setBranch] = useState('turbo');
+  const [branch, setBranch] = useState(branches[0].name);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [customerName, setCustomerName] = useState('');
@@ -78,6 +77,10 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
 
+  /* eslint-disable react-hooks/set-state-in-effect -- Lee lo guardado una
+     sola vez al montar. En el servidor no hay localStorage, asi que esto no
+     puede ser un valor inicial, y al correr solo en el montaje no encadena
+     renders. */
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('shaky-demo-v1') || '{}');
@@ -86,7 +89,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
       const known = [...products.map(p => p.id), ...savedBowls.map(bowlId)];
       setCart(Object.fromEntries(Object.entries(saved.cart || {}).filter(([id, n]) => known.includes(id) && Number.isInteger(n) && Number(n) > 0 && Number(n) <= 99)) as Cart);
       setFavorites(Array.isArray(saved.favorites) ? saved.favorites.filter((id: string) => products.some(p => p.id === id)) : []);
-      if (Array.isArray(saved.reviews)) setReviews([...demoReviews, ...saved.reviews.filter((r: any) => typeof r.name === 'string' && typeof r.text === 'string' && r.stars >= 1 && r.stars <= 5).slice(0, 20)]);
+      if (Array.isArray(saved.reviews)) setReviews([...demoReviews, ...saved.reviews.filter((r: Partial<Review>) => typeof r?.name === 'string' && typeof r.text === 'string' && typeof r.stars === 'number' && r.stars >= 1 && r.stars <= 5).slice(0, 20)]);
       if (saved.order && typeof saved.order.id === 'string' && Array.isArray(saved.order.items)) setOrder(saved.order);
       if (Array.isArray(saved.orders)) setOrders(saved.orders.filter((o: Order) => o && typeof o.id === 'string' && Array.isArray(o.items)).slice(0, 25));
       if (typeof saved.customerName === 'string') setCustomerName(saved.customerName.slice(0, 80));
@@ -96,6 +99,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
     setDate(localDate());
     setLoaded(true);
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     if (loaded) try { localStorage.setItem('shaky-demo-v1', JSON.stringify({ cart, favorites, bowls, orders, reviews: reviews.filter(r => !r.id.startsWith('r')), order, customerName, customerPhone, appliedCoupon })) } catch { }
@@ -133,8 +137,6 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
   const total = couponPercent !== null ? applyDiscount(subtotal, couponPercent) : subtotal;
   const discount = subtotal - total;
 
-  const slots = Array.from({ length: 23 }, (_, i) => `${String(10 + Math.floor(i / 2)).padStart(2, '0')}:${i % 2 ? '30' : '00'}`).filter(t => date && new Date(date + 'T' + t).getTime() > Date.now() + 30 * 60000);
-  useEffect(() => { if (time && !slots.includes(time)) setTime('') }, [date, time, slots.join(',')]);
 
   const submitOrder = (e: React.FormEvent, onEmpty: () => void) => {
     e.preventDefault();
@@ -196,7 +198,7 @@ export function ShakyProvider({ children }: { children: ReactNode }) {
 
   return <ShakyCtx.Provider value={{
     cart, favorites, compare, bowls, catalog, addBowl, cartOpen, setCartOpen, navOpen, setNavOpen,
-    compareOpen, setCompareOpen, branch, setBranch, date, setDate, time, setTime, slots,
+    compareOpen, setCompareOpen, branch, setBranch, date, setDate, time, setTime,
     customerName, setCustomerName, customerPhone, setCustomerPhone, paymentMethod, setPaymentMethod, submitting,
     order, orders, orderOpen, setOrderOpen, reviews, reviewOpen, setReviewOpen, addReview,
     count, subtotal, discount, total, add, changeQty, removeFromCart, clearCart, toggleFavorite, toggleCompare, submitOrder,

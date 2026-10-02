@@ -69,17 +69,37 @@ export function OrderCurrent({ onCheckout }: { onCheckout: () => void }) {
               </div>
             </div>
 
-            <div className="oc-control">
-              <span className="oc-control-icon"><MapPin size={22} /></span>
-              <div>
-                <span className="oc-control-label">Selecciona sucursal</span>
-                <label className="oc-select">
-                  <select aria-label="Sucursal" value={branch} onChange={e => setBranch(e.target.value)}>
-                    {branches.map(b => <option key={b.id} value={b.name}>{b.name} · {storeAddress}</option>)}
-                  </select>
-                </label>
+            {/* Con una sola sucursal un desplegable de una opcion no aporta
+                nada: se muestra la sucursal a lo ancho. */}
+            {branches.length === 1 ? (
+              <div className="oc-control oc-branch-single">
+                <img src="/assets/branch-0.webp" alt="" aria-hidden="true" />
+                <div>
+                  <span className="oc-control-label">Tu sucursal</span>
+                  <strong>{branches[0].name}</strong>
+                  <p>{storeAddress}</p>
+                </div>
+                <a
+                  className="oc-branch-map"
+                  href={'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(storeAddress)}
+                  target="_blank" rel="noreferrer"
+                >
+                  <MapPin size={17} aria-hidden="true" />Cómo llegar
+                </a>
               </div>
-            </div>
+            ) : (
+              <div className="oc-control">
+                <span className="oc-control-icon"><MapPin size={22} /></span>
+                <div>
+                  <span className="oc-control-label">Selecciona sucursal</span>
+                  <label className="oc-select">
+                    <select aria-label="Sucursal" value={branch} onChange={e => setBranch(e.target.value)}>
+                      {branches.map(b => <option key={b.id} value={b.name}>{b.name} · {storeAddress}</option>)}
+                    </select>
+                  </label>
+                </div>
+              </div>
+            )}
           </div>
 
           {lines.length === 0 ? (
