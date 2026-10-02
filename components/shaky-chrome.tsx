@@ -2,11 +2,12 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { ArrowUpRight, ArrowRight, ShoppingBag, Search, Menu, Home, Utensils, ClipboardList, Headphones, Minus, Plus, Trash2, Crown, Tag, X } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Bike, Clock, ShieldCheck, ShoppingBag, Search, Menu, Home, Store, Utensils, ClipboardList, Headphones, Minus, Plus, Trash2, Crown, Tag, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Toaster } from 'sonner';
 import { products, money } from '@/lib/demo-data';
 import { useShaky } from './shaky-store';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { InstagramIcon, TikTokIcon, SpotifyIcon, YouTubeIcon } from './shaky-social-icons';
 
 const NAV_LINKS: [string, string][] = [
@@ -19,6 +20,7 @@ const NAV_LINKS: [string, string][] = [
 ];
 
 export function ShakyChrome() {
+  const isMobile = useIsMobile();
   const router = useRouter();
   const pathname = usePathname();
   const {
@@ -108,13 +110,26 @@ export function ShakyChrome() {
       </Sheet>
 
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
-        <SheetContent className="home-legacy shaky-sheet cart-sheet">
-          <SheetTitle>TU CARRITO <em>({count})</em></SheetTitle>
-          <SheetDescription>Tu próxima comida empieza aquí. Precios en COP.</SheetDescription>
-          {!count ? (
-            <div className="empty"><ShoppingBag size={45} /><h3>Tu carrito tiene hambre.</h3><p>Encuentra tu próximo favorito en el menú.</p><Link className="btn" href="/menu" onClick={() => setCartOpen(false)}>Explorar menú</Link></div>
-          ) : (
-            <>
+        {/* En celular sube desde abajo y ocupa la pantalla; en escritorio
+            sigue entrando por la derecha. */}
+        <SheetContent side={isMobile ? 'bottom' : 'right'} className="home-legacy shaky-sheet cart-sheet">
+          <span className="cart-grabber" aria-hidden="true" />
+
+          {/* La cabecera baja con la lista; abajo solo queda fijo el resumen. */}
+          <div className="cart-scroll">
+            <img className="cart-logo" src="/mascot.png" alt="" aria-hidden="true" />
+            <span className="cart-eyebrow">Tu carrito <b>({count})</b></span>
+            <SheetTitle className="cart-title">Tu próxima comida<br /><em>empieza aquí.</em></SheetTitle>
+            <SheetDescription className="cart-lead">Revisa tus productos, ajusta las cantidades y finaliza tu pedido.</SheetDescription>
+
+            {!count ? (
+              <div className="empty">
+                <ShoppingBag size={45} />
+                <h3>Tu carrito tiene hambre.</h3>
+                <p>Encuentra tu próximo favorito en el menú.</p>
+                <Link className="btn" href="/menu" onClick={() => setCartOpen(false)}>Explorar menú</Link>
+              </div>
+            ) : (
               <div className="cart-items">{catalog.filter(p => cart[p.id]).map(p => (
                 <div className="cart-item" key={p.id}>
                   {p.image
@@ -122,6 +137,7 @@ export function ShakyChrome() {
                     : <span className={`food-sprite cart-photo food-${p.id}`} role="img" aria-label={p.name} />}
                   <div>
                     <h3>{p.name}</h3>
+                    <p className="cart-item-desc">{p.description}</p>
                     <p>{money(p.price)}</p>
                     <div className="quantity">
                       <button aria-label={'Quitar una unidad de ' + p.name} onClick={() => changeQty(p.id, -1)}><Minus size={15} /></button>
@@ -132,26 +148,38 @@ export function ShakyChrome() {
                   <button className="delete" aria-label={'Eliminar ' + p.name} onClick={() => removeFromCart(p.id)}><Trash2 size={18} /></button>
                 </div>
               ))}</div>
-              <div className="cart-summary">
-                <div className="coupon-box">
-                  {appliedCoupon ? (
-                    <div className="coupon-applied"><Tag size={15} /><span>{appliedCoupon}</span><button aria-label="Quitar cupón" onClick={removeCoupon}><X size={14} /></button></div>
-                  ) : (
-                    <form onSubmit={e => { e.preventDefault(); applyCoupon() }}>
-                      <input aria-label="Código de descuento" placeholder="Código de descuento" value={couponInput} onChange={e => setCouponInput(e.target.value)} />
-                      <button className="btn outline" type="submit">Aplicar</button>
-                    </form>
-                  )}
-                  {couponError && <span className="coupon-error">{couponError}</span>}
-                </div>
-                {discount > 0 && <div className="coupon-line"><span>Subtotal</span><span>{money(subtotal)}</span></div>}
-                {discount > 0 && <div className="coupon-line discount"><span>Descuento</span><span>-{money(discount)}</span></div>}
-                <div><span>Total</span><strong>{money(total)}</strong></div>
-                <p>Recogida en sucursal · Sin costo de envío</p>
-                <Link className="btn" href="/checkout" onClick={() => setCartOpen(false)}>Finalizar pedido <ArrowRight size={18} /></Link>
-                <span className="fineprint">No se realizan cobros ni pedidos reales.</span>
+            )}
+          </div>
+
+          {count > 0 && (
+            <div className="cart-summary">
+              <div className="coupon-box">
+                {appliedCoupon ? (
+                  <div className="coupon-applied"><Tag size={15} /><span>{appliedCoupon}</span><button aria-label="Quitar cupón" onClick={removeCoupon}><X size={14} /></button></div>
+                ) : (
+                  <form onSubmit={e => { e.preventDefault(); applyCoupon() }}>
+                    <input aria-label="Código de descuento" placeholder="Código de descuento" value={couponInput} onChange={e => setCouponInput(e.target.value)} />
+                    <button className="btn outline" type="submit">Aplicar</button>
+                  </form>
+                )}
+                {couponError && <span className="coupon-error">{couponError}</span>}
               </div>
-            </>
+              {discount > 0 && <div className="coupon-line"><span>Subtotal</span><span>{money(subtotal)}</span></div>}
+              {discount > 0 && <div className="coupon-line discount"><span>Descuento</span><span>-{money(discount)}</span></div>}
+              <div className="cart-total">
+                <div><span>Total</span><strong>{money(total)}</strong></div>
+                <p><Store size={17} aria-hidden="true" />Recogida en sucursal · Sin costo de envío</p>
+              </div>
+              <Link className="btn cart-go" href="/checkout" onClick={() => setCartOpen(false)}>
+                <ShoppingBag size={20} aria-hidden="true" />Finalizar pedido <ArrowRight size={20} aria-hidden="true" />
+              </Link>
+              <ul className="cart-trust">
+                <li><ShieldCheck size={21} aria-hidden="true" />Pago<br />seguro</li>
+                <li><Clock size={21} aria-hidden="true" />Pedido en<br />minutos</li>
+                <li><Bike size={21} aria-hidden="true" />Recogida<br />gratis</li>
+              </ul>
+              <span className="fineprint">No se realizan cobros ni pedidos reales.</span>
+            </div>
           )}
         </SheetContent>
       </Sheet>
