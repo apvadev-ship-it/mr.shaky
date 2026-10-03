@@ -113,21 +113,20 @@ export function BowlDesktop({ onAdd, go }: { onAdd: (b: BowlConfig) => void; go:
               <div><span>Proteína</span><strong>{proteins[protein]}</strong></div>
               <button type="button" onClick={() => focusStep(1)}>Cambiar <Pencil size={15} aria-hidden="true" /></button>
             </li>
-            <li className="bd-picks-sides">
-              {/* Miniaturas pequeñas en fila, del tamaño de la proteína. */}
-              <div className="bd-picks-thumbs" aria-hidden="true">
-                {picked.length === 0
-                  ? <span className="bd-empty-thumb" />
-                  : [...picked].sort((a, b) => a - b).map(i => (
-                    <img key={i} src={asset(`bowl-side-${i}`)} alt="" />
-                  ))}
-              </div>
-              <div>
-                <span>Acompañantes ({picked.length})</span>
-                <strong>{picked.length ? [...picked].sort((a, b) => a - b).map(i => sides[i]).join(' · ') : 'Elige tres'}</strong>
-              </div>
-              <button type="button" onClick={() => focusStep(2)}>Cambiar <Pencil size={15} aria-hidden="true" /></button>
-            </li>
+            {/* Una fila por acompañante, igual que la proteína y la vinagreta. */}
+            {picked.length === 0 ? (
+              <li>
+                <span className="bd-empty-thumb" aria-hidden="true" />
+                <div><span>Acompañante</span><strong>Elige tres</strong></div>
+                <button type="button" onClick={() => focusStep(2)}>Elegir <Pencil size={15} aria-hidden="true" /></button>
+              </li>
+            ) : [...picked].sort((a, b) => a - b).map(i => (
+              <li key={i}>
+                <img src={asset(`bowl-side-${i}`)} alt="" aria-hidden="true" />
+                <div><span>Acompañante</span><strong>{sides[i]}</strong></div>
+                <button type="button" onClick={() => focusStep(2)}>Cambiar <Pencil size={15} aria-hidden="true" /></button>
+              </li>
+            ))}
             <li>
               <img src={asset(`bowl-sauce-${sauce}`)} alt="" aria-hidden="true" />
               <div><span>Vinagreta</span><strong>{sauces[sauce]}</strong></div>

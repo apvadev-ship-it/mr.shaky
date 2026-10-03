@@ -1,8 +1,9 @@
 /* "Mis pedidos": el pedido en curso a la izquierda sobre negro y el
    historial a la derecha sobre el crema. En celular se apilan. */
-.mo { padding: 96px 0 0; background: #0b0b0b; }
+.mo { padding: 0; background: #0b0b0b; }
 .mo-grid {
-  width: min(1450px, 94%); margin: 0 auto 60px;
+  width: min(1320px, calc(100% - 96px)); margin: 0 auto;
+  padding-bottom: 60px;
   display: grid;
   grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
   align-items: start;
@@ -10,7 +11,8 @@
 }
 .mo-left, .mo-right { min-width: 0; }
 .mo-inner { min-width: 0; }
-/* El derretido solo trabaja en celular, donde las dos mitades van a sangre. */
+/* En escritorio el derretido cruza toda la pagina (sect-drip); este es el
+   de celular, que separa el pedido en curso del historial. */
 .mo-drip { display: none; }
 .mo-eyebrow {
   display: block;
@@ -119,22 +121,11 @@
 
 /* --- Historial -------------------------------------------------------- */
 .mo-right {
-  padding: 26px; border-radius: 24px;
-  background: #f7f7f4; color: #0b0b0b;
+  padding: 0; color: #0b0b0b;
 }
-.mo-head .mo-eyebrow { color: #6b6b6b; }
-.mo-head h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(32px, 3.6vw, 50px); font-weight: 800;
-  line-height: 1; letter-spacing: -2px; margin: 8px 0 10px;
-}
-.mo-head h1 em {
-  font-style: normal; color: #0b0b0b;
-  background: #ffe500;
-  box-decoration-break: clone; -webkit-box-decoration-break: clone;
-  padding: 0 12px 3px; margin-left: 2px; border-radius: 10px;
-}
-.mo-head p { margin: 0 0 20px; font-size: 15px; line-height: 1.45; color: #4a4a4a; }
+/* La cabecera va sobre el negro: el amarillo se lee sin necesidad del
+   fondo que llevaba cuando estaba sobre el crema. */
+.mo-head .mo-eyebrow { color: #9a9a9a; margin-bottom: 8px; }
 
 .mo-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
 .mo-filter {
@@ -231,6 +222,9 @@
 }
 .mo-empty svg { color: #0b0b0b; flex-shrink: 0; }
 
+/* El hueco para el derretido es solo de escritorio. */
+@media (min-width: 1101px) { .mo-grid { padding-top: 122px; } }
+
 /* --- Tablet ----------------------------------------------------------- */
 @media (max-width: 1100px) {
   .mo-grid { grid-template-columns: minmax(0, 1fr); }
@@ -243,7 +237,7 @@
   /* Invertido: el pedido en curso deja de ser una tarjeta y es el fondo
      negro de la pagina; el historial es el blanco a sangre, y entre los
      dos cae el derretido. */
-  .mo { padding: 86px 0 0; }
+  .mo { padding: 0; }
   .mo-grid { width: 100%; margin: 0; gap: 0; }
   .mo-inner { width: calc(100% - 28px); margin: 0 auto; }
 

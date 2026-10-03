@@ -57,4 +57,15 @@
     pointer-events: none;
   }
   .sect-light > .wrap { padding-top: 122px; }
+  /* Comunidad usa .shell, no .wrap, para conservar sus estilos. */
+  .community-light > .community-main { padding-top: 122px; padding-bottom: 20px; }
+}
+
+/* --- Comunidad --------------------------------------------------------
+   Aquí el cuerpo se queda oscuro: la banda de Instagram, los reels y los
+   testimonios están diseñados sobre negro, y pasarlos al crema sería
+   rediseñarlos, no recolorearlos. El derretido marca la sección igual. */
+@media (min-width: 1101px) {
+  .community-light { background: #0b0b0b; color: #fff; padding-bottom: 20px; }
+  :root:not(.home-legacy) .community-light > .community-main { padding-top: 122px; }
 }

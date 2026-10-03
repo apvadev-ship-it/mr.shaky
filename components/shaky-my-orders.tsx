@@ -203,7 +203,19 @@ export function MyOrders() {
 
   return (
     <main className="mo">
-      <div className="mo-grid">
+      {/* Misma estructura que el resto: el título sobre el negro, el
+          derretido y el contenido sobre el crema. */}
+      <div className="sect-top">
+        <div className="sect-top-inner mo-head">
+          <span className="mo-eyebrow">Mis pedidos</span>
+          <h1 className="sect-title">Últimos <em>pedidos</em></h1>
+          <p className="sect-lead">Revisa el estado de tus pedidos, repite tus favoritos o explora nuevas opciones.</p>
+        </div>
+      </div>
+
+      <div className="sect-light">
+        <span className="sect-drip" aria-hidden="true" />
+        <div className="mo-grid">
         <div className="mo-left"><div className="mo-inner">
           {order
             ? <CurrentOrder o={order} />
@@ -222,12 +234,6 @@ export function MyOrders() {
               de negro a blanco lo hace el derretido, como en el menu. */}
           <span className="mo-drip" aria-hidden="true" />
           <div className="mo-inner">
-          <header className="mo-head">
-            <span className="mo-eyebrow">Mis pedidos</span>
-            <h1>Últimos <em>pedidos</em></h1>
-            <p>Revisa el estado de tus pedidos, repite tus favoritos o explora nuevas opciones.</p>
-          </header>
-
           <div className="mo-filters" role="tablist" aria-label="Filtrar pedidos">
             {FILTERS.map(({ key, label: text, icon: Icon }) => (
               <button
@@ -254,6 +260,7 @@ export function MyOrders() {
             </p>
           )}
           </div>
+        </div>
         </div>
       </div>
     </main>
