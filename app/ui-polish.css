@@ -798,3 +798,34 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 @media (min-width: 768px) {
   :root:not(.home-legacy) .home-hero { padding-top: 132px; }
 }
+
+/* --- Menú en escritorio: solo se mueven los productos ------------------
+   La barra superior fija acaba en 102px; debajo se quedan pegadas la fila
+   de búsqueda y categorías y, bajo ella, las dos columnas laterales. Lo
+   único que baja con el scroll es la rejilla de productos. */
+@media (min-width: 1101px) {
+  :root:not(.home-legacy) .menu-light .category-bar {
+    position: sticky; top: 102px; z-index: 20;
+    /* El fondo evita que los productos se vean por detrás al pasar. */
+    background: #f7f7f4;
+    margin-inline: -10px; padding-inline: 10px;
+  }
+
+  :root:not(.home-legacy) .menu-layout > .filters,
+  :root:not(.home-legacy) .menu-layout > .menu-promos {
+    position: sticky; top: 188px;
+    align-self: start;
+    /* Si la columna es más alta que la pantalla, baja por dentro en vez
+       de arrastrar toda la página. */
+    max-height: calc(100vh - 200px);
+    overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: thin; scrollbar-color: #c9c9c0 transparent;
+    padding-right: 4px;
+  }
+  :root:not(.home-legacy) .menu-layout > .filters::-webkit-scrollbar,
+  :root:not(.home-legacy) .menu-layout > .menu-promos::-webkit-scrollbar { width: 6px; }
+  :root:not(.home-legacy) .menu-layout > .filters::-webkit-scrollbar-thumb,
+  :root:not(.home-legacy) .menu-layout > .menu-promos::-webkit-scrollbar-thumb {
+    background: #c9c9c0; border-radius: 100px;
+  }
+}
