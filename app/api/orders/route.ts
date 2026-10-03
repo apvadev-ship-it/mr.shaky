@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/db";
-import { orders } from "@/db/schema";
+import { getAdminDb } from "@/lib/insforge-admin";
 import { products, branches } from "@/lib/demo-data";
 import { getCouponPercent, applyDiscount } from "@/lib/coupons";
 import crypto from "node:crypto";
@@ -54,23 +53,32 @@ export async function POST(request: Request) {
   const discount = subtotal - total;
   const orderId = crypto.randomUUID();
 
-  const db = getDb();
-  await db.insert(orders).values({
-    id: orderId,
-    branch: branch.name,
-    pickupDate: input.pickupDate,
-    pickupTime: input.pickupTime,
-    customerName,
-    customerPhone,
-    items: items.map(({ id, name, qty }) => ({ id, name, qty })),
-    subtotal,
-    couponCode,
-    discount,
-    total,
-    currency: "COP",
-    paymentMethod: "cash",
-    status: "pending_pickup",
-  });
+  // Inserts take an array. The admin client runs as project_admin, the only role
+  // with access to `orders`.
+  const { error } = await getAdminDb()
+    .from("orders")
+    .insert([{
+      id: orderId,
+      branch: branch.name,
+      pickup_date: input.pickupDate,
+      pickup_time: input.pickupTime,
+      customer_name: customerName,
+      customer_phone: customerPhone,
+      items: items.map(({ id, name, qty }) => ({ id, name, qty })),
+      subtotal,
+      coupon_code: couponCode,
+      discount,
+      total,
+      currency: "COP",
+      payment_method: "cash",
+      status: "pending_pickup",
+    }]);
+
+  if (error) {
+    // Log the code only — never the row, which carries the customer's name and phone.
+    console.error("[orders.create] insert failed", { error_code: error.code });
+    return NextResponse.json({ error: "order_not_created" }, { status: 500 });
+  }
 
   return NextResponse.json({
     orderId,

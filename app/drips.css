@@ -643,134 +643,153 @@
 
 .nl {
   position: relative;
-  padding: 60px 0;
+  padding: 52px 0;
   background: url('/assets/menu-hero.webp') center / cover no-repeat;
   isolation: isolate;
 }
 .nl::before {
   content: ''; position: absolute; inset: 0; z-index: -1;
-  background: rgba(8, 8, 8, .84);
+  background: rgba(8, 8, 8, .86);
 }
 
 .nl-card {
   position: relative; overflow: hidden;
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 40%);
   align-items: stretch;
-  border-radius: 28px;
+  border-radius: 24px;
   background: #121212;
   border: 1px solid rgba(255, 255, 255, .09);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
 }
 
-.nl-body { padding: 42px; display: flex; flex-direction: column; align-items: flex-start; }
+.nl-body {
+  padding: 34px 36px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  justify-content: center;
+}
 .nl-icon {
   display: grid; place-items: center;
-  width: 62px; height: 62px; margin-bottom: 20px;
-  border-radius: 16px;
+  width: 46px; height: 46px; margin-bottom: 16px;
+  border-radius: 13px;
   border: 2px solid #ffe500; color: #ffe500;
 }
+.nl-icon svg { width: 22px; height: 22px; }
 .nl-title {
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(27px, 3vw, 41px); font-weight: 800;
-  line-height: 1.08; letter-spacing: -1.4px; color: #fff;
+  font-size: clamp(23px, 2.3vw, 32px); font-weight: 800;
+  line-height: 1.1; letter-spacing: -1px; color: #fff;
 }
 .nl-title em { color: #ffe500; font-style: normal; }
 .nl-lead {
-  margin: 0 0 26px; max-width: 460px;
-  font-size: 15.5px; line-height: 1.5; color: #c4c4c4;
+  margin: 0 0 20px; max-width: 430px;
+  font-size: 14px; line-height: 1.5; color: #b4b4b4;
 }
 
-.nl-form { display: flex; flex-wrap: wrap; gap: 14px; width: 100%; max-width: 660px; }
+.nl-form { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; max-width: 560px; }
 .nl-field {
-  flex: 1 1 260px; min-width: 0;
-  display: flex; align-items: center; gap: 12px;
-  padding: 0 20px; height: 62px; border-radius: 15px;
+  flex: 1 1 230px; min-width: 0;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 16px; height: 52px; border-radius: 13px;
   background: #1c1c1c; border: 1px solid #333;
 }
 .nl-field:focus-within { border-color: #ffe500; }
-.nl-field svg { color: #8e8e8e; flex-shrink: 0; }
+.nl-field svg { width: 18px; height: 18px; color: #8e8e8e; flex-shrink: 0; }
 .nl-field input {
   flex: 1; min-width: 0; height: 100%;
   background: none; border: 0; outline: 0;
-  font: inherit; font-size: 16px; color: #fff;
+  font: inherit; font-size: 15px; color: #fff;
 }
 .nl-field input::placeholder { color: #8e8e8e; }
 
 .nl-submit {
   flex: 0 0 auto;
-  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-  height: 62px; padding: 0 34px; border-radius: 15px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 52px; padding: 0 26px; border-radius: 13px;
   background: #ffe500; color: #0b0b0b;
-  font-size: 17px; font-weight: 800; letter-spacing: -.2px;
-  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+  font-size: 15px; font-weight: 800; letter-spacing: -.2px;
+  transition: transform .18s ease, box-shadow .18s ease;
 }
-.nl-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(255, 229, 0, .26); }
+.nl-submit svg { width: 18px; height: 18px; }
+.nl-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(255, 229, 0, .24); }
 
 .nl-consent {
   flex: 1 1 100%;
-  display: flex; align-items: center; gap: 12px;
-  font-size: 14px; line-height: 1.4; color: #c4c4c4; cursor: pointer;
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 2px;
+  font-size: 12.5px; line-height: 1.35; color: #b4b4b4; cursor: pointer;
 }
 .nl-consent input { position: absolute; opacity: 0; width: 0; height: 0; }
 .nl-box {
   display: grid; place-items: center; flex-shrink: 0;
-  width: 24px; height: 24px; border-radius: 7px;
+  width: 20px; height: 20px; border-radius: 6px;
   background: none; border: 2px solid #5a5a5a; color: transparent;
   transition: background .16s ease, border-color .16s ease, color .16s ease;
 }
+.nl-box svg { width: 12px; height: 12px; }
 .nl-consent input:checked + .nl-box { background: #ffe500; border-color: #ffe500; color: #0b0b0b; }
 .nl-consent input:focus-visible + .nl-box { outline: 3px solid #ffe500; outline-offset: 3px; }
 
 .nl-error {
-  flex: 1 1 100%; margin: -4px 0 0;
-  font-size: 13.5px; font-weight: 600; color: #ffb4b4;
+  flex: 1 1 100%; margin: -2px 0 0;
+  font-size: 12.5px; font-weight: 600; color: #ffb4b4;
 }
 
 .nl-done {
-  display: inline-flex; align-items: center; gap: 12px;
-  margin: 0; padding: 18px 26px; border-radius: 15px;
+  display: inline-flex; align-items: center; gap: 10px;
+  margin: 0; padding: 15px 22px; border-radius: 13px;
   background: rgba(255, 229, 0, .12); border: 1px solid #ffe500;
-  font-size: 16px; font-weight: 700; color: #ffe500;
+  font-size: 15px; font-weight: 700; color: #ffe500;
 }
 
 /* La foto sangra hasta el borde derecho de la tarjeta. */
-.nl-photo { position: relative; min-height: 340px; }
+.nl-photo { position: relative; min-height: 300px; }
 .nl-photo img {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
-  mask-image: linear-gradient(90deg, transparent, #000 26%);
+  mask-image: linear-gradient(90deg, transparent, #000 30%);
 }
+/* La nota caía sobre la parte más clara del bowl y no se leía: va sobre
+   su propia pastilla oscura, así se lee con cualquier foto. */
 .nl-note {
-  position: absolute; right: 22px; top: 30px;
-  max-width: 180px;
-  font-size: 19px; color: #fff; text-align: right;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, .8);
+  position: absolute; right: 18px; top: 18px;
+  max-width: 172px; padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(8, 8, 8, .72);
+  border: 1px solid rgba(255, 255, 255, .12);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font-size: 17px; line-height: 1.2; color: #fff; text-align: right;
 }
-.nl-note svg { display: block; width: 62px; margin: 6px 0 0 auto; }
+.nl-note svg { display: block; width: 46px; margin: 4px 0 0 auto; }
 
 /* --- Tablet ----------------------------------------------------------- */
 @media (max-width: 1000px) {
   .nl-card { grid-template-columns: minmax(0, 1fr); }
-  .nl-body { padding: 32px 26px; order: 2; }
-  .nl-photo { order: 1; min-height: 210px; }
-  .nl-photo img { mask-image: linear-gradient(180deg, #000 48%, transparent); }
-  .nl-note { top: 18px; right: 18px; font-size: 17px; }
+  .nl-body { padding: 26px 24px; order: 2; }
+  .nl-photo { order: 1; min-height: 180px; }
+  .nl-photo img { mask-image: linear-gradient(180deg, #000 55%, transparent); }
+  .nl-note { right: 14px; top: 14px; font-size: 15px; max-width: 150px; }
+  .nl-note svg { width: 38px; }
 }
 
 /* --- Celular ---------------------------------------------------------- */
 @media (max-width: 640px) {
-  .nl { padding: 40px 0; }
-  .nl-card { border-radius: 22px; }
-  .nl-body { padding: 24px 18px; }
-  .nl-icon { width: 52px; height: 52px; margin-bottom: 16px; border-radius: 14px; }
-  .nl-lead { margin-bottom: 20px; font-size: 14.5px; }
-  .nl-form { gap: 11px; }
-  .nl-field { flex: 1 1 100%; height: 56px; padding: 0 16px; border-radius: 13px; }
-  .nl-submit { flex: 1 1 100%; height: 56px; border-radius: 13px; font-size: 16px; }
-  .nl-photo { min-height: 170px; }
-  .nl-note { font-size: 15px; max-width: 150px; }
-  .nl-note svg { width: 48px; }
+  .nl { padding: 34px 0; }
+  .nl-card { border-radius: 20px; }
+  .nl-body { padding: 20px 17px; }
+  .nl-icon { width: 40px; height: 40px; margin-bottom: 12px; border-radius: 11px; }
+  .nl-icon svg { width: 19px; height: 19px; }
+  .nl-title { font-size: 22px; letter-spacing: -.8px; margin-bottom: 8px; }
+  .nl-lead { margin-bottom: 15px; font-size: 13px; line-height: 1.45; }
+  .nl-form { gap: 9px; }
+  .nl-field { flex: 1 1 100%; height: 48px; padding: 0 14px; border-radius: 12px; }
+  .nl-field input { font-size: 14px; }
+  .nl-submit { flex: 1 1 100%; height: 48px; border-radius: 12px; font-size: 14.5px; }
+  .nl-consent { font-size: 11.5px; gap: 9px; }
+  .nl-box { width: 18px; height: 18px; border-radius: 5px; }
+  .nl-photo { min-height: 132px; }
+  /* A este tamaño la nota tapaba media foto y no aportaba nada. */
+  .nl-note { display: none; }
 }
 
 /* --- Colores por macro ----------------------------------------------

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/db";
-import { orders } from "@/db/schema";
+import { getAdminDb } from "@/lib/insforge-admin";
 import { products, branches } from "@/lib/demo-data";
 import { getCouponPercent, applyDiscount } from "@/lib/coupons";
 import { toWompiCentavos } from "@/lib/payments/wompi";
@@ -66,25 +65,34 @@ export async function POST(request: Request) {
   const concatenation = `${reference}${amountInCents}COP${process.env.WOMPI_INTEGRITY_SECRET}`;
   const integritySignature = crypto.createHash("sha256").update(concatenation).digest("hex");
 
-  const db = getDb();
   // Only name + phone collected (needed so staff can identify the pickup), no address/ID/DOB.
-  await db.insert(orders).values({
-    id: orderId,
-    branch: branch.name,
-    pickupDate: input.pickupDate,
-    pickupTime: input.pickupTime,
-    customerName,
-    customerPhone,
-    items: items.map(({ id, name, qty }) => ({ id, name, qty })),
-    subtotal,
-    couponCode,
-    discount,
-    total,
-    currency: "COP",
-    paymentMethod: "online",
-    status: "pending_payment",
-    wompiReference: reference,
-  });
+  // The order must be persisted BEFORE the widget opens: the webhook reconciles by
+  // wompi_reference, so if this row is missing the payment cannot be matched.
+  const { error } = await getAdminDb()
+    .from("orders")
+    .insert([{
+      id: orderId,
+      branch: branch.name,
+      pickup_date: input.pickupDate,
+      pickup_time: input.pickupTime,
+      customer_name: customerName,
+      customer_phone: customerPhone,
+      items: items.map(({ id, name, qty }) => ({ id, name, qty })),
+      subtotal,
+      coupon_code: couponCode,
+      discount,
+      total,
+      currency: "COP",
+      payment_method: "online",
+      status: "pending_payment",
+      wompi_reference: reference,
+    }]);
+
+  if (error) {
+    // Do not hand the client a signature for an order that was never stored.
+    console.error("[wompi.init] insert failed", { error_code: error.code });
+    return NextResponse.json({ error: "order_not_created" }, { status: 500 });
+  }
 
   return NextResponse.json({
     orderId,

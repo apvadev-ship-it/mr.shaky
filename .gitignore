@@ -52,3 +52,18 @@ PAGOKIT_PRODUCTION_CHECKLIST.md
 
 # Copia de referencia del proyecto, no forma parte del build
 /mr-shaky/
+
+# InsForge & AI agent skills
+.insforge
+.agent
+.agents
+.augment
+.claude
+.cline
+.github/copilot*
+.kilocode
+.qoder
+.qwen
+.roo
+.trae
+.windsurf

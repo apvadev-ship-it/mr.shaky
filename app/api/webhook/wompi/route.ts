@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { eq } from "drizzle-orm";
-import { getDb } from "@/db";
-import { orders, webhookEventsProcessed } from "@/db/schema";
+import { getAdminDb, PG_UNIQUE_VIOLATION } from "@/lib/insforge-admin";
+import type { OrderRow } from "@/db/types";
 import { wompiFetch } from "@/lib/payments/wompi";
 import { mapWompiError } from "@/lib/payments/errors-wompi";
 
@@ -52,22 +51,32 @@ export async function POST(request: Request) {
     return new NextResponse(null, { status: 400 });
   }
 
-  const db = getDb();
+  const db = getAdminDb();
 
   // Dedup — Wompi doesn't expose a standalone event id, so we compose one from the
-  // transaction id + timestamp. TTL of 7 days via `expiresAt`.
+  // transaction id + timestamp. TTL of 7 days via `expires_at`.
   const eventDbId = `wompi:${event.data.transaction.id}:${event.timestamp}`;
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
-  try {
-    await db.insert(webhookEventsProcessed).values({
-      eventId: eventDbId,
+  const { error: dedupError } = await db
+    .from("webhook_events_processed")
+    .insert([{
+      event_id: eventDbId,
       provider: "wompi",
-      eventType: event.event,
-      expiresAt,
-    });
-  } catch {
-    // Already processed — this is a Wompi retry (common for PSE/Nequi confirmation lag).
-    return NextResponse.json({ received: true, duplicate: true });
+      event_type: event.event,
+      expires_at: expiresAt,
+    }]);
+
+  if (dedupError) {
+    // The SDK RETURNS the error instead of throwing, so the duplicate has to be
+    // identified by SQLSTATE. Only a unique violation means "already processed";
+    // anything else (backend down, permission problem) must NOT be acknowledged,
+    // or the event would be silently dropped with no retry.
+    if (dedupError.code === PG_UNIQUE_VIOLATION) {
+      // Wompi retry — common for PSE/Nequi confirmation lag.
+      return NextResponse.json({ received: true, duplicate: true });
+    }
+    console.error("[wompi.webhook] dedup insert failed", { error_code: dedupError.code });
+    return new NextResponse(null, { status: 500 });
   }
 
   // Log only id/type/timestamp, never the full event body.
@@ -102,11 +111,27 @@ function requireEventsSecret(): string {
 
 function verifyWompiChecksum(event: WompiEvent, secret: string): boolean {
   if (!event?.signature?.checksum || !event?.timestamp || !Array.isArray(event.signature.properties)) return false;
+  // An empty property list would sign nothing but the timestamp and the secret.
+  if (event.signature.properties.length === 0) return false;
 
-  const concatenated = event.signature.properties
-    .map((path) => path.split(".").reduce<unknown>((acc, key) => (acc == null ? undefined : (acc as Record<string, unknown>)[key]), event as unknown))
-    .map((v) => (v == null ? "" : String(v)))
-    .join("");
+  // Wompi's property paths are relative to `data`, not to the event root: the path
+  // "transaction.id" means data.transaction.id. Resolving these from `event` yields
+  // undefined for every property, which both rejects every genuine event and leaves
+  // the signed string free of any transaction field.
+  const values = event.signature.properties.map((path) =>
+    path
+      .split(".")
+      .reduce<unknown>(
+        (acc, key) => (acc == null ? undefined : (acc as Record<string, unknown>)[key]),
+        event.data as unknown,
+      ),
+  );
+
+  // A missing property must fail, never degrade to "". Otherwise an event that simply
+  // omits id/status/amount would still produce a checksum that matches.
+  if (values.some((v) => v == null)) return false;
+
+  const concatenated = values.map((v) => String(v)).join("");
 
   const toSign = concatenated + event.timestamp + secret;
   const computed = crypto.createHash("sha256").update(toSign).digest("hex");
@@ -126,8 +151,18 @@ async function refetchTransaction(transactionId: string): Promise<WompiTransacti
   }
 }
 
-async function handleTransactionUpsert(db: ReturnType<typeof getDb>, tx: WompiTransaction) {
-  const [existing] = await db.select().from(orders).where(eq(orders.wompiReference, tx.reference)).limit(1);
+async function handleTransactionUpsert(db: ReturnType<typeof getAdminDb>, tx: WompiTransaction) {
+  const { data, error } = await db
+    .from("orders")
+    .select("id")
+    .eq("wompi_reference", tx.reference)
+    .limit(1);
+
+  // A failed lookup is not the same as "no such order": throw so the caller
+  // answers 500 and Wompi retries, instead of acknowledging a lost event.
+  if (error) throw Object.assign(new Error("order lookup failed"), { code: error.code });
+
+  const existing = (data as Pick<OrderRow, "id">[] | null)?.[0];
 
   if (tx.status === "DECLINED") {
     const mapped = mapWompiError({ transaction: tx });
@@ -141,14 +176,18 @@ async function handleTransactionUpsert(db: ReturnType<typeof getDb>, tx: WompiTr
     return;
   }
 
-  await db
-    .update(orders)
-    .set({
-      wompiTransactionId: tx.id,
+  // updated_at is maintained by the orders_updated_at trigger, so it is not set here.
+  const { error: updateError } = await db
+    .from("orders")
+    .update({
+      wompi_transaction_id: tx.id,
       status: mapWompiStatus(tx.status),
-      updatedAt: new Date().toISOString(),
     })
-    .where(eq(orders.id, existing.id));
+    .eq("id", existing.id);
+
+  if (updateError) {
+    throw Object.assign(new Error("order update failed"), { code: updateError.code });
+  }
 }
 
 function mapWompiStatus(wompiStatus: string): string {
