@@ -829,3 +829,22 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
     background: #c9c9c0; border-radius: 100px;
   }
 }
+
+/* --- El menú inferior, igual en todas las páginas ---------------------
+   El inicio usa el diseño antiguo y su hoja le daba otro alto, otro
+   fondo y otra tipografía: al pasar de Menú a Inicio se veía el cambio.
+   Esa hoja se importa la última, así que estas reglas encadenan :root
+   para ganarle por especificidad, no por orden. */
+:root.home-legacy .bottom-nav,
+:root:not(.home-legacy) .bottom-nav {
+  min-height: 76px;
+  padding: 6px 4px;
+  background: rgba(11, 11, 11, .96);
+  border-top: 1px solid #333;
+}
+:root.home-legacy .bottom-nav > *,
+:root:not(.home-legacy) .bottom-nav > * {
+  gap: 5px; padding: 0 0 7px; min-height: 63px;
+}
+:root.home-legacy .bottom-nav span,
+:root:not(.home-legacy) .bottom-nav span { font-size: 10px; }

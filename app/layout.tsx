@@ -29,9 +29,11 @@ export const metadata: Metadata = {
   other: {
     "codex-preview": "development",
   },
+  // El mismo logo que la barra superior.
   icons: {
-    icon: "/assets/mark.webp",
-    shortcut: "/assets/mark.webp",
+    icon: "/mascot.png",
+    shortcut: "/mascot.png",
+    apple: "/mascot.png",
   },
 };
 

@@ -6,9 +6,11 @@
    Las reglas del sitio usan :root:not(.home-legacy), así que hay que
    igualar esa especificidad para ganarles. */
 
-@media (min-width: 1101px) {
   :root:not(.home-legacy) .community-light > .community-main {
     padding-top: 122px; padding-bottom: 30px;
+  }
+  @media (max-width: 700px) {
+    :root:not(.home-legacy) .community-light > .community-main { padding-top: 96px; }
   }
 
   /* --- Banda de Instagram ----------------------------------------------- */
@@ -17,6 +19,9 @@
     border: 1px solid #e4e4dd;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .04);
   }
+  /* En celular este bloque trae su propio fondo negro, que dejaba el
+     titulo negro sobre negro. */
+  :root:not(.home-legacy) .community-light .instagram-intro { background: none; }
   :root:not(.home-legacy) .community-light .instagram-intro h2 { color: #0b0b0b; }
   :root:not(.home-legacy) .community-light .instagram-intro p { color: #4a4a4a; }
 
@@ -82,7 +87,4 @@
     border-color: #c9c9c0;
     box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
   }
-}
 
-/* En celular la pagina sigue sobre negro: el derretido interno ya hace
-   el cambio y estas reglas no aplican. */

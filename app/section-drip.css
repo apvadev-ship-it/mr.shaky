@@ -1,3 +1,17 @@
+/* Comunidad es la unica que lleva el cuerpo claro tambien en celular:
+   las demas vistas de esta familia solo existen en escritorio. */
+.community-light {
+  position: relative;
+  background: #f7f7f4; color: #0b0b0b;
+  padding-bottom: 40px;
+}
+.community-light > .sect-drip {
+  display: block; position: absolute;
+  left: 0; right: 0; top: 0; height: 105px;
+  background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+  z-index: 2; pointer-events: none;
+}
+
 /* --- Cabecera negra, derretido y cuerpo claro -------------------------
    La misma estructura del menú, para que cada sección se distinga: el
    título sobre el negro, el glaseado cayendo, y el contenido sobre el
@@ -48,6 +62,7 @@
   .sect-top { background: #0b0b0b; padding: 132px 0 38px; }
   .sect-title { letter-spacing: -2.6px; }
   .sect-lead { font-size: 16px; margin-top: 14px; }
+
 
   .sect-light {
     position: relative;
