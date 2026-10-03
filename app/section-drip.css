@@ -1,11 +1,13 @@
-/* Comunidad es la unica que lleva el cuerpo claro tambien en celular:
-   las demas vistas de esta familia solo existen en escritorio. */
-.community-light {
-  position: relative;
+.sect-light { position: relative; }
+/* En celular el crema solo lo llevan las vistas que lo piden; Mis pedidos
+   mantiene arriba el pedido en curso sobre negro. */
+.community-light, .bowl-light, .macro-light, .ck-light {
   background: #f7f7f4; color: #0b0b0b;
   padding-bottom: 40px;
 }
-.community-light > .sect-drip {
+.community-light > .sect-drip,
+.macro-light > .sect-drip,
+.ck-light > .sect-drip {
   display: block; position: absolute;
   left: 0; right: 0; top: 0; height: 105px;
   background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
@@ -50,6 +52,8 @@
      Mide 87px en celular y 102px a partir de 768, asi que el hueco
      cambia con ella. */
   .sect-top { padding: 116px 0 18px; }
+  /* Hueco para el derretido, que cae sobre el contenido. */
+  .ck-light > form.wrap { padding-top: 96px; }
   .sect-lead { font-size: 14px; }
 }
 
@@ -65,20 +69,43 @@
 
 
   .sect-light {
-    position: relative;
     background: #f7f7f4; color: #0b0b0b;
     padding-bottom: 60px;
   }
-  /* El mismo derretido del resto del sitio: su propio negro arriba y las
-     gotas cayendo sobre el crema. */
-  .sect-drip {
-    position: absolute;
-    left: 0; right: 0; top: 0;
-    height: 105px;
+  .sect-light > .sect-drip {
+    display: block; position: absolute;
+    left: 0; right: 0; top: 0; height: 105px;
     background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
-    z-index: 2;
-    pointer-events: none;
+    z-index: 2; pointer-events: none;
   }
   .sect-light > .wrap { padding-top: 122px; }
 }
 
+
+/* --- Bowl y calculadora en celular ------------------------------------
+   El bowl ya trae su propio derretido dentro del hero, así que su cuerpo
+   solo necesita el crema; la calculadora lleva los dos. */
+.bowl-light { padding-top: 10px; }
+.macro-light > .shell { padding-top: 96px; }
+
+@media (min-width: 1101px) {
+  /* Arriba de 1101 estas dos vistas ceden el sitio a las de escritorio. */
+  .bowl-light, .macro-light { background: none; padding: 0; }
+  .macro-light > .sect-drip { display: none; }
+}
+
+/* --- Lo que estaba pensado para el negro y ahora cae sobre el crema ---- */
+:root:not(.home-legacy) .macro-light .reference-steps button.current,
+:root:not(.home-legacy) .macro-light .eyebrow { color: #6b5f00; }
+:root:not(.home-legacy) .macro-light .manual-distribution > summary,
+:root:not(.home-legacy) .macro-light .intro { color: #4a4a4a; }
+/* El amarillo no pasa AA sobre el crema: pasa a ser el fondo. */
+:root:not(.home-legacy) .macro-light h1 em,
+:root:not(.home-legacy) .macro-light h2 em,
+:root:not(.home-legacy) .macro-light h3 em {
+  color: #0b0b0b; background: #ffe500;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  padding: 0 9px 2px; border-radius: 8px;
+}
+:root:not(.home-legacy) .ck-light .ck-terms { color: #5c5c5c; }
+:root:not(.home-legacy) .ck-light .ck-terms a { color: #0b0b0b; font-weight: 700; text-decoration: underline; }

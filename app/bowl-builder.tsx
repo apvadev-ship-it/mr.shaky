@@ -33,6 +33,8 @@ return <><BowlDesktop onAdd={onAdd} go={go}/><main className="bowl-page">
     <div className="bowl-hero-copy"><h1>ARMA<br/><em>TU BOWL</em></h1></div>
   </section>
 
+  {/* Cuerpo claro, como en el resto: el derretido del hero hace el cambio. */}
+  <div className="sect-light bowl-light">
   <div className="shell bowl-content">
     <nav className="bowl-steps" aria-label="Pasos para armar tu bowl">
       {STEPS.map((label,i)=>
@@ -85,6 +87,7 @@ return <><BowlDesktop onAdd={onAdd} go={go}/><main className="bowl-page">
         Siguiente <ArrowRight size={18}/>
       </button>
     </div>}
+  </div>
   </div>
 </main></>;
 }

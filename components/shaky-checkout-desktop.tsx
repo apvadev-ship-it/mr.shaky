@@ -44,7 +44,7 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
         </div>
       </div>
 
-      <div className="sect-light">
+      <div className="sect-light ck-light">
         <span className="sect-drip" aria-hidden="true" />
         <form
           noValidate

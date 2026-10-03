@@ -844,6 +844,9 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 }
 :root.home-legacy .bottom-nav > *,
 :root:not(.home-legacy) .bottom-nav > * {
+  /* Sin el reparto a partes iguales los botones medían 52px en el inicio
+     y 79px en el resto, y los iconos bailaban al cambiar de página. */
+  flex: 1 1 0; min-width: 0;
   gap: 5px; padding: 0 0 7px; min-height: 63px;
 }
 :root.home-legacy .bottom-nav span,

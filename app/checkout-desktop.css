@@ -1,8 +1,6 @@
 /* "Completa tus datos" en escritorio: formulario a la izquierda, resumen
    del pedido a la derecha. Vive dentro de .oc, que ya es solo de PC. */
-.ck { background: #0b0b0b; padding: 112px 0 60px; }
-/* En escritorio el aire de arriba lo pone la cabecera negra comun. */
-@media (min-width: 1101px) { .ck { padding: 0; } }
+.ck { background: #0b0b0b; padding: 0 0 60px; }
 .ck-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 440px;
@@ -181,7 +179,7 @@
 
 /* --- Celular: la misma pantalla, en una columna ---------------------- */
 @media (max-width: 1100px) {
-  .ck { padding: 104px 0 40px; }
+  .ck { padding: 0 0 40px; }
   .ck-grid { grid-template-columns: 1fr; gap: 20px; }
   .ck-title { font-size: clamp(34px, 11vw, 48px); letter-spacing: -1.8px; }
   .ck-lead { font-size: 15px; margin-bottom: 18px; }
