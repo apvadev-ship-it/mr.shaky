@@ -4,55 +4,29 @@
 .md { display: none; }
 
 @media (min-width: 1101px) {
-  .md { display: block; background: #0b0b0b; padding: 104px 0 70px; }
+  .md { display: block; background: #0b0b0b; }
   .md ~ .macro-page { display: none; }
 
-    /* .wrap no define ancho en estas vistas, asi que el contenido
-     llegaba pegado a los dos bordes de la pantalla. */
-  .md-grid { width: min(1320px, calc(100% - 96px)); margin-inline: auto; }
-.md-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 430px;
-    align-items: start;
-    gap: 26px;
-  }
-  .md-main { min-width: 0; }
-
-  .md-back {
-    display: inline-flex; align-items: center; gap: 10px;
-    border: 0; background: none; color: #c9c9c9;
-    font-size: 15px; font-weight: 600; padding: 0 0 18px;
-  }
-  .md-back:hover { color: #ffe500; }
-
-  /* --- Portada ------------------------------------------------------- */
-  .md-hero {
-    position: relative; overflow: hidden;
-    border-radius: 26px; background: #121212;
-    padding: 40px; margin-bottom: 22px;
-  }
-  .md-hero > img {
-    position: absolute; inset: 0 0 0 auto;
-    width: 46%; height: 100%; object-fit: cover;
-    mask-image: linear-gradient(90deg, transparent, #000 45%);
-  }
-  .md-hero-copy { position: relative; max-width: 560px; }
-  .md-hero h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(42px, 4.4vw, 62px); font-weight: 800;
-    line-height: .98; letter-spacing: -2.4px; margin: 0 0 14px; color: #fff;
-  }
-  .md-hero h1 em { color: #ffe500; font-style: normal; }
-  .md-hero-copy > p { margin: 0; font-size: 17px; line-height: 1.4; color: #d4d4d4; max-width: 460px; }
+  /* La cabecera: texto a la izquierda y la foto recortada a la derecha. */
+  .md-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 34%); gap: 30px; align-items: center; }
+  .md-head-photo { width: 100%; height: 230px; object-fit: cover; border-radius: 22px; }
   .md-features {
-    list-style: none; margin: 24px 0 0; padding: 0;
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 20px;
+    list-style: none; margin: 22px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px 20px;
   }
   .md-features li {
     display: flex; align-items: center; gap: 10px;
     font-size: 14px; font-weight: 600; color: #f7f7f4;
   }
   .md-features svg { color: #ffe500; flex-shrink: 0; }
+
+  .md-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 430px;
+    align-items: start;
+    gap: 26px;
+  }
+  .md-main { min-width: 0; }
 
   /* --- Tarjetas del formulario --------------------------------------- */
   .md-form { display: grid; gap: 18px; }
@@ -256,8 +230,20 @@
 
 /* Entre 1101px y 1280px el panel lateral no cabe al lado cómodamente. */
 @media (min-width: 1101px) and (max-width: 1280px) {
+  /* La cabecera: texto a la izquierda y la foto recortada a la derecha. */
+  .md-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 34%); gap: 30px; align-items: center; }
+  .md-head-photo { width: 100%; height: 230px; object-fit: cover; border-radius: 22px; }
+  .md-features {
+    list-style: none; margin: 22px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px 20px;
+  }
+  .md-features li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; font-weight: 600; color: #f7f7f4;
+  }
+  .md-features svg { color: #ffe500; flex-shrink: 0; }
+
   .md-grid { grid-template-columns: minmax(0, 1fr); }
   .md-aside { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
-  .md-hero > img { width: 38%; }
   .md-inputs, .md-goal-cards, .md-activity { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

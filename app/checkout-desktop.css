@@ -1,9 +1,8 @@
 /* "Completa tus datos" en escritorio: formulario a la izquierda, resumen
    del pedido a la derecha. Vive dentro de .oc, que ya es solo de PC. */
 .ck { background: #0b0b0b; padding: 112px 0 60px; }
-  /* .wrap no define ancho en estas vistas, asi que el contenido
-     llegaba pegado a los dos bordes de la pantalla. */
-  .ck-grid { width: min(1320px, calc(100% - 96px)); margin-inline: auto; }
+/* En escritorio el aire de arriba lo pone la cabecera negra comun. */
+@media (min-width: 1101px) { .ck { padding: 0; } }
 .ck-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 440px;
@@ -210,4 +209,13 @@
   background: none; border: 0; padding: 0;
   color: #ffe500; font: inherit; font-weight: 800;
   text-decoration: underline; cursor: pointer;
+}
+
+/* --- El cuerpo va sobre el crema -------------------------------------
+   El aviso de términos venía en gris y enlaces amarillos, pensados para
+   el negro: sobre el crema se quedaban en 2.6:1 y 1.5:1. */
+@media (min-width: 1101px) {
+  .sect-light .ck-terms { color: #5c5c5c; }
+  .sect-light .ck-terms a { color: #0b0b0b; font-weight: 700; text-decoration: underline; }
+  .sect-light .ck-terms a:hover { color: #8a7a00; }
 }

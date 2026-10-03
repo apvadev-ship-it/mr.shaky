@@ -35,18 +35,23 @@ export function BowlDesktop({ onAdd, go }: { onAdd: (b: BowlConfig) => void; go:
 
   return (
     <section className="bd">
-      <div className="wrap bd-grid">
-        <div className="bd-main">
-          <button type="button" className="bd-back" onClick={() => go('menu')}><ArrowLeft size={20} aria-hidden="true" />Volver</button>
-
-          <div className="bd-head">
-            <div>
-              <h1 className="bd-title">Arma tu <em>Bowl</em></h1>
-              <p className="bd-lead">Crea un bowl a tu medida. Elige una proteína, tres acompañantes y una vinagreta.</p>
-            </div>
-            <span className="bd-sticker">Solo por<strong>{money(BOWL_PRICE)}</strong></span>
+      {/* Misma estructura que el menú: título sobre el negro, el derretido
+          y el contenido sobre el crema. */}
+      <div className="sect-top">
+        <div className="sect-top-inner bd-head">
+          <div>
+            <button type="button" className="sect-back" onClick={() => go('menu')}><ArrowLeft size={20} aria-hidden="true" />Volver</button>
+            <h1 className="sect-title">Arma tu <em>Bowl</em></h1>
+            <p className="sect-lead">Crea un bowl a tu medida. Elige una proteína, tres acompañantes y una vinagreta.</p>
           </div>
+          <span className="bd-sticker">Solo por<strong>{money(BOWL_PRICE)}</strong></span>
+        </div>
+      </div>
 
+      <div className="sect-light">
+        <span className="sect-drip" aria-hidden="true" />
+        <div className="wrap bd-grid">
+        <div className="bd-main">
           {STEPS.map(step => (
             <section className="bd-card" id={'bowl-step-' + step.n} key={step.n}>
               <header className="bd-card-head">
@@ -163,6 +168,7 @@ export function BowlDesktop({ onAdd, go }: { onAdd: (b: BowlConfig) => void; go:
           </button>
           {!full && <p className="bd-submit-hint">Elige {3 - picked.length} acompañante{3 - picked.length === 1 ? '' : 's'} más para continuar.</p>}
         </aside>
+        </div>
       </div>
     </section>
   );

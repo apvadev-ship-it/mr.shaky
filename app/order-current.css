@@ -3,11 +3,8 @@
 .oc { display: none; }
 
 @media (min-width: 1101px) {
-  .oc { display: block; background: #0b0b0b; padding: 118px 0 60px; }
-    /* .wrap no define ancho en estas vistas, asi que el contenido
-     llegaba pegado a los dos bordes de la pantalla. */
-  .oc-grid { width: min(1320px, calc(100% - 96px)); margin-inline: auto; }
-.oc-grid {
+  .oc { display: block; background: #0b0b0b; }
+  .oc-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 420px;
     align-items: start;
@@ -219,4 +216,48 @@
   .order-v2 > .page-title,
   .order-v2 > .new-order-main,
   .order-v2 > .shell { display: none; }
+}
+
+/* --- El cuerpo va sobre el crema -------------------------------------
+   Con la estructura del menú, los paneles dejan de ser oscuros sobre
+   negro y pasan a ser tarjetas claras sobre el crema. */
+@media (min-width: 1101px) {
+  .sect-light .oc-control,
+  .sect-light .oc-aside {
+    background: #fff;
+    border-color: #e4e4dd;
+  }
+  .sect-light .oc-select { background: #fafaf6; border-color: #d8d8d0; }
+  .sect-light .oc-select select,
+  .sect-light .oc-select input { color: #0b0b0b; color-scheme: light; }
+  .sect-light .oc-select svg,
+  .sect-light .oc-control-icon { color: #0b0b0b; }
+  .sect-light .oc-control-label,
+  .sect-light .oc-title,
+  .sect-light .oc-line-copy h3,
+  .sect-light .oc-aside h2,
+  .sect-light .oc-branch-single strong { color: #0b0b0b; }
+  .sect-light .oc-lead,
+  .sect-light .oc-line-copy p,
+  .sect-light .oc-branch-single p,
+  .sect-light .oc-aside p { color: #4a4a4a; }
+  .sect-light .oc-crumb { color: #5c5c5c; }
+  .sect-light .oc-times button { background: #fafaf6; border-color: #d8d8d0; color: #0b0b0b; }
+  .sect-light .oc-qty { background: #fafaf6; border-color: #d8d8d0; }
+  .sect-light .oc-qty button { color: #0b0b0b; }
+  .sect-light .oc-qty output { color: #0b0b0b; }
+  .sect-light .oc-line { background: #fff; border-color: #e4e4dd; }
+  .sect-light .oc-suggestions li { background: #fff; border-color: #e4e4dd; }
+  .sect-light .oc-suggestions li strong,
+  .sect-light .oc-suggestions li b { color: #0b0b0b; }
+  .sect-light .oc-suggestions li p { color: #4a4a4a; }
+
+  /* El gris y el amarillo venian pensados para el negro. */
+  .sect-light .oc-empty { color: #5c5c5c; }
+  .sect-light .oc-aside h2 em {
+    color: #0b0b0b;
+    background: #ffe500;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    padding: 0 9px 2px; border-radius: 8px;
+  }
 }

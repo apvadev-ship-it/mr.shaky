@@ -1,0 +1,60 @@
+/* --- Cabecera negra, derretido y cuerpo claro -------------------------
+   La misma estructura del menú, para que cada sección se distinga: el
+   título sobre el negro, el glaseado cayendo, y el contenido sobre el
+   crema.
+
+   El derretido y el cuerpo claro son solo de escritorio: en celular
+   estas vistas viven dentro del flujo por pasos, que ya es oscuro. La
+   tipografía de la cabecera, en cambio, vale en los dos anchos. */
+
+.sect-top-inner,
+.sect-light > .wrap {
+  width: min(1320px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.sect-back {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 0; background: none; color: #c9c9c9;
+  font-size: 15px; font-weight: 600; padding: 0 0 14px;
+}
+.sect-back:hover { color: #ffe500; }
+.sect-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(34px, 5vw, 72px); font-weight: 800;
+  line-height: .98; letter-spacing: -2px; margin: 0; color: #fff;
+}
+.sect-title em { color: #ffe500; font-style: normal; }
+.sect-lead {
+  margin: 12px 0 0; max-width: 560px;
+  font-size: 15px; line-height: 1.45; color: #c9c9c9;
+}
+
+@media (max-width: 1100px) {
+  .sect-top-inner,
+  .sect-light > .wrap { width: calc(100% - 28px); }
+  .sect-top { padding-bottom: 18px; }
+  .sect-lead { font-size: 14px; }
+}
+
+@media (min-width: 1101px) {
+  .sect-top { background: #0b0b0b; padding: 96px 0 38px; }
+  .sect-title { letter-spacing: -2.6px; }
+  .sect-lead { font-size: 16px; margin-top: 14px; }
+
+  .sect-light {
+    position: relative;
+    background: #f7f7f4; color: #0b0b0b;
+    padding-bottom: 60px;
+  }
+  /* El mismo derretido del resto del sitio: su propio negro arriba y las
+     gotas cayendo sobre el crema. */
+  .sect-drip {
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 105px;
+    background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .sect-light > .wrap { padding-top: 122px; }
+}

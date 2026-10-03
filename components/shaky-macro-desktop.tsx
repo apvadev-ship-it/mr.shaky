@@ -79,20 +79,26 @@ export function MacroDesktop({ go }: { go: (r: string) => void }) {
 
   return (
     <section className="md">
-      <div className="wrap md-grid">
-        <div className="md-main">
-          <button type="button" className="md-back" onClick={() => go('inicio')}><ArrowLeft size={20} aria-hidden="true" />Volver</button>
-          <div className="md-hero">
-            <img src="/assets/bowl-hero.webp" alt="" aria-hidden="true" />
-            <div className="md-hero-copy">
-              <h1>Calcula tus<br /><em>Macros</em></h1>
-              <p>Conoce cuántas calorías, proteínas, carbohidratos y grasas debes consumir según tu objetivo y estilo de vida.</p>
-              <ul className="md-features">
-                {FEATURES.map(({ icon: Icon, text }) => <li key={text}><Icon size={20} aria-hidden="true" />{text}</li>)}
-              </ul>
-            </div>
+      {/* Misma estructura que el menú: título sobre el negro, el derretido
+          y el contenido sobre el crema. */}
+      <div className="sect-top">
+        <div className="sect-top-inner md-head">
+          <div>
+            <button type="button" className="sect-back" onClick={() => go('inicio')}><ArrowLeft size={20} aria-hidden="true" />Volver</button>
+            <h1 className="sect-title">Calcula tus <em>Macros</em></h1>
+            <p className="sect-lead">Conoce cuántas calorías, proteínas, carbohidratos y grasas debes consumir según tu objetivo y estilo de vida.</p>
+            <ul className="md-features">
+              {FEATURES.map(({ icon: Icon, text }) => <li key={text}><Icon size={20} aria-hidden="true" />{text}</li>)}
+            </ul>
           </div>
+          <img className="md-head-photo" src="/assets/bowl-hero.webp" alt="" aria-hidden="true" />
+        </div>
+      </div>
 
+      <div className="sect-light">
+        <span className="sect-drip" aria-hidden="true" />
+        <div className="wrap md-grid">
+        <div className="md-main">
           <div className="md-form">
             <section className="md-step">
               <header><span>1</span><div><h2>Tu información personal</h2><p>Ingresa tus datos para un cálculo preciso.</p></div><Info size={18} aria-hidden="true" /></header>
@@ -233,6 +239,7 @@ export function MacroDesktop({ go }: { go: (r: string) => void }) {
             </ul>
           </div>
         </aside>
+        </div>
       </div>
     </section>
   );

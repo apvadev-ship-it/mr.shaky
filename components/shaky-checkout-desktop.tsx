@@ -34,20 +34,28 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
 
   return (
     <section className="ck">
-      <form
-        noValidate
-        className="wrap ck-grid"
-        onSubmit={e => {
-          setTouched(true);
-          if (!ready) { e.preventDefault(); return }
-          submitOrder(e, () => { });
-        }}
-      >
-        <div className="ck-main">
-          <button type="button" className="ck-back" onClick={onBack}><ArrowLeft size={20} aria-hidden="true" />Volver</button>
-          <h1 className="ck-title">Completa <em>tus datos</em></h1>
-          <p className="ck-lead">Finaliza tu pedido con tu información, método de entrega y pago.</p>
+      {/* Misma estructura que el menú: título sobre el negro, el derretido
+          y el contenido sobre el crema. */}
+      <div className="sect-top">
+        <div className="sect-top-inner">
+          <button type="button" className="sect-back" onClick={onBack}><ArrowLeft size={20} aria-hidden="true" />Volver</button>
+          <h1 className="sect-title">Completa <em>tus datos</em></h1>
+          <p className="sect-lead">Finaliza tu pedido con tu información, método de entrega y pago.</p>
+        </div>
+      </div>
 
+      <div className="sect-light">
+        <span className="sect-drip" aria-hidden="true" />
+        <form
+          noValidate
+          className="wrap ck-grid"
+          onSubmit={e => {
+            setTouched(true);
+            if (!ready) { e.preventDefault(); return }
+            submitOrder(e, () => { });
+          }}
+        >
+        <div className="ck-main">
           <section className="ck-card">
             <header><span className="ck-card-icon"><UserRound size={24} /></span><h2>Tus datos personales</h2></header>
             <div className="ck-fields">
@@ -179,7 +187,8 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
           {touched && !ready && schedule && count > 0 && <p className="ck-submit-hint">Completa los campos marcados para continuar.</p>}
           <p className="ck-terms">Al confirmar, aceptas nuestros <Link href="/nosotros">Términos y Condiciones</Link> y nuestra <Link href="/nosotros">Política de Privacidad</Link>.</p>
         </aside>
-      </form>
+        </form>
+      </div>
     </section>
   );
 }

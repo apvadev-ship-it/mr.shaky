@@ -19,6 +19,7 @@ import "./product-dialog.css";
 import "./macro-desktop.css";
 import "./my-orders.css";
 import "./cart-sheet.css";
+import "./section-drip.css";
 import "./home-legacy.css";
 
 export const metadata: Metadata = {

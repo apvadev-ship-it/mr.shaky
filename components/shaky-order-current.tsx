@@ -28,12 +28,20 @@ export function OrderCurrent({ onCheckout }: { onCheckout: () => void }) {
 
   return (
     <section className="oc">
-      <div className="wrap oc-grid">
-        <div className="oc-main">
+      {/* Misma estructura que el menú: título sobre el negro, el derretido
+          y el contenido sobre el crema. */}
+      <div className="sect-top">
+        <div className="sect-top-inner">
           <span className="oc-crumb"><ChevronRight size={14} aria-hidden="true" />FINALIZA TU PEDIDO</span>
-          <h1 className="oc-title">Tu pedido <em>actual</em></h1>
-          <p className="oc-lead">Revisa tu pedido, ajusta las cantidades o elimina productos.</p>
+          <h1 className="sect-title">Tu pedido <em>actual</em></h1>
+          <p className="sect-lead">Revisa tu pedido, ajusta las cantidades o elimina productos.</p>
+        </div>
+      </div>
 
+      <div className="sect-light">
+        <span className="sect-drip" aria-hidden="true" />
+        <div className="wrap oc-grid">
+        <div className="oc-main">
           <div className="oc-controls">
             <div className="oc-control">
               <span className="oc-control-icon"><CalendarDays size={22} /></span>
@@ -175,6 +183,7 @@ export function OrderCurrent({ onCheckout }: { onCheckout: () => void }) {
             <ArrowRight size={22} aria-hidden="true" />
           </div>
         </aside>
+        </div>
       </div>
     </section>
   );
