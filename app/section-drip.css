@@ -109,3 +109,26 @@
 }
 :root:not(.home-legacy) .ck-light .ck-terms { color: #5c5c5c; }
 :root:not(.home-legacy) .ck-light .ck-terms a { color: #0b0b0b; font-weight: 700; text-decoration: underline; }
+
+/* --- El derretido del armador de bowls en celular ----------------------
+   Lo pintaba el propio hero, anclado a su borde inferior: el negro del
+   dibujo caia sobre el negro del hero y las gotas se cortaban justo en el
+   canto, dejando la linea recta. Va donde va en el resto del sitio, al
+   principio del crema, para que las gotas caigan sobre el claro. */
+@media (max-width: 1100px) {
+  :root:not(.home-legacy) .bowl-hero .drip { display: none; }
+
+  .bowl-light { padding-top: 0; }
+  .bowl-light::before {
+    content: ''; position: absolute;
+    left: 0; right: 0; top: 0; height: 105px;
+    background: url('/melt-hero.svg') left top / 490px 100% repeat-x;
+    z-index: 2; pointer-events: none;
+  }
+  .bowl-light > .shell { padding-top: 96px; }
+}
+
+@media (max-width: 700px) {
+  .bowl-light::before { height: 88px; background-size: 390px 100%; }
+  .bowl-light > .shell { padding-top: 82px; }
+}
