@@ -1,0 +1,88 @@
+/* --- Comunidad sobre el crema ----------------------------------------
+   La página estaba diseñada sobre negro. Aquí se rehace para el cuerpo
+   claro: tarjetas blancas, texto oscuro y el amarillo como acento, no
+   como color de texto (sobre el crema ningún amarillo de marca pasa AA).
+
+   Las reglas del sitio usan :root:not(.home-legacy), así que hay que
+   igualar esa especificidad para ganarles. */
+
+@media (min-width: 1101px) {
+  :root:not(.home-legacy) .community-light > .community-main {
+    padding-top: 122px; padding-bottom: 30px;
+  }
+
+  /* --- Banda de Instagram ----------------------------------------------- */
+  :root:not(.home-legacy) .community-light .social-band {
+    background: #fff;
+    border: 1px solid #e4e4dd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .04);
+  }
+  :root:not(.home-legacy) .community-light .instagram-intro h2 { color: #0b0b0b; }
+  :root:not(.home-legacy) .community-light .instagram-intro p { color: #4a4a4a; }
+
+  /* El aro de las historias: sobre blanco el amarillo solo no se ve, así
+     que lleva el degradado de Instagram, que es la marca de la red. */
+  :root:not(.home-legacy) .community-light .highlight-ring {
+    border: 0;
+    background: radial-gradient(circle at 25% 105%, #feda75 8%, #fa7e1e 32%, #d62976 54%, #962fbf 74%, #4f5bd5 95%);
+    padding: 2.5px;
+  }
+  :root:not(.home-legacy) .community-light .highlight-ring img {
+    border: 2px solid #fff;
+  }
+  :root:not(.home-legacy) .community-light .highlights > button { color: #0b0b0b; font-weight: 600; }
+  :root:not(.home-legacy) .community-light .highlight-ring b {
+    background: #ffe500; color: #0b0b0b;
+    border: 2px solid #fff;
+  }
+
+  /* --- Títulos y notas --------------------------------------------------- */
+  :root:not(.home-legacy) .community-light .section-heading h2 { color: #0b0b0b; }
+  :root:not(.home-legacy) .community-light .community-main > .section-heading a {
+    color: #0b0b0b; font-weight: 700;
+  }
+  :root:not(.home-legacy) .community-light .community-main > .section-heading a:hover { color: #8a7a00; }
+  :root:not(.home-legacy) .community-light .community-demo { color: #5c5c5c; }
+
+  /* --- Publicaciones ----------------------------------------------------- */
+  /* Las fotos ya traen su propio degradado para el pie, así que solo cambia
+     el contorno, que sobre el crema tenía que aclararse. */
+  :root:not(.home-legacy) .community-light .reel {
+    border-color: #ddddd6;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+  }
+  :root:not(.home-legacy) .community-light .reel-caption { color: #fff; }
+
+  /* --- Testimonios -------------------------------------------------------- */
+  :root:not(.home-legacy) .community-light .testimonials { border-top-color: #ddddd6; }
+  :root:not(.home-legacy) .community-light .testimonials-title h2 { color: #0b0b0b; }
+  /* El amarillo pasa a ser el fondo: sobre el crema se queda en 1.2:1. */
+  :root:not(.home-legacy) .community-light .testimonials-title em {
+    color: #0b0b0b;
+    background: #ffe500;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    padding: 0 10px 2px; border-radius: 8px;
+  }
+  :root:not(.home-legacy) .community-light .testimonial-list article {
+    background: #fff;
+    border: 1px solid #e4e4dd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .04);
+    color: #0b0b0b;
+  }
+  :root:not(.home-legacy) .community-light .testimonial-list header > svg { color: #0b0b0b; }
+  :root:not(.home-legacy) .community-light .testimonial-list header b { color: #0b0b0b; }
+  :root:not(.home-legacy) .community-light .testimonial-list header small { color: #5c5c5c; }
+  :root:not(.home-legacy) .community-light .testimonial-list p { color: #3a3a3a; }
+  :root:not(.home-legacy) .community-light .testimonial-reactions svg { color: #5c5c5c; }
+
+  /* --- Comparte tu experiencia -------------------------------------------
+     Este bloque conserva la foto de fondo: es el remate de la página y el
+     contraste lo da su propio degradado oscuro, no el crema. */
+  :root:not(.home-legacy) .community-light .share-experience {
+    border-color: #c9c9c0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+  }
+}
+
+/* En celular la pagina sigue sobre negro: el derretido interno ya hace
+   el cambio y estas reglas no aplican. */

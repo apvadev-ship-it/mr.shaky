@@ -20,6 +20,7 @@ import "./macro-desktop.css";
 import "./my-orders.css";
 import "./cart-sheet.css";
 import "./section-drip.css";
+import "./comunidad-light.css";
 import "./home-legacy.css";
 
 export const metadata: Metadata = {
