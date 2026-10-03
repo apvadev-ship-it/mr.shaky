@@ -790,3 +790,11 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
     flex: 1 1 100%; height: 44px; margin-bottom: 4px;
   }
 }
+
+/* --- El hero de /inicio, por debajo de la barra fija -------------------
+   La barra mide 87px en celular y 102 a partir de 768; sin este hueco el
+   antetítulo quedaba detrás de ella. */
+:root:not(.home-legacy) .home-hero { padding-top: 116px; }
+@media (min-width: 768px) {
+  :root:not(.home-legacy) .home-hero { padding-top: 132px; }
+}

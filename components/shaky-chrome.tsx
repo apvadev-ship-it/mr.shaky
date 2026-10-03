@@ -195,7 +195,7 @@ export function ShakyChrome() {
 
 export function ShakyFooter() {
   return (
-    <footer className="wrap" id="nosotros">
+    <footer className="wrap">
       <div className="footer-brand">
         <Link href="/" className="footer-logo">
           <img src="/mascot.png" alt="" />
@@ -213,7 +213,7 @@ export function ShakyFooter() {
         <Link href="/">Inicio</Link>
         <Link href="/menu">Menú</Link>
         <Link href="/pedido">Pedido</Link>
-        <Link href="/#nosotros">Nosotros</Link>
+        
         <Link href="/comunidad">Comunidad</Link>
       </div>
       <span>© {new Date().getFullYear()} Mr. Shaky Nutribar</span>

@@ -32,12 +32,20 @@
 @media (max-width: 1100px) {
   .sect-top-inner,
   .sect-light > .wrap { width: calc(100% - 28px); }
-  .sect-top { padding-bottom: 18px; }
+  /* La barra superior es fija: sin este hueco el titulo queda debajo.
+     Mide 87px en celular y 102px a partir de 768, asi que el hueco
+     cambia con ella. */
+  .sect-top { padding: 116px 0 18px; }
   .sect-lead { font-size: 14px; }
 }
 
+@media (min-width: 768px) and (max-width: 1100px) {
+  .sect-top { padding-top: 132px; }
+}
+
 @media (min-width: 1101px) {
-  .sect-top { background: #0b0b0b; padding: 96px 0 38px; }
+  /* La barra fija mide 102px: el hueco la despeja y deja aire. */
+  .sect-top { background: #0b0b0b; padding: 132px 0 38px; }
   .sect-title { letter-spacing: -2.6px; }
   .sect-lead { font-size: 16px; margin-top: 14px; }
 

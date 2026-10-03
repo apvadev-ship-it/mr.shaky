@@ -185,7 +185,7 @@ export function CheckoutDesktop({ onBack }: { onBack: () => void }) {
             </p>
           )}
           {touched && !ready && schedule && count > 0 && <p className="ck-submit-hint">Completa los campos marcados para continuar.</p>}
-          <p className="ck-terms">Al confirmar, aceptas nuestros <Link href="/nosotros">Términos y Condiciones</Link> y nuestra <Link href="/nosotros">Política de Privacidad</Link>.</p>
+          <p className="ck-terms">Al confirmar, aceptas nuestros Términos y Condiciones y nuestra Política de Privacidad.</p>
         </aside>
         </form>
       </div>
