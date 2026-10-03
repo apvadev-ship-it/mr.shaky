@@ -323,7 +323,7 @@
 /* --- El diálogo que las contiene ------------------------------------- */
 :root:not(.home-legacy) .shaky-modal:has(.pd),
 :root:not(.home-legacy) .shaky-modal:has(.cmp) {
-  background: #101010;
+  background: #0b0b0b;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, .12);
   border-radius: 26px;

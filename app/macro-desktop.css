@@ -54,7 +54,7 @@
   .md-input {
     display: flex; align-items: center; gap: 10px;
     border: 2px solid #e6e6e6; border-radius: 14px;
-    padding: 0 14px; height: 54px; background: #fafafa;
+    padding: 0 14px; height: 54px; background: #f7f7f4;
   }
   .md-input:focus-within { border-color: #ffe500; background: #fff; }
   .md-input svg { color: #8a8a8a; flex-shrink: 0; }
@@ -69,7 +69,7 @@
   .md-sex > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .md-sex button {
     height: 54px; border-radius: 14px;
-    border: 2px solid #e6e6e6; background: #fafafa;
+    border: 2px solid #e6e6e6; background: #f7f7f4;
     font: inherit; font-size: 15px; font-weight: 700; color: #0b0b0b;
   }
   .md-sex button:hover { border-color: #0b0b0b; }
@@ -82,7 +82,7 @@
   .md-card {
     display: grid; gap: 12px; text-align: left; min-width: 0;
     padding: 20px 18px; border-radius: 18px;
-    border: 2px solid #e6e6e6; background: #fafafa;
+    border: 2px solid #e6e6e6; background: #f7f7f4;
     font: inherit; color: #0b0b0b;
   }
   .md-card:hover { border-color: #0b0b0b; }
@@ -97,7 +97,7 @@
   .md-pace > span { font-size: 14px; font-weight: 700; }
   .md-pace select {
     height: 54px; padding: 0 14px;
-    border: 2px solid #e6e6e6; border-radius: 14px; background: #fafafa;
+    border: 2px solid #e6e6e6; border-radius: 14px; background: #f7f7f4;
     font: inherit; font-size: 15px; font-weight: 600; color: #0b0b0b;
   }
   .md-pace select:disabled { opacity: .5; }
@@ -135,7 +135,7 @@
   .md-period {
     grid-column: 1 / -1;
     display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-    padding: 5px; border-radius: 100px; background: #f1f1ee;
+    padding: 5px; border-radius: 100px; background: #f7f7f4;
   }
   .md-period button {
     border: 0; border-radius: 100px; padding: 11px;
@@ -161,7 +161,7 @@
   .md-macro {
     display: grid; justify-items: center; gap: 3px; min-width: 0;
     padding: 16px 10px; border-radius: 18px;
-    background: #fafafa; border: 1px solid #e6e6e6; text-align: center;
+    background: #f7f7f4; border: 1px solid #e6e6e6; text-align: center;
   }
   .md-macro svg { color: #0b0b0b; }
   .md-macro-protein { border-color: var(--macro-protein); }
@@ -190,7 +190,7 @@
 
   .md-pending {
     margin: 0; padding: 28px 20px; border-radius: 18px;
-    background: #fafafa; border: 1px dashed #c9c9c9;
+    background: #f7f7f4; border: 1px dashed #c9c9c9;
     font-size: 14px; line-height: 1.4; color: #5a5a5a; text-align: center;
   }
   .md-note {
@@ -204,7 +204,7 @@
   .md-recos li {
     display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px;
     padding: 12px; border-radius: 18px;
-    background: #fafafa; border: 1px solid #e6e6e6;
+    background: #f7f7f4; border: 1px solid #e6e6e6;
   }
   .md-recos li > img { width: 92px; height: 100%; min-height: 92px; object-fit: cover; border-radius: 13px; }
   .md-reco-body { display: grid; gap: 6px; min-width: 0; align-content: start; }

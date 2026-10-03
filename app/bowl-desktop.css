@@ -39,7 +39,7 @@
 
   /* --- Tarjetas de paso --- */
   .bd-card {
-    background: #faf8f0; color: #0b0b0b;
+    background: #ffffff; color: #0b0b0b;
     border-radius: 22px; padding: 20px 22px 22px;
     margin-bottom: 16px;
   }
@@ -90,7 +90,7 @@
   /* --- Resumen del bowl --- */
   .bd-aside {
     position: sticky; top: 104px;
-    background: #141414; border: 1px solid #2a2a2a;
+    background: #151515; border: 1px solid #262626;
     border-radius: 24px; padding: 22px;
   }
   .bd-aside-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
@@ -150,7 +150,7 @@
   .bd-qty {
     display: flex; align-items: center; gap: 5px;
     padding: 4px; border-radius: 100px;
-    background: #181818; border: 1px solid #333;
+    background: #151515; border: 1px solid #333;
   }
   .bd-qty button {
     width: 28px; height: 28px; border-radius: 50%; border: 0;
@@ -166,7 +166,7 @@
   .bd-total {
     display: flex; align-items: center; justify-content: space-between;
     margin: 18px 0 14px; padding-top: 16px;
-    border-top: 1px solid #2a2a2a;
+    border-top: 1px solid #262626;
   }
   .bd-total span { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.6px; }
   .bd-total strong { font-size: 34px; font-weight: 800; color: #ffe500; letter-spacing: -1.4px; }

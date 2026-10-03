@@ -80,7 +80,11 @@ export function ShakyChrome() {
       />
       <Link className="skip" href="/menu">Ir al menú</Link>
       <header className={'header wrap' + (cartOpen ? ' header-hidden' : '')}>
-        <Link href="/" aria-label="Mr. Shaky, inicio"><img className="wordmark" src="/mascot.png" alt="Mr. Shaky" /></Link>
+        {/* El mismo logo completo que el pie de página. */}
+        <Link href="/" className="header-logo" aria-label="Mr. Shaky Nutribar, inicio">
+          <img src="/mascot.png" alt="" />
+          <span><strong>Mr. Shaky</strong><small>NUTRIBAR</small></span>
+        </Link>
         <nav>{NAV_LINKS.map(([label, href]) => <Link key={label} href={href} className={isActive(href) ? 'active' : ''} onClick={() => setHash(href.includes('#') ? href.slice(href.indexOf('#')) : '')}>{label}</Link>)}</nav>
         <form className="header-search" onSubmit={e => { e.preventDefault(); router.push('/menu?q=' + encodeURIComponent(q)) }}>
           <Search size={16} />

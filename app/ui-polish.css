@@ -18,7 +18,7 @@
 :root:not(.home-legacy) .filter-choices button,
 :root:not(.home-legacy) .compare-product,
 :root:not(.home-legacy) .compare-trigger {
-  background: #181818;
+  background: #151515;
   border: 1px solid #3a3a3a;
   color: #fff;
   cursor: pointer;
@@ -29,7 +29,7 @@
 :root:not(.home-legacy) .filter-choices button:hover,
 :root:not(.home-legacy) .compare-product:hover,
 :root:not(.home-legacy) .compare-trigger:hover {
-  background: #232323;
+  background: #151515;
   border-color: #6a6a6a;
 }
 :root:not(.home-legacy) .pill.active,
@@ -139,7 +139,7 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 :root:not(.home-legacy) .menu-light .filter-choices button:hover,
 :root:not(.home-legacy) .menu-light .compare-product:hover,
 :root:not(.home-legacy) .menu-light .compare-trigger:hover {
-  background: #efefea;
+  background: #f7f7f4;
   border-color: #b4b4ae;
 }
 :root:not(.home-legacy) .menu-light .pill.active,
@@ -284,7 +284,7 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 .bowl-steps button {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 16px; border-radius: 100px;
-  background: #181818; border: 1px solid #3a3a3a; color: #f7f7f4;
+  background: #151515; border: 1px solid #3a3a3a; color: #f7f7f4;
   font-size: 13px; font-weight: 600;
 }
 .bowl-steps button span {
@@ -337,7 +337,7 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 }
 :root:not(.home-legacy) .time-strip button {
   padding: 9px 14px; border-radius: 100px;
-  background: #181818; border: 1px solid #3a3a3a; color: #f7f7f4;
+  background: #151515; border: 1px solid #3a3a3a; color: #f7f7f4;
   font-size: 13px; font-weight: 600; min-width: auto;
 }
 :root:not(.home-legacy) .time-strip button.chosen {
@@ -368,7 +368,7 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 }
 .orders-panel-head svg { color: #ffe500; }
 .order-entry {
-  background: #151515; border: 1px solid #2a2a2a; border-radius: 16px;
+  background: #151515; border: 1px solid #262626; border-radius: 16px;
   padding: 16px 18px; margin-bottom: 12px;
 }
 .order-entry.is-current { border-color: #ffe500; }
@@ -392,14 +392,14 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 .order-entry li span { color: #ffe500; font-weight: 800; }
 .order-entry footer {
   display: flex; align-items: center; justify-content: space-between;
-  margin-top: 14px; padding-top: 12px; border-top: 1px solid #2a2a2a;
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid #262626;
   font-size: 13px; color: #9a9a9a;
 }
 .order-entry footer strong { font-size: 18px; color: #fff; }
 .orders-history-toggle {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 11px 18px; border-radius: 100px;
-  background: #181818; border: 1px solid #3a3a3a; color: #f7f7f4;
+  background: #151515; border: 1px solid #3a3a3a; color: #f7f7f4;
   font-size: 13px; font-weight: 700;
 }
 .orders-history-toggle:hover { border-color: #ffe500; }
@@ -431,7 +431,7 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 }
 .orders-panel-head svg { color: #ffe500; }
 .order-entry {
-  background: #151515; border: 1px solid #2a2a2a; border-radius: 18px;
+  background: #151515; border: 1px solid #262626; border-radius: 18px;
   padding: 18px; margin-bottom: 12px;
 }
 .order-entry.is-current { border-color: #ffe500; background: #171710; }
@@ -465,12 +465,12 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
   width: 46px; height: 46px; border-radius: 9px; flex-shrink: 0;
   object-fit: cover;
 }
-.order-entry-thumb { display: grid; place-items: center; background: #1c1c1c; color: #ffe500; }
+.order-entry-thumb { display: grid; place-items: center; background: #151515; color: #ffe500; }
 .order-entry-name { flex: 1; min-width: 0; font-size: 13px; color: #f7f7f4; line-height: 1.25; }
 .order-entry-qty { font-weight: 800; color: #ffe500; font-size: 14px; }
 .order-entry-foot {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  margin-top: 16px; padding-top: 14px; border-top: 1px solid #2a2a2a;
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid #262626;
   font-size: 13px; color: #9a9a9a;
 }
 .order-entry-pay { display: inline-flex; align-items: center; gap: 7px; color: #f7f7f4; }
@@ -479,7 +479,7 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 .orders-history-toggle {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 12px 18px; border-radius: 100px;
-  background: #181818; border: 1px solid #3a3a3a; color: #f7f7f4;
+  background: #151515; border: 1px solid #3a3a3a; color: #f7f7f4;
   font-size: 13px; font-weight: 700;
 }
 .orders-history-toggle:hover { border-color: #ffe500; }
@@ -851,3 +851,36 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 }
 :root.home-legacy .bottom-nav span,
 :root:not(.home-legacy) .bottom-nav span { font-size: 10px; }
+
+/* --- El logo completo en la barra superior -----------------------------
+   El mismo bloque del pie: la gota y "Mr. Shaky / NUTRIBAR". */
+:root:not(.home-legacy) .header .header-logo,
+:root.home-legacy .header .header-logo {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0; text-decoration: none;
+}
+:root:not(.home-legacy) .header .header-logo img,
+:root.home-legacy .header .header-logo img {
+  width: 40px; height: 40px; object-fit: contain; flex-shrink: 0;
+}
+:root:not(.home-legacy) .header .header-logo span,
+:root.home-legacy .header .header-logo span {
+  display: flex; flex-direction: column; line-height: 1.05; gap: 2px;
+}
+:root:not(.home-legacy) .header .header-logo strong,
+:root.home-legacy .header .header-logo strong {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px; font-weight: 600; color: #fff; white-space: nowrap;
+}
+:root:not(.home-legacy) .header .header-logo small,
+:root.home-legacy .header .header-logo small {
+  font-size: 8px; letter-spacing: 2.6px; color: #c9c9c9;
+}
+
+@media (max-width: 700px) {
+  /* En celular la barra ya va justa: solo la gota. */
+  :root:not(.home-legacy) .header .header-logo span,
+  :root.home-legacy .header .header-logo span { display: none; }
+  :root:not(.home-legacy) .header .header-logo img,
+  :root.home-legacy .header .header-logo img { width: 38px; height: 38px; }
+}

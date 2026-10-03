@@ -34,7 +34,7 @@
   .oc-control {
     display: flex; gap: 14px; align-items: flex-start;
     padding: 18px; border-radius: 18px;
-    background: #141414; border: 1px solid #262626;
+    background: #151515; border: 1px solid #262626;
   }
   .oc-control > div { flex: 1; min-width: 0; }
   .oc-control-icon { color: #fff; flex-shrink: 0; }
@@ -116,7 +116,7 @@
   .oc-qty button {
     width: 34px; height: 34px; border-radius: 50%;
     display: grid; place-items: center;
-    background: #f1f1ec; color: #0b0b0b; border: 0;
+    background: #f7f7f4; color: #0b0b0b; border: 0;
   }
   .oc-qty button:hover { background: #ffe500; }
   .oc-qty output { min-width: 26px; text-align: center; font-weight: 800; font-size: 16px; }
@@ -154,7 +154,7 @@
   /* --- Columna de sugerencias --- */
   .oc-aside {
     position: sticky; top: 112px;
-    background: #141414; border: 1px solid #262626;
+    background: #151515; border: 1px solid #262626;
     border-radius: 22px; padding: 22px;
   }
   .oc-aside-head { display: flex; align-items: center; gap: 14px; }
@@ -227,7 +227,7 @@
     background: #fff;
     border-color: #e4e4dd;
   }
-  .sect-light .oc-select { background: #fafaf6; border-color: #d8d8d0; }
+  .sect-light .oc-select { background: #f7f7f4; border-color: #d8d8d0; }
   .sect-light .oc-select select,
   .sect-light .oc-select input { color: #0b0b0b; color-scheme: light; }
   .sect-light .oc-select svg,
@@ -242,8 +242,8 @@
   .sect-light .oc-branch-single p,
   .sect-light .oc-aside p { color: #4a4a4a; }
   .sect-light .oc-crumb { color: #5c5c5c; }
-  .sect-light .oc-times button { background: #fafaf6; border-color: #d8d8d0; color: #0b0b0b; }
-  .sect-light .oc-qty { background: #fafaf6; border-color: #d8d8d0; }
+  .sect-light .oc-times button { background: #f7f7f4; border-color: #d8d8d0; color: #0b0b0b; }
+  .sect-light .oc-qty { background: #f7f7f4; border-color: #d8d8d0; }
   .sect-light .oc-qty button { color: #0b0b0b; }
   .sect-light .oc-qty output { color: #0b0b0b; }
   .sect-light .oc-line { background: #fff; border-color: #e4e4dd; }

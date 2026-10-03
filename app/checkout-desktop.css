@@ -78,7 +78,7 @@
   transition: border-color .18s ease, background .18s ease;
 }
 .ck-choice:hover { border-color: #d8ce8a; }
-.ck-choice.chosen { border-color: #ffe500; background: #fffced; }
+.ck-choice.chosen { border-color: #ffe500; background: #fffceb; }
 .ck-choice > svg { flex-shrink: 0; color: #0b0b0b; }
 .ck-choice > span { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; font-size: 13px; line-height: 1.35; color: #5f5f5f; }
 .ck-choice strong { font-size: 15px; font-weight: 800; color: #0b0b0b; }
@@ -96,7 +96,7 @@
 /* --- Resumen --- */
 .ck-aside { position: sticky; top: 104px; }
 .ck-aside-card {
-  background: #141414; border: 1px solid #2a2a2a;
+  background: #151515; border: 1px solid #262626;
   border-radius: 22px; padding: 22px;
 }
 .ck-aside-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
@@ -118,7 +118,7 @@
 .ck-lines span { font-size: 17px; font-weight: 800; color: #ffe500; }
 .ck-qty {
   flex-shrink: 0; padding: 8px 14px; border-radius: 10px;
-  background: #1c1c1c; border: 1px solid #333;
+  background: #151515; border: 1px solid #333;
   font-size: 14px; font-weight: 700; color: #fff;
 }
 .ck-empty { justify-content: center; color: #9a9a9a; font-size: 14px; }
@@ -129,7 +129,7 @@
 .ck-totals dd { margin: 0; font-size: 16px; font-weight: 700; color: #fff; }
 .ck-grand {
   display: flex; align-items: center; justify-content: space-between;
-  margin-top: 14px; padding-top: 16px; border-top: 1px solid #2a2a2a;
+  margin-top: 14px; padding-top: 16px; border-top: 1px solid #262626;
 }
 .ck-grand span { font-size: 19px; font-weight: 800; color: #fff; }
 .ck-grand strong { font-size: 30px; font-weight: 800; color: #ffe500; letter-spacing: -1.2px; }
@@ -144,7 +144,7 @@
 .ck-coupon-row input {
   flex: 1; min-width: 0;
   padding: 12px 15px; border-radius: 10px;
-  background: #141414; border: 1px solid #333; color: #fff;
+  background: #151515; border: 1px solid #333; color: #fff;
   font-size: 14px; font-family: inherit; outline: 0;
 }
 .ck-coupon-row input:focus { border-color: #ffe500; }
