@@ -109,17 +109,19 @@ export function BowlDesktop({ onAdd, go }: { onAdd: (b: BowlConfig) => void; go:
               <button type="button" onClick={() => focusStep(1)}>Cambiar <Pencil size={15} aria-hidden="true" /></button>
             </li>
             <li className="bd-picks-sides">
-              <div className="bd-picks-thumbs">
+              {/* Miniaturas pequeñas en fila, del tamaño de la proteína. */}
+              <div className="bd-picks-thumbs" aria-hidden="true">
                 {picked.length === 0
-                  ? <span className="bd-empty-thumb" aria-hidden="true" />
+                  ? <span className="bd-empty-thumb" />
                   : [...picked].sort((a, b) => a - b).map(i => (
-                    <figure key={i}><img src={asset(`bowl-side-${i}`)} alt="" aria-hidden="true" /><figcaption>{sides[i]}</figcaption></figure>
+                    <img key={i} src={asset(`bowl-side-${i}`)} alt="" />
                   ))}
               </div>
-              <div className="bd-picks-label">
+              <div>
                 <span>Acompañantes ({picked.length})</span>
-                <button type="button" onClick={() => focusStep(2)}>Cambiar <Pencil size={15} aria-hidden="true" /></button>
+                <strong>{picked.length ? [...picked].sort((a, b) => a - b).map(i => sides[i]).join(' · ') : 'Elige tres'}</strong>
               </div>
+              <button type="button" onClick={() => focusStep(2)}>Cambiar <Pencil size={15} aria-hidden="true" /></button>
             </li>
             <li>
               <img src={asset(`bowl-sauce-${sauce}`)} alt="" aria-hidden="true" />

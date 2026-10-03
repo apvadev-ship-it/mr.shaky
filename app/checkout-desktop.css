@@ -1,6 +1,9 @@
 /* "Completa tus datos" en escritorio: formulario a la izquierda, resumen
    del pedido a la derecha. Vive dentro de .oc, que ya es solo de PC. */
 .ck { background: #0b0b0b; padding: 112px 0 60px; }
+  /* .wrap no define ancho en estas vistas, asi que el contenido
+     llegaba pegado a los dos bordes de la pantalla. */
+  .ck-grid { width: min(1320px, calc(100% - 96px)); margin-inline: auto; }
 .ck-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 440px;

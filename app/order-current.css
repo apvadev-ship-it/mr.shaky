@@ -4,7 +4,10 @@
 
 @media (min-width: 1101px) {
   .oc { display: block; background: #0b0b0b; padding: 118px 0 60px; }
-  .oc-grid {
+    /* .wrap no define ancho en estas vistas, asi que el contenido
+     llegaba pegado a los dos bordes de la pantalla. */
+  .oc-grid { width: min(1320px, calc(100% - 96px)); margin-inline: auto; }
+.oc-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 420px;
     align-items: start;

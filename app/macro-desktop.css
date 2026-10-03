@@ -7,7 +7,10 @@
   .md { display: block; background: #0b0b0b; padding: 104px 0 70px; }
   .md ~ .macro-page { display: none; }
 
-  .md-grid {
+    /* .wrap no define ancho en estas vistas, asi que el contenido
+     llegaba pegado a los dos bordes de la pantalla. */
+  .md-grid { width: min(1320px, calc(100% - 96px)); margin-inline: auto; }
+.md-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 430px;
     align-items: start;

@@ -84,16 +84,6 @@ export function NewsletterSection() {
           )}
         </div>
 
-        <div className="nl-photo">
-          <img src="/assets/bowl-hero.webp" alt="" aria-hidden="true" />
-          <span className="nl-note handwritten" aria-hidden="true">
-            Tips, recetas<br />y promociones<br />solo para ti
-            <svg viewBox="0 0 70 60" aria-hidden="true">
-              <path d="M62 4C58 22 44 38 20 46" fill="none" stroke="#ffe500" strokeWidth="4" strokeLinecap="round" />
-              <path d="M10 36 8 48l13-2" fill="none" stroke="#ffe500" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-        </div>
       </div>
     </section>
   );
