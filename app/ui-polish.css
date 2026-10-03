@@ -524,17 +524,17 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
   display: block; width: 23px; height: 23px; flex-shrink: 0;
 }
 
-/* --- Arma tu bowl en celular -----------------------------------------
-   La foto quedaba asomando por debajo del derretido, que por eso se veía
-   cortado a media altura. Sin foto, el derretido cierra la cabecera. */
+/* --- Arma tu bowl sin foto -------------------------------------------
+   La cabecera es solo el titular sobre el negro. Sin la foto ya no hay
+   que reservarle alto, y el hueco de abajo tampoco: el derretido vive al
+   principio del crema, no aqui. */
+:root:not(.home-legacy) .bowl-hero {
+  min-height: 0;
+  background: #0b0b0b;
+  padding-bottom: 34px;
+}
 @media (max-width: 700px) {
-  :root:not(.home-legacy) .bowl-hero-photo { display: none; }
-  :root:not(.home-legacy) .bowl-hero {
-    min-height: 0;
-    background: #0b0b0b;
-    padding: 104px 0 96px;
-  }
-  :root:not(.home-legacy) .bowl-hero .drip { bottom: 0; }
+  :root:not(.home-legacy) .bowl-hero { padding: 100px 0 0; }
 }
 
 /* --- Comparar: que se vea sin tener que bajar ------------------------

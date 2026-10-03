@@ -29,7 +29,6 @@ const canContinue=step===1?selected.length===3:true;
 return <><BowlDesktop onAdd={onAdd} go={go}/><main className="bowl-page">
   <section className="bowl-hero shell">
     <span className="drip" aria-hidden="true"/>
-    <img className="bowl-hero-photo" src={asset('bowl-hero')} alt="Bowl de pollo, arroz y vegetales"/>
     <div className="bowl-hero-copy"><h1>ARMA<br/><em>TU BOWL</em></h1></div>
   </section>
 
