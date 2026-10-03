@@ -184,7 +184,7 @@ export function ShakyChrome() {
                 <li><Clock size={21} aria-hidden="true" />Pedido en<br />minutos</li>
                 <li><Bike size={21} aria-hidden="true" />Recogida<br />gratis</li>
               </ul>
-              <span className="fineprint">No se realizan cobros ni pedidos reales.</span>
+              
             </div>
           )}
         </SheetContent>

@@ -764,3 +764,29 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 :root:not(.home-legacy) .demo-checkout-note { color: #6b6b6b; }
 :root:not(.home-legacy) .order-disclaimer,
 :root:not(.home-legacy) .order-v2 .order-disclaimer { color: #8e8e8e; }
+
+/* --- Buscador en la fila de categorías -------------------------------
+   Antes vivía dos veces: en la banda negra de arriba y en la columna de
+   filtros. Ahora es uno solo, en la misma línea que Todos, Bowls… */
+:root:not(.home-legacy) .menu-light .category-bar > .menu-search {
+  flex: 0 1 300px; min-width: 0; order: -1;
+  display: flex; align-items: center; gap: 9px;
+  height: 42px; padding: 0 16px; margin: 0;
+  border-radius: 100px;
+  background: #fff; border: 1px solid #ddddd6;
+}
+:root:not(.home-legacy) .menu-light .category-bar > .menu-search:focus-within { border-color: #0b0b0b; }
+:root:not(.home-legacy) .menu-light .category-bar > .menu-search svg { color: #5c5c5c; flex-shrink: 0; }
+:root:not(.home-legacy) .menu-light .category-bar > .menu-search input {
+  flex: 1; min-width: 0; height: 100%;
+  background: none; border: 0; outline: 0;
+  font: inherit; font-size: 14px; color: #0b0b0b;
+}
+:root:not(.home-legacy) .menu-light .category-bar > .menu-search input::placeholder { color: #6b6b6b; }
+
+@media (max-width: 700px) {
+  /* En celular ocupa su propia fila completa, encima de los chips. */
+  :root:not(.home-legacy) .menu-light .category-bar > .menu-search {
+    flex: 1 1 100%; height: 44px; margin-bottom: 4px;
+  }
+}

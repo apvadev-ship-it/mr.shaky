@@ -76,7 +76,7 @@ return <><BowlDesktop onAdd={onAdd} go={go}/><main className="bowl-page">
         <ShoppingCart/>Agregar al pedido <ArrowRight/>
       </button>
       {added&&<button className="outline full" onClick={()=>go('pedido')}>Planificar mi pedido <ArrowRight/></button>}
-      <p className="demo-note">Precio de referencia. Ingredientes, disponibilidad y valores nutricionales pendientes de validación.</p>
+      
     </section>}
 
     {step<3&&<div className="bowl-nav">
