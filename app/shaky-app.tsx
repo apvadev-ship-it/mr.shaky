@@ -1,5 +1,6 @@
 'use client';
 import {useState,useEffect} from 'react';
+import {usePathname} from 'next/navigation';
 import {ArrowRight,Search,Heart,Plus,SlidersHorizontal,Scale,Check,Crown,Trash2,Salad,Sandwich,CupSoda,IceCream,X} from 'lucide-react';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {Slider} from '@/components/ui/slider';
@@ -16,11 +17,12 @@ import {MacroCalculator} from './macro-calculator';
 import {MacroDesktop} from '@/components/shaky-macro-desktop';
 import {registerCatalogTool} from './webmcp';
 import {useShaky} from '@/components/shaky-store';
-export default function ShakyApp(){
+export default function ShakyApp({section='menu'}:{section?:string}){
 useEffect(registerCatalogTool,[]);
+const pathname=usePathname();
 const {cart,favorites,compare,catalog:cartProducts,add,changeQty,toggleFavorite:toggleFav,toggleCompare,addBowl,clearCart,count,subtotal}=useShaky();
-const [route,setRoute]=useState('menu'),[modal,setModal]=useState<string|null>(null),[query,setQuery]=useState(''),[category,setCategory]=useState('Todos'),[goal,setGoal]=useState(''),[protein,setProtein]=useState(0),[carbs,setCarbs]=useState(80),[fat,setFat]=useState(30),[price,setPrice]=useState(50000),[onlyFav,setOnlyFav]=useState(false);
-useEffect(()=>{const read=()=>{const path=location.hash.slice(1)||location.pathname.split('/')[1];setRoute(routes.includes(path)?path:'menu')};read();window.addEventListener('hashchange',read);window.addEventListener('popstate',read);window.addEventListener('shaky:urlchange',read);return()=>{window.removeEventListener('hashchange',read);window.removeEventListener('popstate',read);window.removeEventListener('shaky:urlchange',read)}},[]);
+const [route,setRoute]=useState(section),[modal,setModal]=useState<string|null>(null),[query,setQuery]=useState(''),[category,setCategory]=useState('Todos'),[goal,setGoal]=useState(''),[protein,setProtein]=useState(0),[carbs,setCarbs]=useState(80),[fat,setFat]=useState(30),[price,setPrice]=useState(50000),[onlyFav,setOnlyFav]=useState(false);
+useEffect(()=>{const read=()=>{const path=location.hash.slice(1)||location.pathname.split('/')[1];setRoute(routes.includes(path)?path:'menu')};read();window.addEventListener('hashchange',read);window.addEventListener('popstate',read);window.addEventListener('shaky:urlchange',read);return()=>{window.removeEventListener('hashchange',read);window.removeEventListener('popstate',read);window.removeEventListener('shaky:urlchange',read)}},[pathname]);
 const go=(r:string)=>{location.hash=r;setRoute(r);setModal(null);window.scrollTo({top:0,behavior:'smooth'})};
 const change=(id:string,n:number)=>changeQty(id,n);
 const reset=()=>{setCategory('Todos');setGoal('');setProtein(0);setCarbs(80);setFat(30);setPrice(50000);setOnlyFav(false);setQuery('')};
